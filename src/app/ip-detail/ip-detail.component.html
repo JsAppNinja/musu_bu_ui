@@ -1,0 +1,11 @@
+<mat-card>
+    <mat-card-title>IP Details</mat-card-title>
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let ipDetailKey of getKeys(ipDetail); last as last">
+            <h3 mat-line>{{fieldNames[ipDetailKey]}}</h3>
+            <p mat-line> {{ipDetail[ipDetailKey]}} </p>
+          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+        </mat-list-item>
+        
+    </mat-list>
+</mat-card>

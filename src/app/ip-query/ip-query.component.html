@@ -1,0 +1,110 @@
+<!-- <mat-form-field> -->
+    <!-- <textarea matInput placeholder="Enter one or more IPs separated by commas."></textarea> -->
+<!-- </mat-form-field> -->
+<form class="example-form">
+  <mat-form-field class="search-width">
+    <textarea matInput placeholder="Enter one or more IPs separated by commas"></textarea>
+  </mat-form-field>
+</form>
+<button mat-raised-button matTooltip="Submit search">
+  <mat-icon>search</mat-icon>Search
+</button>
+<mat-grid-list class="risk-circles-grid-list" cols="3" gutterSize="5px" rowHeight="3:1">
+  <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
+    <circle-progress
+      [percent]="100"
+      [radius]="70"
+      [backgroundColor]="'#FDC6CB'"
+      [backgroundPadding]="0"
+      [outerStrokeWidth]="16"
+      [innerStrokeWidth]="0"
+      [outerStrokeColor]="'#dc3545'"
+      [animation]="true"
+      [animationDuration]="100"
+      [title]="['High', 'Risk', '']"
+      [showUnits]="false"
+      [subtitleFormat]="formatSubtitle"
+      [subtitleFontSize]="16"
+      [subtitleColor]="'black'"
+    ></circle-progress>
+  </mat-grid-tile>
+  <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
+      <circle-progress
+        [percent]="100"
+        [radius]="70"
+        [backgroundColor]="'#FFE9A9'"
+        [backgroundPadding]="0"
+        [outerStrokeWidth]="16"
+        [innerStrokeWidth]="0"
+        [outerStrokeColor]="'#ffc107'"
+        [animation]="true"
+        [animationDuration]="100"
+        [title]="['Mid', 'Risk', '']"
+        [showUnits]="false"
+        [subtitleFormat]="formatSubtitle"
+        [subtitleFontSize]="16"
+        [subtitleColor]="'black'"
+      ></circle-progress>
+  </mat-grid-tile>
+  <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
+    <circle-progress
+      [percent]="100"
+      [radius]="70"
+      [backgroundColor]="'#B8ECC3'"
+      [backgroundPadding]="0"
+      [outerStrokeWidth]="16"
+      [innerStrokeWidth]="0"
+      [outerStrokeColor]="'#28a745'"
+      [animation]="true"
+      [animationDuration]="100"
+      [title]="['Low', 'Risk', '']"
+      [showUnits]="false"
+      [subtitleFormat]="formatSubtitle"
+      [subtitleFontSize]="16"
+      [subtitleColor]="'black'"
+      ></circle-progress>
+  </mat-grid-tile>
+</mat-grid-list>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 results-table">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- IP Address Column -->
+  <ng-container matColumnDef="ipaddress">
+    <th mat-header-cell *matHeaderCellDef> IP Address </th>
+    <td mat-cell *matCellDef="let element"> 
+      <a [routerLink]="['/detail/', element.ipaddress]">{{element.ipaddress}}</a>
+    </td>
+  </ng-container>
+
+  <!-- Threat Potential Column -->
+  <ng-container matColumnDef="threat_potential_score_pct">
+    <th mat-header-cell *matHeaderCellDef> Threat Score </th>
+    <td mat-cell *matCellDef="let element"> {{element.threat_potential_score_pct}} </td>
+  </ng-container>
+
+  <!-- Threat Classification Column -->
+  <ng-container matColumnDef="threat_classification">
+    <th mat-header-cell *matHeaderCellDef> Threat Classification </th>
+    <td mat-cell *matCellDef="let element"> {{element.threat_classification}} </td>
+  </ng-container>
+
+  <!-- Blacklist Class Column -->
+  <ng-container matColumnDef="blacklist_class">
+    <th mat-header-cell *matHeaderCellDef> Blacklist Class </th>
+    <td mat-cell *matCellDef="let element"> {{element.blacklist_class}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+<!-- <mat-card>
+  <mat-card-title>Query IP</mat-card-title>
+  <mat-card-content>
+      
+  </mat-card-content>
+</mat-card> -->
