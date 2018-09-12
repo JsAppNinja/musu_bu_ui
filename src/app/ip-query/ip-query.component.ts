@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, AfterContentInit, ViewChild } from '@angular/core';
+import { MatGridList } from '@angular/material';
+import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 
 export interface IPSummary {
   ipaddress: string,
@@ -26,13 +28,31 @@ const IP_DATA: IPSummary[] = [
 export class IpQueryComponent implements OnInit {
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
   dataSource = IP_DATA;
-  constructor() { }
 
   ngOnInit() {
   }
 
   formatSubtitle = (percent: number) : string => {
     return "55";
+  }
+
+
+  @ViewChild('grid') grid: MatGridList;
+
+  gridByBreakpoint = {
+    xl: 8,
+    lg: 6,
+    md: 4,
+    sm: 2,
+    xs: 1
+  }
+
+  constructor(private observableMedia: ObservableMedia) {}
+
+  ngAfterContentInit() {
+    this.observableMedia.asObservable().subscribe((change: MediaChange) => {
+      this.grid.cols = this.gridByBreakpoint[change.mqAlias];
+    });
   }
 
 }

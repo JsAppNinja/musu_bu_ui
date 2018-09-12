@@ -28,6 +28,7 @@ import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
 import { IpsService } from './services/ips.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { LoginComponent } from './login/login.component';
       innerStrokeColor: "#C7E596",
       animationDuration: 300
     }),
-
+    FlexLayoutModule
   ],
   exports: [
     MatButtonModule, 
