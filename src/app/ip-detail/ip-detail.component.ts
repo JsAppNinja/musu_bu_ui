@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ObjectUnsubscribedError } from 'rxjs';
+import { Location } from '@angular/common';
 
 export interface IpDetail {
     ipaddress: string,
@@ -35,7 +35,8 @@ export class IpDetailComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _location: Location
   ) { }
   ipDetail: IpDetail;
   fieldNames = {
@@ -74,6 +75,10 @@ export class IpDetailComponent implements OnInit {
 
   getKeys(map){
     return Object.keys(map);
+  }
+
+  backButton(){
+    this._location.back();
   }
 
 

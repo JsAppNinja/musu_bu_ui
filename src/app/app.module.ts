@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
+import { SDKBrowserModule } from '../../sdk/index';
 import { AppComponent } from './app.component';
 import { IpQueryComponent } from './ip-query/ip-query.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -22,6 +22,7 @@ import {
   MatListModule,
   MatIconModule,
   MatTooltipModule,
+  MatSortModule,
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -29,6 +30,7 @@ import { IpsService } from './services/ips.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LoginResolver } from './login/login.resolver';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   ],
   imports: [
     RouterModule.forRoot(routes,
-      { useHash: false }
+    { 
+      useHash: false
+    }
     ),
     BrowserModule, 
     HttpClientModule,
@@ -56,6 +60,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     MatIconModule,
     MatTooltipModule,
+    MatSortModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
@@ -65,7 +70,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       innerStrokeColor: "#C7E596",
       animationDuration: 300
     }),
-    FlexLayoutModule
+    FlexLayoutModule,
+    SDKBrowserModule.forRoot()
   ],
   exports: [
     MatButtonModule, 
@@ -79,11 +85,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDividerModule,
     MatListModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSortModule,
   ],
   providers: [
     IpsService,
-    IpDetailResolver
+    IpDetailResolver,
+    LoginResolver
   ],
   bootstrap: [AppComponent]
 })

@@ -21,3 +21,11 @@
 .results-table {
     width: 100%;
 }
+
+.empty-result {
+    padding-top:75px;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 40px;
+    color: gray;
+}

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
 import { Okta } from '../services/okta.service';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   title = 'app';
   user;
   oktaSignIn;
-  constructor(private okta: Okta, private changeDetectorRef: ChangeDetectorRef, private router: Router) { 
+  constructor(private okta: Okta, private changeDetectorRef: ChangeDetectorRef, private router: Router, private zone:NgZone) { 
     this.oktaSignIn = okta.getWidget();
   }
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
       if (response.status === 'SUCCESS') {
         this.user = response.claims.email;
         this.oktaSignIn.remove();
-        this.router.navigate(['query']);
+        this.zone.run(() => this.router.navigate(['query']));
         this.changeDetectorRef.detectChanges();
       }
     });
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.oktaSignIn.session.get((response) => {
       if (response.status !== 'INACTIVE') {
         this.user = response.login;
-        this.router.navigate(['query']);
+        this.zone.run(() => this.router.navigate(['query']));
         this.changeDetectorRef.detectChanges();
       } else {
         this.changeDetectorRef.detectChanges();

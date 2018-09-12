@@ -12,17 +12,16 @@ export class IpDetailResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot) {
     let ip = route.paramMap.get('ipaddress');
     return new Promise((resolve, reject) => {
-      let ipDetail = this.ipsService.getIp(ip)
-      // .subscribe(
-      //   data => {
-      //     return resolve(data);
-      //   },
-      //   err => {
-      //     console.log(err)
-      //     return resolve(null)
-      //   }
-      // )
-      return resolve(ipDetail);
+      let ipDetail = this.ipsService.getIpDetail(ip)
+      .then(
+        data => {
+          return resolve(data.ipDetail);
+        },
+        err => {
+          console.log(err)
+          return resolve(null)
+        }
+      )
     });
   }
 }

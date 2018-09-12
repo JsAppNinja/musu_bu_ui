@@ -11,7 +11,8 @@ export class AppComponent {
   title = 'Musubu';
   user;
   oktaSignIn;
-  constructor(private okta: Okta, private changeDetectorRef: ChangeDetectorRef, private router: Router) {
+  
+  constructor(private okta: Okta, private changeDetectorRef: ChangeDetectorRef, public router: Router) {
     this.oktaSignIn = okta.getWidget();
   }
 

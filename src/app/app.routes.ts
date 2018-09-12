@@ -3,16 +3,20 @@ import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
 import { IpQueryComponent } from './ip-query/ip-query.component';
 import { LoginComponent } from './login/login.component';
+import { LoginResolver } from './login/login.resolver';
 
 export const routes: Routes = [
 	{
 		path: '',
-		redirectTo: '/login', 
+		redirectTo: '/login',
 		pathMatch: 'full' 
 	},
 	{
 		path: 'query',
-		component: IpQueryComponent
+		component: IpQueryComponent,
+		resolve: {
+			sessionIsActive: LoginResolver
+		}
 	},
 	{
 	    path: 'login',
@@ -22,7 +26,8 @@ export const routes: Routes = [
 	    path: 'detail/:ipaddress',
 	    component: IpDetailComponent,
 	    resolve: {
-	      data: IpDetailResolver
+		  data: IpDetailResolver,
+		  sessionIsActive: LoginResolver
 	  	}
 	}
 ];
