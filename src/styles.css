@@ -1,3 +1,53 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
 @import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 @import '~@okta/okta-signin-widget/dist/css/okta-theme.css';
+
+body, input, textarea, select{
+	font-family: 'Open Sans',Helvetica,Arial,Lucida,sans-serif;
+}
+body{
+	line-height: 1.5em;
+	font-size: 18px;
+	font-weight: 500;
+	color: #6d6d6d;
+}
+
+main{
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+button,
+.musubu-app .mat-raised-button,
+.musubu-app .mat-flat-button,
+.musubu-app .mat-flat-button.mat-primary,
+.musubu-app .mat-raised-button.mat-primary,
+.musubu-app .mat-fab.mat-primary,
+.musubu-app .mat-mini-fab.mat-primary{
+	padding: .3em 1em;
+    border: 2px solid;
+	color: #fff;
+	background: #028b08;
+    border-color: #028b08;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 100;
+    line-height: 1.7em;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    transition: all .2s;
+}
+button:hover,
+.musubu-app .mat-raised-button:hover,
+.musubu-app .mat-flat-button:hover,
+.musubu-app .mat-flat-button.mat-primary:hover,
+.musubu-app .mat-raised-button.mat-primary:hover,
+.musubu-app .mat-fab.mat-primary:hover,
+.musubu-app .mat-mini-fab.mat-primary:hover{
+	background: #333333;
+    border-color: #333333;
+}
+
+section{
+    padding: 40px 0;
+}
