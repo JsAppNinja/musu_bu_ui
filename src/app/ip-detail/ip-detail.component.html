@@ -1,14 +1,49 @@
-<button mat-icon-button matTooltip="Go back to query page." (click)="backButton()">
-    <mat-icon>arrow_back</mat-icon>
-</button>
-<mat-card>
-    <mat-card-title>IP Details</mat-card-title>
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let ipDetailKey of getKeys(ipDetail); last as last">
-            <h3 mat-line>{{fieldNames[ipDetailKey]}}</h3>
-            <p mat-line> {{ipDetail[ipDetailKey]}} </p>
-          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
-        </mat-list-item>
-        
-    </mat-list>
-</mat-card>
+<div class="content-container">
+	<section>
+		<button mat-icon-button matTooltip="Go back to query page." (click)="backButton()">
+		    <mat-icon>arrow_back</mat-icon>Back to Query
+		</button>
+	</section>
+	<mat-card>
+	    <mat-card-title>IP Details</mat-card-title>
+	    <mat-list role="list">
+	        <mat-list-item role="listitem" *ngFor="let ipDetailKey of getKeys(ipDetail); last as last">
+	            <h3 mat-line>{{fieldNames[ipDetailKey]}}</h3>
+	            <p mat-line> {{ipDetail[ipDetailKey]}} </p>
+	          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+	        </mat-list-item>
+	    </mat-list>
+	</mat-card>
+	<section class="card-grid">
+		<mat-card class="card-grid-card first">
+		    <mat-card-title><mat-icon>warning</mat-icon> Threat</mat-card-title>
+		    <mat-list role="list">
+		        <mat-list-item role="listitem" *ngFor="let ipThreatDetailKey of getKeys(ipThreatDetail); last as last">
+		            <h3 mat-line>{{fieldNames[ipThreatDetailKey]}}</h3>
+		            <p mat-line> {{ipThreatDetail[ipThreatDetailKey]}} </p>
+		          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+		        </mat-list-item>
+		    </mat-list>
+		</mat-card>
+		<mat-card class="card-grid-card middle">
+		    <mat-card-title><mat-icon>place</mat-icon> Geo-location</mat-card-title>
+		    <mat-list role="list">
+		        <mat-list-item role="listitem" *ngFor="let ipGeoDetailKey of getKeys(ipGeoDetail); last as last">
+		            <h3 mat-line>{{fieldNames[ipGeoDetailKey]}}</h3>
+		            <p mat-line> {{ipGeoDetail[ipGeoDetailKey]}} </p>
+		          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+		        </mat-list-item>
+		    </mat-list>
+		</mat-card>
+		<mat-card class="card-grid-card last">
+		    <mat-card-title><mat-icon>network_check</mat-icon> ISP & Network Info</mat-card-title>
+		    <mat-list role="list">
+		        <mat-list-item role="listitem" *ngFor="let ipISPDetailKey of getKeys(ipISPDetail); last as last">
+		            <h3 mat-line>{{fieldNames[ipISPDetailKey]}}</h3>
+		            <p mat-line> {{ipISPDetail[ipISPDetailKey]}} </p>
+		          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+		        </mat-list-item>
+		    </mat-list>
+		</mat-card>
+	</section>
+</div>

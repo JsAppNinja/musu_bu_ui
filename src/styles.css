@@ -2,17 +2,18 @@
 @import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 @import '~@okta/okta-signin-widget/dist/css/okta-theme.css';
 
-body, input, textarea, select{
+body, input, textarea, select, .musubu-app .mat-table{
 	font-family: 'Open Sans',Helvetica,Arial,Lucida,sans-serif;
 }
 body{
+	margin: 0;
 	line-height: 1.5em;
 	font-size: 18px;
 	font-weight: 500;
 	color: #6d6d6d;
 }
 
-main{
+.content-container{
 	max-width: 1200px;
 	margin: 0 auto;
 }
@@ -50,4 +51,21 @@ button:hover,
 
 section{
     padding: 40px 0;
+}
+
+/* results table */
+.musubu-app .mat-header-cell{
+    color: #6d6d6d;
+    font-size: 16px;
+}
+.mat-sort-header-button:hover{
+    background: transparent;
+}
+
+
+
+@media screen and (max-width: 1200px){
+	.content-container{
+		padding: 0 20px;
+	}
 }

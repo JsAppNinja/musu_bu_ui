@@ -1,5 +1,21 @@
 .mat-toolbar{
+	height: 120px;
+	padding: 10px 0;
 	background: #fff;
+	box-shadow: 0 0 7px rgba(0,0,0,.1);
+}
+.mat-toolbar .mat-toolbar-row{
+	max-width: 1200px;
+	height: 110px;
+	margin: 0 auto;
+	padding: 0;
+}
+.logo{
+	height: 100px;
+}
+.logo a{
+	display: block;
+	height: 100px;
 }
 
 .title-padding {

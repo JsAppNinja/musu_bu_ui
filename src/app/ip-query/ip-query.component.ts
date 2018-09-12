@@ -21,7 +21,9 @@ export class IpQueryComponent implements OnInit {
   highRiskCount: number = 0;
   mediumRiskCount: number = 0;
   lowRiskCount: number = 0; 
+
   constructor(public ipsService: IpsService, private observableMedia: ObservableMedia) { }
+  
   ngOnInit() {
     
   }
@@ -48,10 +50,10 @@ export class IpQueryComponent implements OnInit {
     }
   }
   gridByBreakpoint = {
-    xl: 8,
-    lg: 6,
-    md: 4,
-    sm: 2,
+    xl: 3,
+    lg: 3,
+    md: 3,
+    sm: 1,
     xs: 1
   }
   ngAfterContentInit() {

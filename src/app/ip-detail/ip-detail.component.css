@@ -1,0 +1,7 @@
+.card-grid-card{
+	width: 28%;
+	float: left;
+}
+.card-grid-card.middle{
+	margin: 0 2%;
+}
