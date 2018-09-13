@@ -11,12 +11,30 @@
   <section>
     <form class="ip-query">
       <mat-form-field class="search-width">
-        <textarea matInput #ipsString placeholder="Enter one or more IP addresses separated by commas"></textarea>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let ip of ipsList" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(ip)">
+            {{ip}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Enter one or more IP addresses separated by commas or new lines"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)"
+                 (paste)="paste($event)">
+        </mat-chip-list>
+        <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
       </mat-form-field>
     </form>
-    <button mat-flat-button (click)="submitQuery(ipsString.value)">
-      <mat-icon>search</mat-icon>Search
-    </button>
+    <div class="button-row">
+      <button mat-flat-button (click)="submitQuery()" [disabled]="ipsList.length === 0">
+        <mat-icon>search</mat-icon>Search
+      </button>
+      <button mat-flat-button (click)="clear()">
+        <mat-icon>clear</mat-icon>Clear
+      </button>
+    </div>
   </section>
   <section [hidden]="ipsService.dataSource.data.length === 0">
     <mat-grid-list class="risk-circles-grid-list" #grid cols="{{grid.cols}}" gutterSize="5px" rowHeight="155px">
@@ -33,7 +51,7 @@
           [animationDuration]="100"
           [title]="['High', 'Risk', '']"
           [showUnits]="false"
-          [subtitle]="highRiskCount"
+          [subtitle]="ipsService.highRiskCount"
           [subtitleFontSize]="20"
           [subtitleColor]="'black'"
         ></circle-progress>
@@ -51,7 +69,7 @@
           [animationDuration]="100"
           [title]="['Medium', 'Risk', '']"
           [showUnits]="false"
-          [subtitle]="mediumRiskCount"
+          [subtitle]="ipsService.mediumRiskCount"
           [subtitleFontSize]="20"
           [subtitleColor]="'black'"
         ></circle-progress>
@@ -69,7 +87,7 @@
           [animationDuration]="100"
           [title]="['Low', 'Risk', '']"
           [showUnits]="false"
-          [subtitle]="lowRiskCount"
+          [subtitle]="ipsService.lowRiskCount"
           [subtitleFontSize]="20"
           [subtitleColor]="'black'"
           ></circle-progress>

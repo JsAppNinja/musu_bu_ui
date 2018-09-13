@@ -23,6 +23,7 @@ import {
   MatIconModule,
   MatTooltipModule,
   MatSortModule,
+  MatChipsModule,
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -61,6 +62,7 @@ import { LoginResolver } from './login/login.resolver';
     MatIconModule,
     MatTooltipModule,
     MatSortModule,
+    MatChipsModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,

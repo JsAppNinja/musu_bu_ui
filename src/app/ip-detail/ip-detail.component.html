@@ -1,16 +1,20 @@
 <div class="content-container">
 	<section>
-		<button mat-icon-button matTooltip="Go back to query page." (click)="backButton()">
+		<a mat-button matTooltip="Go back to query page." (click)="backButton()">
 		    <mat-icon>arrow_back</mat-icon>Back to Query
-		</button>
+		</a>
 	</section>
 	<mat-card>
 	    <mat-card-title>IP Details</mat-card-title>
 	    <mat-list role="list">
-	        <mat-list-item role="listitem" *ngFor="let ipDetailKey of getKeys(ipDetail); last as last">
-	            <h3 mat-line>{{fieldNames[ipDetailKey]}}</h3>
-	            <p mat-line> {{ipDetail[ipDetailKey]}} </p>
-	          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+	        <mat-list-item role="listitem">
+	            <h3 mat-line>{{fieldNames["ipaddress"]}}</h3>
+	            <p mat-line> {{ipDetail[ipaddress]}} </p>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item role="listitem">
+	            <h3 mat-line>{{fieldNames["ipint"]}}</h3>
+	            <p mat-line> {{ipDetail["ipint"]}} </p>
 	        </mat-list-item>
 	    </mat-list>
 	</mat-card>

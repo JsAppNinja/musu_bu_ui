@@ -22,4 +22,7 @@ export class IpsService {
   }
 
   dataSource = new MatTableDataSource([]);;
+  highRiskCount: number = 0;
+  mediumRiskCount: number = 0;
+  lowRiskCount: number = 0;
 }
