@@ -5,14 +5,14 @@ import * as OktaSignIn from '@okta/okta-signin-widget';
   providedIn: 'root'
 })
 /**
- * Class conaining all services related to logging in and out with Okta.
+ * Class containing all services related to logging in and out with Okta.
  */
 export class Okta {
   widget;
 
   constructor() {
     this.widget = new OktaSignIn({
-        logo: '../../assets/img/musubu-logo-small-min.png',
+        logo: '../../assets/img/musubu-logo-100w-min.jpg',
         baseUrl: 'https://dev-695454.oktapreview.com/',
         clientId: '0oag6xz82wHIUaPQL0h7',
         redirectUri: 'http://localhost:4200',
