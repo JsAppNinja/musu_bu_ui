@@ -2,7 +2,10 @@
 @import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 @import '~@okta/okta-signin-widget/dist/css/okta-theme.css';
 
-body, input, textarea, select, .musubu-app .mat-table{
+body, input, textarea, select, .musubu-app .mat-table,
+#okta-sign-in.auth-container.main-container,
+#okta-sign-in.auth-container input[type="submit"],
+#okta-sign-in.auth-container input[type="button"]{
 	font-family: 'Open Sans',Helvetica,Arial,Lucida,sans-serif;
 }
 body{
@@ -18,6 +21,16 @@ body{
 	margin: 0 auto;
 }
 
+a,
+a:link,
+a:visited{
+	color: #028b08;
+	text-decoration: none;
+}
+a:hover{
+	color: #333333;
+	text-decoration: underline;
+}
 button,
 .musubu-app .mat-raised-button,
 .musubu-app .mat-flat-button,
@@ -48,9 +61,39 @@ button:hover,
 	background: #333333;
     border-color: #333333;
 }
+.mat-icon,
+.mat-icon-button{
+	color: #028b08;
+}
+.mat-icon-button:hover{
+	background: #cccccc;
+}
+.mat-primary .mat-icon{
+	color: #fff;
+}
+.mat-flat-button[disabled] .mat-icon{
+	color: rgba(0, 0, 0, 0.26);
+}
+.mat-flat-button.mat-primary[disabled], .mat-flat-button.mat-accent[disabled], .mat-flat-button.mat-warn[disabled], .mat-flat-button[disabled][disabled], .mat-raised-button.mat-primary[disabled], .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-warn[disabled], .mat-raised-button[disabled][disabled], .mat-fab.mat-primary[disabled], .mat-fab.mat-accent[disabled], .mat-fab.mat-warn[disabled], .mat-fab[disabled][disabled], .mat-mini-fab.mat-primary[disabled], .mat-mini-fab.mat-accent[disabled], .mat-mini-fab.mat-warn[disabled], .mat-mini-fab[disabled][disabled]{
+	border-color: #cccccc;
+}
+.mat-flat-button.mat-primary[disabled]:hover, .mat-flat-button.mat-accent[disabled]:hover, .mat-flat-button.mat-warn[disabled]:hover, .mat-flat-button[disabled][disabled]:hover, .mat-raised-button.mat-primary[disabled]:hover, .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-warn[disabled]:hover, .mat-raised-button[disabled][disabled]:hover, .mat-fab.mat-primary[disabled]:hover, .mat-fab.mat-accent[disabled]:hover, .mat-fab.mat-warn[disabled]:hover, .mat-fab[disabled][disabled]:hover, .mat-mini-fab.mat-primary[disabled]:hover, .mat-mini-fab.mat-accent[disabled]:hover, .mat-mini-fab.mat-warn[disabled]:hover, .mat-mini-fab[disabled][disabled]:hover{
+	background-color: rgba(0, 0, 0, 0.12);
+	border-color: #cccccc;
+	cursor: not-allowed;
+}
+.mat-flat-button .mat-button-wrapper .mat-icon{
+    vertical-align: text-bottom;
+}
 
 section{
     padding: 40px 0;
+}
+
+footer{
+	padding: 40px 0 10px;
+	text-align: center;
+	font-size: 14px;
 }
 
 /* results table */
@@ -60,6 +103,37 @@ section{
 }
 .mat-sort-header-button:hover{
     background: transparent;
+}
+.mat-card-title .mat-icon{
+	vertical-align: text-top;
+}
+
+/* sign in */
+#okta-sign-in.auth-container .button-primary{
+    background-color: #028b08;
+    background: linear-gradient(#028b08, #028b08);
+    border-color: #028b08;
+    border-bottom-color: #028b08;
+}
+#okta-sign-in.auth-container .button-primary:hover,
+#okta-sign-in.auth-container .button-primary:focus,
+#okta-sign-in.auth-container .button-primary:active,
+#okta-sign-in.auth-container .button-primary:focus{
+    background-color: #333333;
+    background: linear-gradient(#333333, #333333);
+    background-image: linear-gradient(#333333, #333333);
+    border-color: #333333;
+    border-bottom-color: #333333;
+}
+#okta-sign-in.auth-container .button.button-primary.link-button-disabled{
+	background-color: #cccccc;
+	border-color: #cccccc;
+}
+#okta-sign-in .registration-container .registration-link{
+	color: #028b08;
+}
+#okta-sign-in .registration-container .registration-link:hover{
+	color: #333333;
 }
 
 

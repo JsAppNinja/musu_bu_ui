@@ -17,6 +17,9 @@
 	display: block;
 	height: 100px;
 }
+.title{
+	padding-left: 20px;
+}
 
 .title-padding {
     padding: 0px 5px 0px 5px;
@@ -24,4 +27,10 @@
 
 .button-spacer {
     flex: 1 1 auto;
+}
+
+@media screen and (max-width: 1200px){
+	.mat-toolbar{
+		padding: 10px 20px;
+	}
 }
