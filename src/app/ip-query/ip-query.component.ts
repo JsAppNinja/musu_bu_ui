@@ -87,7 +87,7 @@ export class IpQueryComponent implements OnInit {
     })
   }
 
-  submitQuery = (ips: string) : void => {
+  submitQuery = () : void => {
     this.ipsService.highRiskCount=0;
     this.ipsService.mediumRiskCount=0;
     this.ipsService.lowRiskCount=0;
