@@ -2,13 +2,11 @@
     <!-- <textarea matInput placeholder="Enter one or more IPs separated by commas."></textarea> -->
 <!-- </mat-form-field> -->
 <div class="content-container">
-  <section [hidden]="ipsService.dataSource.data.length !== 0">
-    <div class="directions">
-      <img src="assets/img/musubu-ip-address-search-min.jpg"/>
-      <p>Enter up to 50 comma-separated IP Addresses in the search bar below, then click search.</p>
-    </div>
-  </section>
+  <div class="directions" [hidden]="ipsService.dataSource.data.length !== 0">
+    <img src="assets/img/musubu-ip-address-search-min.jpg"/>
+  </div>
   <section>
+    <p>Enter up to 50 comma-separated IP addresses in the search bar below, then click search.</p>
     <form class="ip-query">
       <mat-form-field class="search-width">
         <mat-chip-list #chipList>
@@ -17,7 +15,7 @@
             {{ip}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input placeholder="Enter one or more IP addresses separated by commas or new lines"
+          <input placeholder="Search by IP address"
                  [matChipInputFor]="chipList"
                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                  [matChipInputAddOnBlur]="addOnBlur"
@@ -37,7 +35,7 @@
     </div>
   </section>
   <section [hidden]="ipsService.dataSource.data.length === 0">
-    <mat-grid-list class="risk-circles-grid-list" #grid cols="{{grid.cols}}" gutterSize="5px" rowHeight="155px">
+    <mat-grid-list class="risk-circles-grid-list" #grid cols="{{grid.cols}}" gutterSize="15px" rowHeight="155px">
       <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
         <circle-progress
           [percent]="100"

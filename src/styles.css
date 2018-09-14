@@ -107,6 +107,20 @@ footer{
 .mat-card-title .mat-icon{
 	vertical-align: text-top;
 }
+.results-table td.mat-cell,
+.results-table td.mat-footer-cell,
+.results-table th.mat-header-cell{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.results-table td.mat-cell:first-of-type,
+.results-table td.mat-footer-cell:first-of-type,
+.results-table th.mat-header-cell:first-of-type,
+.results-table td.mat-cell:last-of-type,
+.results-table td.mat-footer-cell:last-of-type,
+.results-table th.mat-header-cell:last-of-type{
+	padding-left: 20px;
+}
 
 /* sign in */
 #okta-sign-in.auth-container .button-primary{
@@ -141,5 +155,29 @@ footer{
 @media screen and (max-width: 1200px){
 	.content-container{
 		padding: 0 20px;
+	}
+}
+@media screen and (max-width: 700px){
+	section{
+		padding: 20px 0;
+	}
+	.results-table tbody{
+		text-align: center;
+	}
+}
+@media screen and (max-width: 400px){
+	.results-table td.mat-cell,
+	.results-table td.mat-footer-cell,
+	.results-table th.mat-header-cell{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.results-table td.mat-cell:first-of-type,
+	.results-table td.mat-footer-cell:first-of-type,
+	.results-table th.mat-header-cell:first-of-type,
+	.results-table td.mat-cell:last-of-type,
+	.results-table td.mat-footer-cell:last-of-type,
+	.results-table th.mat-header-cell:last-of-type{
+		padding-left: 10px;
 	}
 }

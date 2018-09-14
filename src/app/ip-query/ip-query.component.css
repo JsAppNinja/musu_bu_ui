@@ -1,10 +1,9 @@
 .directions{
+    padding: 40px 0 0;
     text-align: center;
 }
 
 .ip-query {
-    /* min-width: 150px;
-    max-width: 500px; */
     width: 100%;
 }
 .search-width {
@@ -12,7 +11,6 @@
 }
 
 .risk-circles-grid-list {
-    /* margin-top: 20px; */
     margin-bottom: 20px;
 }
 .risk-circles-grid-tile {
@@ -27,4 +25,10 @@
 .button-row button,
 .button-row a {
   margin-right: 8px;
+}
+
+@media screen and (max-width: 700px){
+    .cdk-column-blacklist_class{
+        display: none;
+    }
 }

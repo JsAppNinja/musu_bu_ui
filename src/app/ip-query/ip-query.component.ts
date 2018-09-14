@@ -115,7 +115,7 @@ export class IpQueryComponent implements OnInit {
     xl: 3,
     lg: 3,
     md: 3,
-    sm: 1,
+    sm: 3,
     xs: 1
   }
   ngAfterContentInit() {
