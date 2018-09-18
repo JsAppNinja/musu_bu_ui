@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { MatGridList } from '@angular/material';
+import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 
 export interface IpDetail {
     ipaddress: string,
@@ -32,11 +34,12 @@ export interface IpDetail {
   styleUrls: ['./ip-detail.component.css']
 })
 export class IpDetailComponent implements OnInit {
-
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private _location: Location
+    private _location: Location,
+    private observableMedia: ObservableMedia
   ) { }
 
   ipDetail: IpDetail;
@@ -94,7 +97,46 @@ export class IpDetailComponent implements OnInit {
     "network_group",
     "network_name"
   ];
-  
+
+  circleTitle;
+  circleSubtitle;
+  circleRiskLevel;
+  circleBackgroundColor;
+  circleOuterStrokeColor;
+  circleRadius;
+
+  setCircleData() {
+    this.circleRadius = 100;
+    switch(this.ipDetail.threat_classification){
+      case "High":
+        this.circleTitle = ['High', 'Risk', ''];
+        this.circleSubtitle = this.ipDetail.ipaddress;
+        this.circleRiskLevel = this.ipDetail.threat_classification;
+        this.circleBackgroundColor = '#FDC6CB';
+        this.circleOuterStrokeColor = '#dc3545';
+        break;
+      case "Medium":
+        this.circleTitle = ['Medium', 'Risk', ''];
+        this.circleSubtitle = this.ipDetail.ipaddress;
+        this.circleRiskLevel = this.ipDetail.threat_classification;
+        this.circleBackgroundColor = '#FFE9A9';
+        this.circleOuterStrokeColor = '#ffc107';
+        break;
+      case "Low":
+        this.circleTitle = ['Low', 'Risk', ''];
+        this.circleSubtitle = this.ipDetail.ipaddress;
+        this.circleRiskLevel = this.ipDetail.threat_classification;
+        this.circleBackgroundColor = '#B8ECC3';
+        this.circleOuterStrokeColor = '#28a745';
+        break;
+      default:
+        this.circleTitle = [];
+        this.circleSubtitle = this.ipDetail.ipaddress;
+        this.circleRiskLevel = this.ipDetail.threat_classification;
+        this.circleBackgroundColor = '#e0e0e0';
+        this.circleOuterStrokeColor = '#686868';
+    }
+  }
 
   ngOnInit() {
     this.ipThreatDetail = {};
@@ -104,6 +146,8 @@ export class IpDetailComponent implements OnInit {
       let data = routeData['data'];
       if (data) {
         this.ipDetail = data;
+        //Set circle data
+        this.setCircleData();
         this.ipThreatDetailFields.forEach( key =>{
           this.ipThreatDetail[key] = data[key];
         });
@@ -124,6 +168,5 @@ export class IpDetailComponent implements OnInit {
   backButton(){
     this._location.back();
   }
-
 
 }

@@ -33,6 +33,26 @@ export class IpQueryComponent implements OnInit {
   ngOnInit() {
     this.ipsList = [];
     this.ipsLimit = 50;
+
+    this.ipsService.highRiskCircle.title = ['High', 'Risk', ''];
+    this.ipsService.highRiskCircle.riskLevel = "High";
+    this.ipsService.highRiskCircle.backgroundColor = '#FDC6CB';
+    this.ipsService.highRiskCircle.outerStrokeColor = '#dc3545';
+    this.ipsService.highRiskCircle.radius = '70';
+
+    this.ipsService.mediumRiskCircle.title = ['Medium', 'Risk', ''];
+    this.ipsService.mediumRiskCircle.subtitle = this.ipsService.mediumRiskCount.toString();
+    this.ipsService.mediumRiskCircle.riskLevel = "Medium";
+    this.ipsService.mediumRiskCircle.backgroundColor = '#FFE9A9';
+    this.ipsService.mediumRiskCircle.outerStrokeColor = '#ffc107';
+    this.ipsService.mediumRiskCircle.radius = '70';
+
+    this.ipsService.lowRiskCircle.title = ['Low', 'Risk', ''];
+    this.ipsService.lowRiskCircle.subtitle = this.ipsService.lowRiskCount.toString();
+    this.ipsService.lowRiskCircle.riskLevel = "Low";
+    this.ipsService.lowRiskCircle.backgroundColor = '#B8ECC3';
+    this.ipsService.lowRiskCircle.outerStrokeColor = '#28a745';
+    this.ipsService.lowRiskCircle.radius = '70';
   }
 
   //Clears chips
@@ -88,9 +108,9 @@ export class IpQueryComponent implements OnInit {
   }
 
   submitQuery = () : void => {
-    this.ipsService.highRiskCount=0;
-    this.ipsService.mediumRiskCount=0;
-    this.ipsService.lowRiskCount=0;
+    this.ipsService.highRiskCircle.count=0;
+    this.ipsService.mediumRiskCircle.count=0;
+    this.ipsService.lowRiskCircle.count=0;
     if(this.ipsList.length !== 0){
       this.ipsService.getIpsDetail(this.ipsList).then(
         results => {
@@ -98,13 +118,13 @@ export class IpQueryComponent implements OnInit {
           this.ipsService.dataSource.sort = this.sort;
           results.ipsDetail.forEach(element => {
             if(element.threat_classification === "High"){
-              this.ipsService.highRiskCount++;
+              this.ipsService.highRiskCircle.count++;
             }
             if(element.threat_classification === "Medium"){
-              this.ipsService.mediumRiskCount++;
+              this.ipsService.mediumRiskCircle.count++;
             }
             if(element.threat_classification === "Low"){
-              this.ipsService.lowRiskCount++;
+              this.ipsService.lowRiskCircle.count++;
             }
           });
         }

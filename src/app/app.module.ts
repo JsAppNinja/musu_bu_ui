@@ -32,13 +32,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginResolver } from './login/login.resolver';
+import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IpQueryComponent,
     IpDetailComponent,
-    LoginComponent
+    LoginComponent,
+    IpRiskCircleComponent
   ],
   imports: [
     RouterModule.forRoot(routes,

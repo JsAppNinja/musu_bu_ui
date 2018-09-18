@@ -28,3 +28,12 @@
 		margin: 0;
 	}
 }
+
+.risk-circles-grid-list {
+    /* margin-top: 20px; */
+    margin-bottom: 20px;
+}
+.risk-circles-grid-tile {
+    padding-top: 10px;
+	padding-bottom: 10px;
+}

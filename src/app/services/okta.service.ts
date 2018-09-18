@@ -17,7 +17,7 @@ export class Okta {
         clientId: '0oag6xz82wHIUaPQL0h7',
         redirectUri: 'http://localhost:4200',
         // clientId: '0oag71enlaCX7X7ra0h7',
-        // redirectUri: 'https://142.93.201.9/',
+        // redirectUri: 'https://musubuapp.io/',
         authParams: {
             issuer: 'default'
         },

@@ -4,20 +4,17 @@
 		    <mat-icon>arrow_back</mat-icon>Back to Query
 		</a>
 	</div>
-	<mat-card>
-	    <mat-card-title>IP Details</mat-card-title>
-	    <mat-list role="list">
-	        <mat-list-item role="listitem">
-	            <h3 mat-line>{{fieldNames["ipaddress"]}}</h3>
-	            <p mat-line> {{ipDetail["ipaddress"]}} </p>
-			</mat-list-item>
-			<mat-divider [inset]="true"></mat-divider>
-			<mat-list-item role="listitem">
-	            <h3 mat-line>{{fieldNames["ipint"]}}</h3>
-	            <p mat-line> {{ipDetail["ipint"]}} </p>
-	        </mat-list-item>
-	    </mat-list>
-	</mat-card>
+	<mat-grid-list class="risk-circles-grid-list" cols="1" gutterSize="5px" rowHeight="210px">
+		<mat-grid-tile class="risk-circles-grid-tile" colspan="1">
+			<app-ip-risk-circle 
+				[title]="circleTitle" 
+				[subtitle]="circleSubtitle" 
+				[riskLevel]="circleRiskLevel" 
+				[backgroundColor]="circleBackgroundColor" 
+				[outerStrokeColor]="circleOuterStrokeColor">
+			</app-ip-risk-circle>
+		</mat-grid-tile>
+	</mat-grid-list>
 	<div class="card-grid clearfix">
 		<mat-card class="card-grid-card first">
 		    <mat-card-title><mat-icon>warning</mat-icon> Threat</mat-card-title>

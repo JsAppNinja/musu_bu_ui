@@ -37,58 +37,34 @@
   <section [hidden]="ipsService.dataSource.data.length === 0">
     <mat-grid-list class="risk-circles-grid-list" #grid cols="{{grid.cols}}" gutterSize="15px" rowHeight="155px">
       <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
-        <circle-progress
-          [percent]="100"
-          [radius]="70"
-          [backgroundColor]="'#FDC6CB'"
-          [backgroundPadding]="0"
-          [outerStrokeWidth]="16"
-          [innerStrokeWidth]="0"
-          [outerStrokeColor]="'#dc3545'"
-          [animation]="true"
-          [animationDuration]="100"
-          [title]="['High', 'Risk', '']"
-          [showUnits]="false"
-          [subtitle]="ipsService.highRiskCount"
-          [subtitleFontSize]="20"
-          [subtitleColor]="'black'"
-        ></circle-progress>
+        <app-ip-risk-circle 
+          [title]="ipsService.highRiskCircle.title" 
+          [subtitle]="ipsService.highRiskCircle.count" 
+          [riskLevel]="ipsService.highRiskCircle.riskLevel" 
+          [backgroundColor]="ipsService.highRiskCircle.backgroundColor" 
+          [outerStrokeColor]="ipsService.highRiskCircle.outerStrokeColor"
+          [radius]="ipsService.highRiskCircle.radius">
+        </app-ip-risk-circle>
     </mat-grid-tile>
     <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
-        <circle-progress
-          [percent]="100"
-          [radius]="70"
-          [backgroundColor]="'#FFE9A9'"
-          [backgroundPadding]="0"
-          [outerStrokeWidth]="16"
-          [innerStrokeWidth]="0"
-          [outerStrokeColor]="'#ffc107'"
-          [animation]="true"
-          [animationDuration]="100"
-          [title]="['Medium', 'Risk', '']"
-          [showUnits]="false"
-          [subtitle]="ipsService.mediumRiskCount"
-          [subtitleFontSize]="20"
-          [subtitleColor]="'black'"
-        ></circle-progress>
+        <app-ip-risk-circle 
+						[title]="ipsService.mediumRiskCircle.title" 
+						[subtitle]="ipsService.mediumRiskCircle.count" 
+						[riskLevel]="ipsService.mediumRiskCircle.riskLevel" 
+						[backgroundColor]="ipsService.mediumRiskCircle.backgroundColor" 
+            [outerStrokeColor]="ipsService.mediumRiskCircle.outerStrokeColor" 
+            [radius]="ipsService.mediumRiskCircle.radius">
+        </app-ip-risk-circle>
       </mat-grid-tile>
       <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
-        <circle-progress
-          [percent]="100"
-          [radius]="70"
-          [backgroundColor]="'#B8ECC3'"
-          [backgroundPadding]="0"
-          [outerStrokeWidth]="16"
-          [innerStrokeWidth]="0"
-          [outerStrokeColor]="'#28a745'"
-          [animation]="true"
-          [animationDuration]="100"
-          [title]="['Low', 'Risk', '']"
-          [showUnits]="false"
-          [subtitle]="ipsService.lowRiskCount"
-          [subtitleFontSize]="20"
-          [subtitleColor]="'black'"
-          ></circle-progress>
+        <app-ip-risk-circle 
+          [title]="ipsService.lowRiskCircle.title" 
+          [subtitle]="ipsService.lowRiskCircle.count" 
+          [riskLevel]="ipsService.lowRiskCircle.riskLevel" 
+          [backgroundColor]="ipsService.lowRiskCircle.backgroundColor" 
+          [outerStrokeColor]="ipsService.lowRiskCircle.outerStrokeColor"
+          [radius]="ipsService.lowRiskCircle.radius">
+        </app-ip-risk-circle>
       </mat-grid-tile>
     </mat-grid-list>
   </section>
