@@ -30,8 +30,8 @@
 }
 
 .risk-circles-grid-list {
-    /* margin-top: 20px; */
-    margin-bottom: 20px;
+	min-height: 220px;
+    margin-bottom: 40px;
 }
 .risk-circles-grid-tile {
     padding-top: 10px;
