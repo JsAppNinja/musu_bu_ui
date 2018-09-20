@@ -10,7 +10,10 @@
         IP Address Data + Cyber Threat Info
       </span>
       <span class="button-spacer"></span>
-      <span *ngIf="router.url !== '/login'">
+      <span class="button-row" *ngIf="router.url !== '/login'">
+        <button mat-flat-button (click)="onClickBuy()">
+          Buy API Now
+        </button>
         <button mat-icon-button matTooltip="Logout" (click)="logout()">
           <mat-icon>logout</mat-icon>
         </button>

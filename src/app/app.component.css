@@ -30,6 +30,11 @@
     flex: 1 1 auto;
 }
 
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
 @media screen and (max-width: 1200px){
 	.mat-toolbar{
 		padding: 10px 20px;

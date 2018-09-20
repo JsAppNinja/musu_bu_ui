@@ -29,6 +29,10 @@ export class AppComponent {
     });
   }
 
+  onClickBuy(){
+    window.open("https://musubu.io/pricing/", "_blank");
+  } 
+
   logout() {
     this.oktaSignIn.signOut(() => {
       this.user = undefined;
