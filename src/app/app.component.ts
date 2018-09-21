@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Okta } from './services/okta.service';
+import { IpsService } from './services/ips.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,11 @@ export class AppComponent {
   user;
   oktaSignIn;
   
-  constructor(private okta: Okta, private changeDetectorRef: ChangeDetectorRef, public router: Router) {
+  constructor(
+    private okta: Okta, 
+    private changeDetectorRef: ChangeDetectorRef, 
+    public router: Router,
+    public ipsService: IpsService) {
     this.oktaSignIn = okta.getWidget();
   }
 
@@ -36,6 +41,7 @@ export class AppComponent {
   logout() {
     this.oktaSignIn.signOut(() => {
       this.user = undefined;
+      this.ipsService.clearServiceCache()
       this.router.navigate(['login']);
       this.changeDetectorRef.detectChanges();
     });

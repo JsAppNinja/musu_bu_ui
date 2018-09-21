@@ -22,7 +22,24 @@ export class IpsService {
     .toPromise();
   }
 
-  dataSource = new MatTableDataSource([]);;
+  clearServiceCache(){
+    this.dataSource = new MatTableDataSource([]);
+    this.highRiskCount = 0;
+    this.mediumRiskCount = 0;
+    this.lowRiskCount = 0;
+
+    this.highRiskCircle = {
+      count: 0
+    };
+    this.mediumRiskCircle = {
+      count: 0
+    };
+    this.lowRiskCircle = {
+      count: 0
+    }
+  }
+
+  dataSource = new MatTableDataSource([]);
   highRiskCount: number = 0;
   mediumRiskCount: number = 0;
   lowRiskCount: number = 0;
