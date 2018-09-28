@@ -45,11 +45,12 @@ button,
     border-color: #028b08;
     border-radius: 4px;
     font-size: 20px;
-    font-weight: 100;
+    font-weight: 300;
     line-height: 1.7em;
     -webkit-transition: all .2s;
     -moz-transition: all .2s;
     transition: all .2s;
+    letter-spacing: 1px;
 }
 button:hover,
 .musubu-app .mat-raised-button:hover,
