@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
 import { Okta } from '../services/okta.service';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,14 +12,32 @@ export class LoginComponent implements OnInit {
   title = 'app';
   user;
   oktaSignIn;
-  constructor(private okta: Okta, private changeDetectorRef: ChangeDetectorRef, private router: Router, private zone:NgZone) { 
+  constructor(private okta: Okta, private userService: UserService, private changeDetectorRef: ChangeDetectorRef, private router: Router, private zone:NgZone) { 
     this.oktaSignIn = okta.getWidget();
   }
 
   showLogin() {
     this.oktaSignIn.renderEl({el: '#okta-login-widget'}, (response) => {
       if (response.status === 'SUCCESS') {
-        this.user = response.claims.email;
+        //Get user object from Okta
+        this.userService.getOktaUser(response.claims.sub).then(
+          results =>{
+            this.user = results.user;
+            //Try creating the user with MailChimps.
+            let mailChimpsData = {
+
+            }
+            this.userService.subscribeWithMailChimps(this.user.profile).then(
+              response => {
+                //User created on MailChimps
+              },
+              error => {
+                //Error creating user on MailChimps
+              }
+            );
+          }
+        )
+        
         this.oktaSignIn.remove();
         this.zone.run(() => this.router.navigate(['query']));
         this.changeDetectorRef.detectChanges();

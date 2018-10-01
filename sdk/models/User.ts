@@ -2,23 +2,17 @@
 
 declare var Object: any;
 export interface UserInterface {
-  "realm"?: string;
-  "username"?: string;
   "email": string;
-  "emailVerified"?: boolean;
-  "id"?: number;
-  "password"?: string;
-  accessTokens?: any[];
+  "firstName": string;
+  "lastName": string;
+  "id"?: any;
 }
 
 export class User implements UserInterface {
-  "realm": string;
-  "username": string;
   "email": string;
-  "emailVerified": boolean;
-  "id": number;
-  "password": string;
-  accessTokens: any[];
+  "firstName": string;
+  "lastName": string;
+  "id": any;
   constructor(data?: UserInterface) {
     Object.assign(this, data);
   }
@@ -48,44 +42,28 @@ export class User implements UserInterface {
   public static getModelDefinition() {
     return {
       name: 'User',
-      plural: 'Users',
-      path: 'Users',
+      plural: 'users',
+      path: 'users',
       idName: 'id',
       properties: {
-        "realm": {
-          name: 'realm',
-          type: 'string'
-        },
-        "username": {
-          name: 'username',
-          type: 'string'
-        },
         "email": {
           name: 'email',
           type: 'string'
         },
-        "emailVerified": {
-          name: 'emailVerified',
-          type: 'boolean'
+        "firstName": {
+          name: 'firstName',
+          type: 'string'
+        },
+        "lastName": {
+          name: 'lastName',
+          type: 'string'
         },
         "id": {
           name: 'id',
-          type: 'number'
-        },
-        "password": {
-          name: 'password',
-          type: 'string'
+          type: 'any'
         },
       },
       relations: {
-        accessTokens: {
-          name: 'accessTokens',
-          type: 'any[]',
-          model: '',
-          relationType: 'hasMany',
-                  keyFrom: 'id',
-          keyTo: 'userId'
-        },
       }
     }
   }
