@@ -166,6 +166,24 @@ footer{
 		text-align: center;
 	}
 }
+@media screen and (max-width: 500px){
+	.musubu-app .mat-toolbar[_ngcontent-c0],
+	.musubu-app .mat-toolbar[_ngcontent-c0] .mat-toolbar-row[_ngcontent-c0]{
+		height: 70px;
+	}
+	.musubu-app .logo[_ngcontent-c0]{
+		height: 50px;
+	}
+	.logo img{
+		max-height: 50px;
+	}
+	.title{
+		display: none;
+	}
+	.musubu-app .mat-toolbar .mat-flat-button{
+		padding: 0 15px;
+	}
+}
 @media screen and (max-width: 400px){
 	.results-table td.mat-cell,
 	.results-table td.mat-footer-cell,
