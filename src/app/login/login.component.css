@@ -1,3 +1,7 @@
+.login-heading,
+.login-directions{
+	text-align: center;
+}
 #okta-sign-in.auth-container .button-primary {
     background-color: #028b08;
     background: linear-gradient(#028b08, #028b08);
