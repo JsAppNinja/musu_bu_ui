@@ -23,21 +23,8 @@ export class LoginComponent implements OnInit {
         this.userService.getOktaUser(response.claims.sub).then(
           results =>{
             this.user = results.user;
-            //Try creating the user with MailChimps.
-            let mailChimpsData = {
-
-            }
-            this.userService.subscribeWithMailChimps(this.user.profile).then(
-              response => {
-                //User created on MailChimps
-              },
-              error => {
-                //Error creating user on MailChimps
-              }
-            );
           }
         )
-        
         this.oktaSignIn.remove();
         this.zone.run(() => this.router.navigate(['query']));
         this.changeDetectorRef.detectChanges();
