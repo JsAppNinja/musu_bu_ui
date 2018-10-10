@@ -12,7 +12,7 @@ export class Okta {
 
   constructor() {
     this.widget = new OktaSignIn({
-        logo: '../../assets/img/musubu-logo-100w-min.jpg',
+        logo: '../../assets/img/MusubuApp-logo-icon-100w.jpg',
         baseUrl: 'https://dev-695454.oktapreview.com/',
         clientId: '0oag6xz82wHIUaPQL0h7',
         redirectUri: 'http://localhost:4200',

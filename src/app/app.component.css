@@ -17,6 +17,9 @@
 	display: block;
 	height: 100px;
 }
+.logo .mobile{
+	display: none;
+}
 .title{
 	padding-left: 20px;
 	white-space: normal;
@@ -38,5 +41,21 @@
 @media screen and (max-width: 1200px){
 	.mat-toolbar{
 		padding: 10px 20px;
+	}
+}
+@media screen and (max-width: 915px){
+	.title{
+		display: none;
+	}
+}
+@media screen and (max-width: 580px){
+	.logo .desktop{
+		display: none;
+	}
+	.logo .mobile{
+		display: block;
+	}
+	.header .mat-flat-button{
+		font-size: 18px;
 	}
 }
