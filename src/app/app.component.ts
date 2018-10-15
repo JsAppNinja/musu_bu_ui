@@ -1,7 +1,8 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Okta } from './services/okta.service';
 import { IpsService } from './services/ips.service';
+import { AuthService } from './services/auth.service';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,24 +15,10 @@ export class AppComponent {
   oktaSignIn;
   
   constructor(
-    private okta: Okta, 
+    private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef, 
     public router: Router,
     public ipsService: IpsService) {
-    this.oktaSignIn = okta.getWidget();
-  }
-
-  ngOnInit() {
-    this.oktaSignIn.session.get((response) => {
-      if (response.status !== 'INACTIVE') {
-        this.user = response.login;
-        this.router.navigate(['query']);
-        this.changeDetectorRef.detectChanges();
-      } else {
-        this.router.navigate(['login']);
-        this.changeDetectorRef.detectChanges();
-      }
-    });
   }
 
   onClickBuy(){
@@ -39,11 +26,9 @@ export class AppComponent {
   } 
 
   logout() {
-    this.oktaSignIn.signOut(() => {
-      this.user = undefined;
-      this.ipsService.clearServiceCache()
-      this.router.navigate(['login']);
-      this.changeDetectorRef.detectChanges();
+    this.authService.logout();
+    this.authService.lock.logout({
+      returnTo: environment.ui_url + '/login'
     });
   }
 }

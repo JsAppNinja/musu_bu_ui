@@ -15,7 +15,7 @@ export const routes: Routes = [
 		path: 'query',
 		component: IpQueryComponent,
 		resolve: {
-			sessionIsActive: LoginResolver
+			isAuthenticated: LoginResolver
 		}
 	},
 	{
@@ -27,7 +27,7 @@ export const routes: Routes = [
 	    component: IpDetailComponent,
 	    resolve: {
 		  data: IpDetailResolver,
-		  sessionIsActive: LoginResolver
+		  isAuthenticated: LoginResolver
 	  	}
 	}
 ];

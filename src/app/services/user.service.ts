@@ -16,8 +16,8 @@ export class UserService {
 
   subscribeWithMailChimps(user){
     let mergeFields = {
-        FNAME: user.firstName,
-        LNAME: user.lastName
+        FNAME: user.firstName ? user.firstName : '',
+        LNAME: user.lastName ? user.lastName : ''
     };
     return this.userApi.subscribeWithMailChimps(user.email, "subscribed", mergeFields)
     .toPromise();

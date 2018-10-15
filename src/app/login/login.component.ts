@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
-import { Okta } from '../services/okta.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service'
 
 @Component({
   selector: 'app-login',
@@ -12,45 +12,52 @@ export class LoginComponent implements OnInit {
   title = 'app';
   user;
   oktaSignIn;
-  constructor(private okta: Okta, private userService: UserService, private changeDetectorRef: ChangeDetectorRef, private router: Router, private zone:NgZone) { 
-    this.oktaSignIn = okta.getWidget();
-  }
+  constructor(private authService: AuthService, private userService: UserService, private changeDetectorRef: ChangeDetectorRef, private router: Router, private zone:NgZone) { 
 
-  showLogin() {
-    this.oktaSignIn.renderEl({el: '#okta-login-widget'}, (response) => {
-      if (response.status === 'SUCCESS') {
-        //Get user object from Okta
-        this.userService.getOktaUser(response.claims.sub).then(
-          results =>{
-            this.user = results.user;
-          }
-        )
-        this.oktaSignIn.remove();
-        this.zone.run(() => this.router.navigate(['query']));
-        this.changeDetectorRef.detectChanges();
-      }
-    });
   }
 
   ngOnInit() {
-    this.oktaSignIn.session.get((response) => {
-      if (response.status !== 'INACTIVE') {
-        this.user = response.login;
-        this.zone.run(() => this.router.navigate(['query']));
-        this.changeDetectorRef.detectChanges();
-      } else {
-        this.changeDetectorRef.detectChanges();
-        this.showLogin();
-      }
-    });
+    var authService = this.authService;
+    var zone = this.zone;
+    var router = this.router;
+    var changeDetectorRef = this.changeDetectorRef;
+    var userService = this.userService;
+
+    //If user is already logged in, redirect
+    var isAuthenticated = this.authService.isAuthenticated();
+    if(isAuthenticated){
+      router.navigate(['query']);
+      changeDetectorRef.detectChanges();
+    }
+    else{
+      authService.lock.show();
+      // Listen for the authenticated event and get profile
+      authService.lock.on("authenticated", function(authResult) {
+        authService.lock.getUserInfo(authResult.accessToken, function(error, profile) {
+            if (error) {
+                return;
+            }
+            //Try creating the user with MailChimps.
+            userService.subscribeWithMailChimps(profile).then(
+                response => {
+                //User created on MailChimps
+                },
+                error => {
+                //Error creating user on MailChimps
+                }
+            );
+            authService.setSession(authResult, profile);
+            router.navigate(['query']);
+            changeDetectorRef.detectChanges();
+            // Update DOM
+        });
+      });
+    }
   }
 
   logout() {
-    this.oktaSignIn.signOut(() => {
-      this.user = undefined;
-      this.changeDetectorRef.detectChanges();
-      this.showLogin();
-    });
+    this.authService.logout();
+    this.zone.run(() => this.router.navigate(['query']));
   }
 
 }

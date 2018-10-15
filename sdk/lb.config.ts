@@ -19,8 +19,9 @@
 *   }
 * }
 **/
+import { environment } from '../src/environments/environment';
 export class LoopBackConfig {
-  private static path: string = '//142.93.201.9:3000';
+  private static path: string = environment.api_url;
   private static version: string | number = 'api';
   private static authPrefix: string = '';
   private static debug: boolean = true;
