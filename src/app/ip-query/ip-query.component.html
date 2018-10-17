@@ -32,6 +32,9 @@
       <button mat-flat-button (click)="clear()">
         <mat-icon>clear</mat-icon>Clear
       </button>
+      <button mat-flat-button (click)="save()" [disabled]="ipsService.dataSource.data.length === 0">
+        <mat-icon>save</mat-icon>Save Search
+      </button>
     </div>
   </section>
   <section [hidden]="ipsService.dataSource.data.length === 0">
@@ -102,6 +105,27 @@
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </section>
+  <section [hidden]="savedSearches.length === 0">
+    <h3>Saved Searches</h3>
+    <!-- Using [hidden] here because the table needs to be rendered to be initialized -->
+    <table mat-table [dataSource]="savedSearches" matSort class="mat-elevation-z8 results-table">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Threat Potential Column -->
+      <ng-container matColumnDef="ips">
+        <td mat-cell *matCellDef="let element" class="saved-search-td" (click)="submitQuery(element.ips)">
+           <mat-chip-list #chipList>
+              <mat-chip *ngFor="let ip of element.ips" [selectable]="selectable">
+                {{ip}}
+              </mat-chip>
+            </mat-chip-list>
+        </td>
+      </ng-container>
+      <tr mat-row *matRowDef="let row; columns: historyGridColumns;"></tr>
     </table>
   </section>
 </div>

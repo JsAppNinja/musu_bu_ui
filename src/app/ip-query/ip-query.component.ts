@@ -1,8 +1,10 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ChangeDetectorRef, OnInit, AfterContentInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatGridList, MatChipInputEvent } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { IpsService } from '../services/ips.service';
+import { SavedSearches } from '../services/savedSearches.service';
 import { MatSort } from '@angular/material';
 export interface IPSummary {
   ipaddress: string,
@@ -23,14 +25,37 @@ export class IpQueryComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
+  historyGridColumns: string[] = ['ips']
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
   ipsList;
   ipsLimit;
+  user;
+  savedSearches=[];
 
-  constructor(public ipsService: IpsService, private observableMedia: ObservableMedia) { }
+  constructor(
+    public ipsService: IpsService, 
+    private observableMedia: ObservableMedia, 
+    private savedSearchesService: SavedSearches,
+    private route: ActivatedRoute
+    ) { }
   
   ngOnInit() {
+    //Init user
+    // this.route.data.subscribe(routeData => {
+    //   this.user = routeData['user'];
+    // })
+    this.user = JSON.parse(localStorage.getItem("profile"));
+
+    this.savedSearchesService.getUserSearches(this.user.email).then(
+      (result) => {
+        this.savedSearches = result;
+      },
+      (err) =>{
+
+      }
+    )
+
     this.ipsList = [];
     this.ipsLimit = 50;
 
@@ -53,6 +78,11 @@ export class IpQueryComponent implements OnInit {
     this.ipsService.lowRiskCircle.backgroundColor = '#B8ECC3';
     this.ipsService.lowRiskCircle.outerStrokeColor = '#28a745';
     this.ipsService.lowRiskCircle.radius = '70';
+  }
+
+  //Save search
+  save(){
+    this.savedSearchesService.createSearch(this.user.email, this.ipsList);
   }
 
   //Clears chips
@@ -107,12 +137,18 @@ export class IpQueryComponent implements OnInit {
     })
   }
 
-  submitQuery = () : void => {
+  submitQuery = (ipsList) : void => {
     this.ipsService.highRiskCircle.count=0;
     this.ipsService.mediumRiskCircle.count=0;
     this.ipsService.lowRiskCircle.count=0;
-    if(this.ipsList.length !== 0){
-      this.ipsService.getIpsDetail(this.ipsList).then(
+    if(ipsList){
+      this.ipsList = ipsList;
+    }
+    else{
+      ipsList = this.ipsList;
+    }
+    if(ipsList.length !== 0){
+      this.ipsService.getIpsDetail(ipsList).then(
         results => {
           this.ipsService.dataSource.data = results.ipsDetail;
           this.ipsService.dataSource.sort = this.sort;

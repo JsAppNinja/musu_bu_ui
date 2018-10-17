@@ -50,6 +50,7 @@ import { SocketConnection } from './sockets/socket.connections';
 import { RealTime } from './services/core/real.time';
 import { IpDetailApi } from './services/custom/IpDetail';
 import { UserApi } from './services/custom/User';
+import { SavedSearchApi } from './services/custom/SavedSearch';
 /**
 * @module SDKBrowserModule
 * @description
@@ -82,6 +83,7 @@ export class SDKBrowserModule {
         RealTime,
         IpDetailApi,
         UserApi,
+        SavedSearchApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }
