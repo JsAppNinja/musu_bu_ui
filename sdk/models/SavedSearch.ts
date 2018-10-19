@@ -2,12 +2,16 @@
 
 declare var Object: any;
 export interface SavedSearchInterface {
+  "queryName": string;
+  "createdOn": Date;
   "userEmail": string;
   "ips": Array<any>;
   "id"?: any;
 }
 
 export class SavedSearch implements SavedSearchInterface {
+  "queryName": string;
+  "createdOn": Date;
   "userEmail": string;
   "ips": Array<any>;
   "id": any;
@@ -44,6 +48,15 @@ export class SavedSearch implements SavedSearchInterface {
       path: 'savedSearches',
       idName: 'id',
       properties: {
+        "queryName": {
+          name: 'queryName',
+          type: 'string'
+        },
+        "createdOn": {
+          name: 'createdOn',
+          type: 'Date',
+          default: new Date(0)
+        },
         "userEmail": {
           name: 'userEmail',
           type: 'string'

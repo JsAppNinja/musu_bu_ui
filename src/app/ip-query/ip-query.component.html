@@ -26,14 +26,14 @@
       </mat-form-field>
     </form>
     <div class="button-row">
-      <button mat-flat-button (click)="submitQuery()" [disabled]="ipsList.length === 0">
+      <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0">
         <mat-icon>search</mat-icon>Search
       </button>
       <button mat-flat-button (click)="clear()">
         <mat-icon>clear</mat-icon>Clear
       </button>
-      <button mat-flat-button (click)="save()" [disabled]="ipsService.dataSource.data.length === 0">
-        <mat-icon>save</mat-icon>Save Search
+      <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0">
+          <mat-icon>save</mat-icon>Save Search
       </button>
     </div>
   </section>
@@ -115,8 +115,15 @@
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
-      <!-- Threat Potential Column -->
+      <!-- Query Name Column -->
+      <ng-container matColumnDef="queryName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Search Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.queryName}} </td>
+      </ng-container>
+
+      <!-- IP List Column -->
       <ng-container matColumnDef="ips">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> IP List </th>
         <td mat-cell *matCellDef="let element" class="saved-search-td" (click)="submitQuery(element.ips)">
            <mat-chip-list #chipList>
               <mat-chip *ngFor="let ip of element.ips" [selectable]="selectable">
@@ -125,7 +132,18 @@
             </mat-chip-list>
         </td>
       </ng-container>
-      <tr mat-row *matRowDef="let row; columns: historyGridColumns;"></tr>
+
+      <!-- Query Name Column -->
+      <ng-container matColumnDef="deleteButton">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-flat-button (click)="delete(element.id)">
+              <mat-icon>delete</mat-icon>Delete
+            </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="savedSearchesGridColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: savedSearchesGridColumns;"></tr>
     </table>
   </section>
 </div>

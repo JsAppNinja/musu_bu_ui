@@ -9,8 +9,9 @@ export class SavedSearches {
     private savedSearchApi: SavedSearchApi
   ){}
 
-  createSearch(userEmail, ips){
+  createSearch(userEmail, ips, queryName){
       let data = new SavedSearch();
+      data.queryName = queryName;
       data.userEmail = userEmail;
       data.ips = ips;
 
@@ -26,5 +27,10 @@ export class SavedSearches {
       }
       return this.savedSearchApi.find<SavedSearch>(filter)
       .toPromise()
+  }
+
+  deleteSearch(id){
+    return this.savedSearchApi.deleteById<SavedSearch>(id)
+    .toPromise();
   }
 }

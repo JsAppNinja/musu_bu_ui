@@ -1,16 +1,20 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ChangeDetectorRef, OnInit, AfterContentInit, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, AfterContentInit, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatGridList, MatChipInputEvent } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { IpsService } from '../services/ips.service';
 import { SavedSearches } from '../services/savedSearches.service';
-import { MatSort } from '@angular/material';
+import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export interface IPSummary {
   ipaddress: string,
   threat_potential_score_pct: number,
   threat_classification: string,
   blacklist_class: string
+}
+
+export interface QueryNameDialogData {
+  queryName: string;
 }
 @Component({
   selector: 'app-ip-query',
@@ -25,19 +29,21 @@ export class IpQueryComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
-  historyGridColumns: string[] = ['ips']
+  savedSearchesGridColumns: string[] = ['queryName', 'ips', 'deleteButton']
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
   ipsList;
   ipsLimit;
   user;
+  queryName;
   savedSearches=[];
 
   constructor(
     public ipsService: IpsService, 
     private observableMedia: ObservableMedia, 
     private savedSearchesService: SavedSearches,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
     ) { }
   
   ngOnInit() {
@@ -47,14 +53,7 @@ export class IpQueryComponent implements OnInit {
     // })
     this.user = JSON.parse(localStorage.getItem("profile"));
 
-    this.savedSearchesService.getUserSearches(this.user.email).then(
-      (result) => {
-        this.savedSearches = result;
-      },
-      (err) =>{
-
-      }
-    )
+    this.getUserSearches();
 
     this.ipsList = [];
     this.ipsLimit = 50;
@@ -80,9 +79,52 @@ export class IpQueryComponent implements OnInit {
     this.ipsService.lowRiskCircle.radius = '70';
   }
 
+  getUserSearches(){
+    this.savedSearchesService.getUserSearches(this.user.email).then(
+      (result) => {
+        this.savedSearches = result;
+      },
+      (err) =>{
+
+      }
+    )
+  }
+
+  delete(id){
+    this.savedSearchesService.deleteSearch(id).then(
+      result =>{
+        this.getUserSearches();
+      },
+      err =>{
+
+      }
+    )
+  }
+
   //Save search
   save(){
-    this.savedSearchesService.createSearch(this.user.email, this.ipsList);
+    this.savedSearchesService.createSearch(this.user.email, this.ipsList, this.queryName).then(
+      result =>{
+        this.getUserSearches();
+      },
+      err =>{
+
+      }
+    );
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(QueryNameDialog, {
+      width: '275px',
+      data: {queryName: this.queryName}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.queryName = result;
+        this.save();
+      }
+    });
   }
 
   //Clears chips
@@ -141,12 +183,7 @@ export class IpQueryComponent implements OnInit {
     this.ipsService.highRiskCircle.count=0;
     this.ipsService.mediumRiskCircle.count=0;
     this.ipsService.lowRiskCircle.count=0;
-    if(ipsList){
-      this.ipsList = ipsList;
-    }
-    else{
-      ipsList = this.ipsList;
-    }
+    this.ipsList = ipsList;
     if(ipsList.length !== 0){
       this.ipsService.getIpsDetail(ipsList).then(
         results => {
@@ -179,4 +216,21 @@ export class IpQueryComponent implements OnInit {
       this.grid.cols = this.gridByBreakpoint[change.mqAlias];
     });
   }
+}
+
+@Component({
+  selector: 'query-name-dialog',
+  templateUrl: 'query-name-dialog.html',
+  styleUrls: ['ip-query.component.css']
+})
+export class QueryNameDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<QueryNameDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

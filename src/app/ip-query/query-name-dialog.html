@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+  <p>Name your search</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.queryName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <div class="button-row">
+        <button mat-flat-button (click)="onNoClick()">Cancel</button>
+        <button mat-flat-button [mat-dialog-close]="data.queryName" cdkFocusInitial [disabled]="!data.queryName || data.queryName.length === 0">Save</button>
+    </div>
+</div>

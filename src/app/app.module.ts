@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { SDKBrowserModule } from '../../sdk/index';
 import { AppComponent } from './app.component';
-import { IpQueryComponent } from './ip-query/ip-query.component';
+import { IpQueryComponent, QueryNameDialog } from './ip-query/ip-query.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import {
@@ -24,6 +24,8 @@ import {
   MatTooltipModule,
   MatSortModule,
   MatChipsModule,
+  MatDialogModule,
+  MatDialog
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -33,6 +35,7 @@ import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginResolver } from './login/login.resolver';
 import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component
     IpQueryComponent,
     IpDetailComponent,
     LoginComponent,
-    IpRiskCircleComponent
+    IpRiskCircleComponent,
+    QueryNameDialog
   ],
   imports: [
     RouterModule.forRoot(routes,
@@ -48,6 +52,7 @@ import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component
       useHash: false
     }
     ),
+    FormsModule,
     BrowserModule, 
     HttpClientModule,
     BrowserAnimationsModule,
@@ -65,6 +70,7 @@ import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component
     MatTooltipModule,
     MatSortModule,
     MatChipsModule,
+    MatDialogModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
@@ -91,11 +97,16 @@ import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component
     MatIconModule,
     MatTooltipModule,
     MatSortModule,
+    QueryNameDialog
   ],
   providers: [
     IpsService,
     IpDetailResolver,
-    LoginResolver
+    LoginResolver,
+    MatDialog
+  ],
+  entryComponents:[
+    QueryNameDialog
   ],
   bootstrap: [AppComponent]
 })
