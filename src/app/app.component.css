@@ -18,7 +18,8 @@
 	display: block;
 	height: 100px;
 }
-.logo .mobile{
+.logo .mobile,
+.mobile-nav{
 	display: none;
 }
 .title{
@@ -61,10 +62,12 @@
 	}
 }
 @media screen and (max-width: 580px){
-	.logo .desktop{
+	.logo .desktop,
+	.desktop-nav{
 		display: none;
 	}
-	.logo .mobile{
+	.logo .mobile,
+	.mobile-nav{
 		display: block;
 	}
 	.header .mat-flat-button{

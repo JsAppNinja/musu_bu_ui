@@ -1,9 +1,9 @@
 <main>
     <mat-toolbar class="header">
         <mat-toolbar-row>
-          <!-- <button mat-icon-button (click)="drawer.toggle()">
+          <button mat-icon-button (click)="drawer.toggle()" class="mobile-nav">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-          </button> -->
+          </button>
           <span class="logo">
             <a [routerLink]="['']">
               <img class="desktop" src="assets/img/MusubuApp-logo-300w.jpg"/>
@@ -24,23 +24,27 @@
           </span>
         </mat-toolbar-row>
         <mat-toolbar-row class="desktop-nav" *ngIf="router.url !== '/login'">
-          <span class="nav-item">
-            <a [routerLink]="['']">Home</a>
-          </span>
-          <span class="nav-item">
+            <span class="nav-item">
+              <a [routerLink]="['']">Home</a>
+            </span>
+            <span class="nav-item">
+              <a [routerLink]="['/query/']">Query</a>
+            </span>
+            <span class="nav-item">
               <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
-          </span>
+            </span>
         </mat-toolbar-row>
       </mat-toolbar>
-      <!-- <mat-sidenav-container class="example-container">
+      <mat-sidenav-container class="example-container">
           <mat-sidenav #drawer mode="side" closed role="navigation">
             <mat-nav-list>
-                <a mat-list-item [routerLink]="['/query/']">Query</a>
-                <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
+              <a mat-list-item [routerLink]="['']">Home</a>
+              <a mat-list-item [routerLink]="['/query/']">Query</a>
+              <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
             </mat-nav-list>
           </mat-sidenav>
-        <mat-sidenav-content> -->
+        <mat-sidenav-content>
           <router-outlet></router-outlet>
-        <!-- </mat-sidenav-content>
-      </mat-sidenav-container> -->
+        </mat-sidenav-content>
+      </mat-sidenav-container>
 </main>
