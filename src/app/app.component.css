@@ -1,5 +1,5 @@
 .mat-toolbar{
-	height: 180px;
+	/*height: 180px;*/
 	padding: 10px 0;
 	background: #fff;
 	box-shadow: 0 0 7px rgba(0,0,0,.1);
@@ -37,6 +37,17 @@
 .button-row button,
 .button-row a {
   margin-right: 8px;
+}
+
+.mat-toolbar .mat-toolbar-row.desktop-nav{
+	height: 40px;
+
+}
+.desktop-nav .nav-item{
+	margin-right: 20px;
+}
+.desktop-nav .nav-item:last-child{
+	margin-right: 0;
 }
 
 @media screen and (max-width: 1200px){

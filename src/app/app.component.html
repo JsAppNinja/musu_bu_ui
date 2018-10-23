@@ -23,8 +23,11 @@
             </button>
           </span>
         </mat-toolbar-row>
-        <mat-toolbar-row>
-          <span>
+        <mat-toolbar-row class="desktop-nav" *ngIf="router.url !== '/login'">
+          <span class="nav-item">
+            <a [routerLink]="['']">Home</a>
+          </span>
+          <span class="nav-item">
               <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
           </span>
         </mat-toolbar-row>
