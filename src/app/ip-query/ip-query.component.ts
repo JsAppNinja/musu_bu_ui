@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatGridList, MatChipInputEvent } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { IpsService } from '../services/ips.service';
-import { SavedSearches } from '../services/savedSearches.service';
+import { SavedSearchesService } from '../services/savedSearches.service';
 import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export interface IPSummary {
   ipaddress: string,
@@ -15,6 +15,7 @@ export interface IPSummary {
 
 export interface QueryNameDialogData {
   queryName: string;
+  description: string;
 }
 @Component({
   selector: 'app-ip-query',
@@ -29,19 +30,18 @@ export class IpQueryComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
-  savedSearchesGridColumns: string[] = ['queryName', 'ips', 'deleteButton']
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
   ipsList;
   ipsLimit;
   user;
   queryName;
-  savedSearches=[];
+  description;
 
   constructor(
     public ipsService: IpsService, 
     private observableMedia: ObservableMedia, 
-    private savedSearchesService: SavedSearches,
+    private savedSearchesService: SavedSearchesService,
     private route: ActivatedRoute,
     public dialog: MatDialog
     ) { }
@@ -53,10 +53,20 @@ export class IpQueryComponent implements OnInit {
     // })
     this.user = JSON.parse(localStorage.getItem("profile"));
 
-    this.getUserSearches();
-
     this.ipsList = [];
     this.ipsLimit = 50;
+
+    this.route.data.subscribe(routeData => {
+      let savedSearchId = routeData['savedSearchId'];
+      if (savedSearchId && savedSearchId.length !== 0) {
+        this.ipsList = [];
+        this.ipsService.dataSource.data = [];
+        this.getAndRunUserSearch(savedSearchId);
+      }
+    });
+
+    this.queryName = '';
+    this.description = '';
 
     this.ipsService.highRiskCircle.title = ['High', 'Risk', ''];
     this.ipsService.highRiskCircle.riskLevel = "High";
@@ -79,10 +89,11 @@ export class IpQueryComponent implements OnInit {
     this.ipsService.lowRiskCircle.radius = '70';
   }
 
-  getUserSearches(){
-    this.savedSearchesService.getUserSearches(this.user.email).then(
+  getAndRunUserSearch(savedSearchId){
+    this.savedSearchesService.getUserSearchById(savedSearchId).then(
       (result) => {
-        this.savedSearches = result;
+        this.ipsList = result.ips;
+        this.submitQuery(this.ipsList);
       },
       (err) =>{
 
@@ -90,22 +101,11 @@ export class IpQueryComponent implements OnInit {
     )
   }
 
-  delete(id){
-    this.savedSearchesService.deleteSearch(id).then(
-      result =>{
-        this.getUserSearches();
-      },
-      err =>{
-
-      }
-    )
-  }
-
   //Save search
   save(){
-    this.savedSearchesService.createSearch(this.user.email, this.ipsList, this.queryName).then(
+    this.savedSearchesService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
       result =>{
-        this.getUserSearches();
+
       },
       err =>{
 
@@ -116,12 +116,16 @@ export class IpQueryComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(QueryNameDialog, {
       width: '275px',
-      data: {queryName: this.queryName}
+      data: {
+        queryName: this.queryName,
+        description: this.description
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.queryName = result;
+        this.queryName = result.queryName;
+        this.description = result.description;
         this.save();
       }
     });

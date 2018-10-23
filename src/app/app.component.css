@@ -1,5 +1,5 @@
 .mat-toolbar{
-	height: 120px;
+	height: 180px;
 	padding: 10px 0;
 	background: #fff;
 	box-shadow: 0 0 7px rgba(0,0,0,.1);
@@ -12,6 +12,7 @@
 }
 .logo{
 	height: 100px;
+	padding-left: 10px;
 }
 .logo a{
 	display: block;

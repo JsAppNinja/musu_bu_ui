@@ -4,6 +4,9 @@ import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
 import { IpQueryComponent } from './ip-query/ip-query.component';
 import { LoginComponent } from './login/login.component';
 import { LoginResolver } from './login/login.resolver';
+import { SavedSearchesComponent } from './saved-searches/saved-searches.component';
+import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
+import { IpQueryResolver } from './ip-query/ip-query.resolver';
 
 export const routes: Routes = [
 	{
@@ -15,6 +18,22 @@ export const routes: Routes = [
 		path: 'query',
 		component: IpQueryComponent,
 		resolve: {
+			isAuthenticated: LoginResolver
+		}
+	},
+	{
+		path: 'query/:savedSearchId',
+		component: IpQueryComponent,
+		resolve: {
+			savedSearchId: IpQueryResolver,
+			isAuthenticated: LoginResolver
+		}
+	},
+	{
+		path: 'searches',
+		component: SavedSearchesComponent,
+		resolve: {
+			data: SavedSearchesResolver,
 			isAuthenticated: LoginResolver
 		}
 	},

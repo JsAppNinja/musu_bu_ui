@@ -4,19 +4,25 @@ import { SavedSearchApi, SavedSearch, LoopBackFilter } from '../../../sdk'
 @Injectable({
     providedIn: 'root'
   })
-export class SavedSearches {
+export class SavedSearchesService {
   constructor(
     private savedSearchApi: SavedSearchApi
   ){}
 
-  createSearch(userEmail, ips, queryName){
+  createSearch(userEmail, ips, queryName, description){
       let data = new SavedSearch();
       data.queryName = queryName;
       data.userEmail = userEmail;
       data.ips = ips;
+      data.description = description ? description : '';
 
       return this.savedSearchApi.create<SavedSearch>(data)
       .toPromise();
+  }
+
+  getUserSearchById(savedSearchId){
+    return this.savedSearchApi.findById<SavedSearch>(savedSearchId)
+    .toPromise();
   }
 
   getUserSearches(userEmail){

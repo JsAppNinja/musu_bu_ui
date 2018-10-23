@@ -25,7 +25,8 @@ import {
   MatSortModule,
   MatChipsModule,
   MatDialogModule,
-  MatDialog
+  MatDialog,
+  MatSidenavModule
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -36,6 +37,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginResolver } from './login/login.resolver';
 import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component';
 import { FormsModule } from '@angular/forms';
+import { SavedSearchesComponent } from './saved-searches/saved-searches.component';
+import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
+import { IpQueryResolver } from './ip-query/ip-query.resolver';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,8 @@ import { FormsModule } from '@angular/forms';
     IpDetailComponent,
     LoginComponent,
     IpRiskCircleComponent,
-    QueryNameDialog
+    QueryNameDialog,
+    SavedSearchesComponent
   ],
   imports: [
     RouterModule.forRoot(routes,
@@ -71,6 +76,7 @@ import { FormsModule } from '@angular/forms';
     MatSortModule,
     MatChipsModule,
     MatDialogModule,
+    MatSidenavModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
@@ -97,11 +103,14 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatTooltipModule,
     MatSortModule,
-    QueryNameDialog
+    QueryNameDialog,
+    MatSidenavModule
   ],
   providers: [
     IpsService,
     IpDetailResolver,
+    SavedSearchesResolver,
+    IpQueryResolver,
     LoginResolver,
     MatDialog
   ],
