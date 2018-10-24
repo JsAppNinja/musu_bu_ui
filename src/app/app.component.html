@@ -25,10 +25,7 @@
         </mat-toolbar-row>
         <mat-toolbar-row class="desktop-nav" *ngIf="router.url !== '/login'">
             <span class="nav-item">
-              <a [routerLink]="['']">Home</a>
-            </span>
-            <span class="nav-item">
-              <a [routerLink]="['/query/']">Query</a>
+              <a [routerLink]="['/query/']">Home</a>
             </span>
             <span class="nav-item">
               <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
@@ -38,8 +35,7 @@
       <mat-sidenav-container class="example-container">
           <mat-sidenav #drawer mode="side" closed role="navigation">
             <mat-nav-list>
-              <a mat-list-item [routerLink]="['']">Home</a>
-              <a mat-list-item [routerLink]="['/query/']">Query</a>
+              <a mat-list-item [routerLink]="['/query/']">Home</a>
               <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
             </mat-nav-list>
           </mat-sidenav>
