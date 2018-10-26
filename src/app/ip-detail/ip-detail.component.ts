@@ -161,6 +161,10 @@ export class IpDetailComponent implements OnInit {
     })
   }
 
+  isArray(value){
+    return Array.isArray(value);
+  }
+
   getKeys(map){
     return Object.keys(map);
   }

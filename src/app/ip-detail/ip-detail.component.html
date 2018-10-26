@@ -39,9 +39,14 @@
 		<mat-card class="card-grid-card last">
 		    <mat-card-title><mat-icon>network_check</mat-icon> ISP & Network Info</mat-card-title>
 		    <mat-list role="list">
-		        <mat-list-item role="listitem" *ngFor="let ipISPDetailKey of getKeys(ipISPDetail); last as last">
+		        <mat-list-item style="height: auto;" role="listitem" *ngFor="let ipISPDetailKey of getKeys(ipISPDetail); last as last">
 		            <h3 mat-line>{{fieldNames[ipISPDetailKey]}}</h3>
-		            <p mat-line> {{ipISPDetail[ipISPDetailKey]}} </p>
+					<p mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey])"> {{ipISPDetail[ipISPDetailKey]}} </p>
+					<mat-chip-list mat-line style="padding-bottom: 10px;" #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey])">
+						<mat-chip *ngFor="let detail of ipISPDetail[ipISPDetailKey]" [selectable]="selectable">
+						{{detail}}
+						</mat-chip>
+					</mat-chip-list>
 		          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
 		        </mat-list-item>
 		    </mat-list>
