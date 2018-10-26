@@ -1,7 +1,7 @@
 <main>
     <mat-toolbar class="header">
         <mat-toolbar-row>
-          <button mat-icon-button (click)="drawer.toggle()" class="mobile-nav">
+          <button mat-icon-button (click)="drawer.toggle()" class="mobile-nav" *ngIf="router.url !== '/login'">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
           <span class="logo">
