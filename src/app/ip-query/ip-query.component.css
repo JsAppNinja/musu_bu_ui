@@ -32,3 +32,21 @@
         display: none;
     }
 }
+
+.horizontal-center {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.export-component-box {
+    display: flex;
+    width: 250px;
+    float: right;
+}
+.export-component-box>* {
+    flex: 1 1 200px;
+}
+.hide {
+    visibility: collapse;
+
+}

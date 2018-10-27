@@ -1,26 +1,21 @@
 <!-- <mat-form-field> -->
-    <!-- <textarea matInput placeholder="Enter one or more IPs separated by commas."></textarea> -->
+<!-- <textarea matInput placeholder="Enter one or more IPs separated by commas."></textarea> -->
 <!-- </mat-form-field> -->
 <div class="content-container">
   <div class="directions" [hidden]="ipsService.dataSource.data.length !== 0">
-    <img src="assets/img/musubu-ip-address-search-min.jpg"/>
+    <img src="assets/img/musubu-ip-address-search-min.jpg" />
   </div>
   <section>
     <p>Enter up to 50 comma-separated IP addresses in the search bar below, then click search.</p>
     <form class="ip-query">
       <mat-form-field class="search-width">
         <mat-chip-list #chipList>
-          <mat-chip *ngFor="let ip of ipsList" [selectable]="selectable"
-                   [removable]="removable" (removed)="remove(ip)">
+          <mat-chip *ngFor="let ip of ipsList" [selectable]="selectable" [removable]="removable" (removed)="remove(ip)">
             {{ip}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input placeholder="Search by IP address"
-                 [matChipInputFor]="chipList"
-                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                 [matChipInputAddOnBlur]="addOnBlur"
-                 (matChipInputTokenEnd)="add($event)"
-                 (paste)="paste($event)">
+          <input placeholder="Search by IP address" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
         </mat-chip-list>
         <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
       </mat-form-field>
@@ -33,45 +28,44 @@
         <mat-icon>clear</mat-icon>Clear
       </button>
       <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0">
-          <mat-icon>save</mat-icon>Save Search
+        <mat-icon>save</mat-icon>Save Search
       </button>
     </div>
   </section>
   <section [hidden]="ipsService.dataSource.data.length === 0">
     <mat-grid-list class="risk-circles-grid-list" #grid cols="{{grid.cols}}" gutterSize="15px" rowHeight="155px">
       <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
-        <app-ip-risk-circle 
-          [title]="ipsService.highRiskCircle.title" 
-          [subtitle]="ipsService.highRiskCircle.count" 
-          [riskLevel]="ipsService.highRiskCircle.riskLevel" 
-          [backgroundColor]="ipsService.highRiskCircle.backgroundColor" 
-          [outerStrokeColor]="ipsService.highRiskCircle.outerStrokeColor"
-          [radius]="ipsService.highRiskCircle.radius">
-        </app-ip-risk-circle>
-    </mat-grid-tile>
-    <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
-        <app-ip-risk-circle 
-						[title]="ipsService.mediumRiskCircle.title" 
-						[subtitle]="ipsService.mediumRiskCircle.count" 
-						[riskLevel]="ipsService.mediumRiskCircle.riskLevel" 
-						[backgroundColor]="ipsService.mediumRiskCircle.backgroundColor" 
-            [outerStrokeColor]="ipsService.mediumRiskCircle.outerStrokeColor" 
-            [radius]="ipsService.mediumRiskCircle.radius">
+        <app-ip-risk-circle [title]="ipsService.highRiskCircle.title" [subtitle]="ipsService.highRiskCircle.count"
+          [riskLevel]="ipsService.highRiskCircle.riskLevel" [backgroundColor]="ipsService.highRiskCircle.backgroundColor"
+          [outerStrokeColor]="ipsService.highRiskCircle.outerStrokeColor" [radius]="ipsService.highRiskCircle.radius">
         </app-ip-risk-circle>
       </mat-grid-tile>
       <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
-        <app-ip-risk-circle 
-          [title]="ipsService.lowRiskCircle.title" 
-          [subtitle]="ipsService.lowRiskCircle.count" 
-          [riskLevel]="ipsService.lowRiskCircle.riskLevel" 
-          [backgroundColor]="ipsService.lowRiskCircle.backgroundColor" 
-          [outerStrokeColor]="ipsService.lowRiskCircle.outerStrokeColor"
-          [radius]="ipsService.lowRiskCircle.radius">
+        <app-ip-risk-circle [title]="ipsService.mediumRiskCircle.title" [subtitle]="ipsService.mediumRiskCircle.count"
+          [riskLevel]="ipsService.mediumRiskCircle.riskLevel" [backgroundColor]="ipsService.mediumRiskCircle.backgroundColor"
+          [outerStrokeColor]="ipsService.mediumRiskCircle.outerStrokeColor" [radius]="ipsService.mediumRiskCircle.radius">
+        </app-ip-risk-circle>
+      </mat-grid-tile>
+      <mat-grid-tile class="risk-circles-grid-tile" colspan="1">
+        <app-ip-risk-circle [title]="ipsService.lowRiskCircle.title" [subtitle]="ipsService.lowRiskCircle.count"
+          [riskLevel]="ipsService.lowRiskCircle.riskLevel" [backgroundColor]="ipsService.lowRiskCircle.backgroundColor"
+          [outerStrokeColor]="ipsService.lowRiskCircle.outerStrokeColor" [radius]="ipsService.lowRiskCircle.radius">
         </app-ip-risk-circle>
       </mat-grid-tile>
     </mat-grid-list>
   </section>
   <section [hidden]="ipsService.dataSource.data.length === 0">
+    <div class="export-component-box">
+      <label class="horizontal-center">Export: </label>
+      <mat-select class="horizontal-center" [(value)]="exportType">
+        <mat-option value="csv">CSV</mat-option>
+        <mat-option value="json">JSON</mat-option>
+      </mat-select>
+      <button mat-flat-button (click)="export()">
+        Go
+      </button>
+    </div>
+
     <!-- Using [hidden] here because the table needs to be rendered to be initialized -->
     <table mat-table [dataSource]="ipsService.dataSource" matSort class="mat-elevation-z8 results-table">
 
@@ -81,7 +75,7 @@
       <!-- IP Address Column -->
       <ng-container matColumnDef="ipaddress">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> IP Address </th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', element.ipaddress]">{{element.ipaddress}}</a>
         </td>
       </ng-container>

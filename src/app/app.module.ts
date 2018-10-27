@@ -10,8 +10,8 @@ import { IpQueryComponent, QueryNameDialog } from './ip-query/ip-query.component
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import {
-  MatButtonModule, 
-  MatCheckboxModule, 
+  MatButtonModule,
+  MatCheckboxModule,
   MatCardModule,
   MatFormFieldModule,
   MatToolbarModule,
@@ -26,7 +26,8 @@ import {
   MatChipsModule,
   MatDialogModule,
   MatDialog,
-  MatSidenavModule
+  MatSidenavModule,
+  MatSelectModule
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -55,15 +56,15 @@ import { TrendsComponent } from './trends/trends.component';
   ],
   imports: [
     RouterModule.forRoot(routes,
-    { 
+    {
       useHash: false
     }
     ),
     FormsModule,
-    BrowserModule, 
+    BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatCheckboxModule,
     MatCardModule,
     MatFormFieldModule,
@@ -79,20 +80,21 @@ import { TrendsComponent } from './trends/trends.component';
     MatChipsModule,
     MatDialogModule,
     MatSidenavModule,
+    MatSelectModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
       outerStrokeWidth: 16,
       innerStrokeWidth: 8,
-      outerStrokeColor: "#78C000",
-      innerStrokeColor: "#C7E596",
+      outerStrokeColor: '#78C000',
+      innerStrokeColor: '#C7E596',
       animationDuration: 300
     }),
     FlexLayoutModule,
     SDKBrowserModule.forRoot()
   ],
   exports: [
-    MatButtonModule, 
+    MatButtonModule,
     MatCheckboxModule,
     MatCardModule,
     MatFormFieldModule,
@@ -116,7 +118,7 @@ import { TrendsComponent } from './trends/trends.component';
     LoginResolver,
     MatDialog
   ],
-  entryComponents:[
+  entryComponents: [
     QueryNameDialog
   ],
   bootstrap: [AppComponent]
