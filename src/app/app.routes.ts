@@ -7,12 +7,13 @@ import { LoginResolver } from './login/login.resolver';
 import { SavedSearchesComponent } from './saved-searches/saved-searches.component';
 import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
+import { TrendsComponent } from './trends/trends.component';
 
 export const routes: Routes = [
 	{
 		path: '',
 		redirectTo: '/login',
-		pathMatch: 'full' 
+		pathMatch: 'full'
 	},
 	{
 		path: 'query',
@@ -38,15 +39,19 @@ export const routes: Routes = [
 		}
 	},
 	{
-	    path: 'login',
-	    component: LoginComponent
+		path: 'login',
+		component: LoginComponent
 	},
 	{
-	    path: 'detail/:ipaddress',
-	    component: IpDetailComponent,
-	    resolve: {
-		  data: IpDetailResolver,
-		  isAuthenticated: LoginResolver
-	  	}
+		path: 'trends',
+		component: TrendsComponent
+	},
+	{
+		path: 'detail/:ipaddress',
+		component: IpDetailComponent,
+		resolve: {
+			data: IpDetailResolver,
+			isAuthenticated: LoginResolver
+		}
 	}
 ];

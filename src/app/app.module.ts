@@ -40,6 +40,7 @@ import { FormsModule } from '@angular/forms';
 import { SavedSearchesComponent } from './saved-searches/saved-searches.component';
 import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
+import { TrendsComponent } from './trends/trends.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { IpQueryResolver } from './ip-query/ip-query.resolver';
     LoginComponent,
     IpRiskCircleComponent,
     QueryNameDialog,
-    SavedSearchesComponent
+    SavedSearchesComponent,
+    TrendsComponent
   ],
   imports: [
     RouterModule.forRoot(routes,
