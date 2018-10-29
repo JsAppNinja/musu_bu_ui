@@ -22,6 +22,10 @@
     width: 100%;
 }
 
+.dialog-input{
+    width: 100%;
+}
+
 .button-row button,
 .button-row a {
   margin-right: 8px;

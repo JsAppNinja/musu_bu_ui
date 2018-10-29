@@ -15,6 +15,9 @@
           </span>
           <span class="button-spacer"></span>
           <span class="button-row" *ngIf="router.url !== '/login'">
+            <button mat-flat-button (click)="onClickBuyApp()">
+              Buy App Now
+            </button>
             <button mat-flat-button (click)="onClickBuy()">
               Buy API Now
             </button>
@@ -30,6 +33,9 @@
             <span class="nav-item">
               <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
             </span>
+            <span class="nav-item">
+                <a mat-list-item [routerLink]="['/tags/']">Tags</a>
+              </span>
             <span class="nav-item">
               <a mat-list-item [routerLink]="['/trends/']">Trends</a>
             </span>

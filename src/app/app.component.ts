@@ -21,6 +21,10 @@ export class AppComponent {
     public ipsService: IpsService) {
   }
 
+  onClickBuyApp(){
+    window.open("https://musubu.io/app-pricing/", "_blank");
+  }
+
   onClickBuy(){
     window.open("https://musubu.io/pricing/", "_blank");
   } 

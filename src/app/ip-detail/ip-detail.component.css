@@ -1,3 +1,7 @@
+div, .content-container{
+	overflow: hidden;
+}
+
 .breadcrumb{
 	padding: 20px 0;
 }
@@ -36,4 +40,8 @@
 .risk-circles-grid-tile {
     padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+.tags-input{
+	width: 80%;
 }

@@ -4,7 +4,7 @@
 		    <mat-icon>arrow_back</mat-icon>Back to Query
 		</a>
 	</div>
-	<mat-grid-list class="risk-circles-grid-list" cols="1" gutterSize="5px" rowHeight="210px">
+	<mat-grid-list class="risk-circles-grid-list" cols="2" gutterSize="5px" rowHeight="210px">
 		<mat-grid-tile class="risk-circles-grid-tile" colspan="1">
 			<app-ip-risk-circle 
 				[title]="circleTitle" 
@@ -13,6 +13,31 @@
 				[backgroundColor]="circleBackgroundColor" 
 				[outerStrokeColor]="circleOuterStrokeColor">
 			</app-ip-risk-circle>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<mat-form-field class="tags-input">
+				<mat-chip-list #chipList>
+					<mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+							[removable]="removable" (removed)="remove(tag)">
+					{{tag}}
+					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+					</mat-chip>
+					<input placeholder="Add tags."
+							[matChipInputFor]="chipList"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)"
+							[matAutocomplete]="auto"
+							[formControl]="tagsFormControl"
+							(paste)="paste($event)">
+				</mat-chip-list>
+				<mat-hint align="end">{{tags.length}} / {{tagsLimit}}</mat-hint>
+			</mat-form-field>
+			<!-- <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+				<mat-option *ngFor="let tag of tags | async" [value]="tag">
+					<span>{{tag.name}}</span> |
+				</mat-option>
+			</mat-autocomplete> -->
 		</mat-grid-tile>
 	</mat-grid-list>
 	<div class="card-grid clearfix">
