@@ -14,13 +14,15 @@
         IP Address Data + Cyber Threat Info
       </span>
       <span class="button-spacer"></span>
-      <span class="button-row" *ngIf="router.url !== '/login'">
+      <span class="button-row header-buy-buttons" *ngIf="router.url !== '/login'">
         <button mat-flat-button (click)="onClickBuyApp()">
-          Buy App Now
+          Buy App
         </button>
         <button mat-flat-button (click)="onClickBuy()">
-          Buy API Now
+          Buy API
         </button>
+      </span>
+      <span class="button-row" *ngIf="router.url !== '/login'">
         <button mat-icon-button matTooltip="Logout" (click)="logout()">
           <mat-icon>logout</mat-icon>
         </button>
@@ -42,16 +44,35 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <mat-sidenav-container class="example-container">
-    <mat-sidenav #drawer mode="side" closed role="navigation">
+    <mat-sidenav #drawer mode="side" closed (click)="drawer.toggle()" role="navigation">
       <mat-nav-list>
         <a mat-list-item [routerLink]="['/query/']">Home</a>
         <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
         <a mat-list-item [routerLink]="['/tags/']">Tags</a>
         <a mat-list-item [routerLink]="['/trends/']">Trends</a>
+        <span class="button-row">
+          <button mat-flat-button class="button-bottom-spacing" (click)="onClickBuyApp()">
+            Buy App
+          </button>
+          <button mat-flat-button (click)="onClickBuy()">
+            Buy API
+          </button>
+        </span>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet></router-outlet>
+      <footer>
+        <div class="content-container">
+          <p>For support, contact <a href="mailto:support@musubu.io">support@musubu.io</a>.</p>
+          <p>&copy; 
+            <span id="copyright">
+                <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+            </span>
+            <a href="https://musubuapp.io" target="_blank">musubuapp.io</a>. View our <a href="https://musubu.io/terms-of-use/" target="_blank">Terms of Use</a> and <a href="https://musubu.io/privacy-policy/" target="_blank">Privacy Policy</a>.
+          </p>
+        </div>
+      </footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </main>
