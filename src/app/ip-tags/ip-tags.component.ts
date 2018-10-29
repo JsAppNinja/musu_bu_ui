@@ -8,7 +8,9 @@ import { debounce, debounceTime, take, map } from 'rxjs/operators'
 import { timer, from } from 'rxjs'
 
 export interface QueryNameDialogData {
+  dialogName: string;
   tagName: string;
+  submitButtonName: string;
 }
 
 @Component({
