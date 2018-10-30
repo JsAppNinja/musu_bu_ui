@@ -31,7 +31,6 @@ import {
   MatMenuModule,
   MatButtonToggleModule,
   MatAutocompleteModule
->>>>>>> master
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';

@@ -67,8 +67,7 @@ export class IpQueryComponent implements OnInit {
     this.route.data.subscribe(routeData => {
 
       const queryData = routeData['queryData'];
-      if (queryData.queryId && queryData.queryId.length !== 0) {
-
+      if (queryData && queryData.queryId && queryData.queryId.length !== 0) {
         this.ipsList = [];
         this.ipsService.dataSource.data = [];
         switch (queryData.queryType) {
