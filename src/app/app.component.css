@@ -51,6 +51,11 @@
 	margin-right: 0;
 }
 
+.mat-drawer button{
+	display: block;
+	margin-left: 10px;
+}
+
 @media screen and (max-width: 1200px){
 	.mat-toolbar{
 		padding: 10px 20px;
@@ -63,7 +68,8 @@
 }
 @media screen and (max-width: 580px){
 	.logo .desktop,
-	.desktop-nav{
+	.desktop-nav,
+	.header-buy-buttons{
 		display: none;
 	}
 	.logo .mobile,

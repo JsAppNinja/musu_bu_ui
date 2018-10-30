@@ -38,7 +38,7 @@ button,
 .musubu-app .mat-raised-button.mat-primary,
 .musubu-app .mat-fab.mat-primary,
 .musubu-app .mat-mini-fab.mat-primary{
-	padding: .3em 1em;
+	padding: 0.3em 1em;
     border: 2px solid;
 	color: #fff;
 	background: #028b08;
@@ -46,7 +46,7 @@ button,
     border-radius: 4px;
     font-size: 20px;
     font-weight: 300;
-    line-height: 1.7em;
+    line-height: 1.5em;
     -webkit-transition: all .2s;
     -moz-transition: all .2s;
     transition: all .2s;
@@ -62,8 +62,22 @@ button:hover,
 	background: #333333;
     border-color: #333333;
 }
-.content-container button{
+button.narrow,
+.musubu-app .mat-raised-button.narrow,
+.musubu-app .mat-flat-button.narrow,
+.musubu-app .mat-raised-button.narrow,
+.musubu-app .mat-fab.narrow,
+.musubu-app .mat-mini-fab.narrow{
+	padding: 0.5em 1em;
+	line-height: 1;
+}
+button.button-bottom-spacing{
 	margin-bottom: 10px;
+}
+button.button-block-center{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 .mat-icon,
 .mat-icon-button{
@@ -95,7 +109,7 @@ section{
 }
 
 footer{
-	padding: 40px 0 10px;
+	padding: 10px 0;
 	text-align: center;
 	font-size: 14px;
 }

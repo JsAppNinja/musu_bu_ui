@@ -10,10 +10,14 @@ export class IpQueryResolver implements Resolve<any> {
   ) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    let id = route.paramMap.get('savedSearchId');
+    let id = route.paramMap.get('queryId');
+    let type = route.paramMap.get('queryType');
     return new Promise((resolve, reject) => {
-        if(id && id.length !==0){
-            resolve(id);
+        if(id && type && id.length !==0 && type.length !== 0){
+            resolve({
+              queryId: id,
+              queryType: type
+            });
         }
         else{
             resolve(null);

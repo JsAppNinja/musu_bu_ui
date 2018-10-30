@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { IpDetail } from '../../models/IpDetail';
 import { User } from '../../models/User';
 import { SavedSearch } from '../../models/SavedSearch';
+import { Tag } from '../../models/Tag';
 
 export interface Models { [name: string]: any }
 
@@ -13,6 +14,7 @@ export class SDKModels {
     IpDetail: IpDetail,
     User: User,
     SavedSearch: SavedSearch,
+    Tag: Tag,
     
   };
 

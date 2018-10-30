@@ -21,14 +21,14 @@
       </mat-form-field>
     </form>
     <div class="button-row">
-      <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0">
+      <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
         <mat-icon>search</mat-icon>Search
       </button>
-      <button mat-flat-button (click)="clear()">
+      <button mat-flat-button (click)="clear()" class="button-bottom-spacing">
         <mat-icon>clear</mat-icon>Clear
       </button>
-      <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0">
-        <mat-icon>save</mat-icon>Save Search
+      <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+          <mat-icon>save</mat-icon>Save Search
       </button>
     </div>
   </section>

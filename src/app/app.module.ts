@@ -27,7 +27,11 @@ import {
   MatDialogModule,
   MatDialog,
   MatSidenavModule,
-  MatSelectModule
+  MatSelectModule,
+  MatMenuModule,
+  MatButtonToggleModule,
+  MatAutocompleteModule
+>>>>>>> master
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -37,11 +41,12 @@ import { LoginComponent } from './login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginResolver } from './login/login.resolver';
 import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SavedSearchesComponent } from './saved-searches/saved-searches.component';
 import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
+import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +57,9 @@ import { TrendsComponent } from './trends/trends.component';
     IpRiskCircleComponent,
     QueryNameDialog,
     SavedSearchesComponent,
-    TrendsComponent
+    TrendsComponent,
+    IpTagsComponent,
+    CreateTagDialog
   ],
   imports: [
     RouterModule.forRoot(routes,
@@ -61,6 +68,8 @@ import { TrendsComponent } from './trends/trends.component';
     }
     ),
     FormsModule,
+    BrowserModule,
+    ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -81,6 +90,9 @@ import { TrendsComponent } from './trends/trends.component';
     MatDialogModule,
     MatSidenavModule,
     MatSelectModule,
+    MatMenuModule,
+    MatButtonToggleModule,
+    MatAutocompleteModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
@@ -108,7 +120,10 @@ import { TrendsComponent } from './trends/trends.component';
     MatTooltipModule,
     MatSortModule,
     QueryNameDialog,
-    MatSidenavModule
+    MatSidenavModule,
+    MatMenuModule,
+    MatButtonToggleModule,
+    MatAutocompleteModule
   ],
   providers: [
     IpsService,
@@ -119,7 +134,8 @@ import { TrendsComponent } from './trends/trends.component';
     MatDialog
   ],
   entryComponents: [
-    QueryNameDialog
+    QueryNameDialog,
+    CreateTagDialog
   ],
   bootstrap: [AppComponent]
 })

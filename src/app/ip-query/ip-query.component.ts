@@ -1,4 +1,4 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, ChangeDetectorRef, OnInit, AfterContentInit, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatGridList, MatChipInputEvent } from '@angular/material';
@@ -6,6 +6,8 @@ import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { IpsService } from '../services/ips.service';
 import { SavedSearchesService } from '../services/savedSearches.service';
 import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { TagsService } from '../services/tags.service';
+
 import saveAs from 'file-saver';
 import * as moment from 'moment';
 
@@ -31,7 +33,7 @@ export class IpQueryComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
@@ -47,6 +49,7 @@ export class IpQueryComponent implements OnInit {
     public ipsService: IpsService,
     private observableMedia: ObservableMedia,
     private savedSearchesService: SavedSearchesService,
+    private tagsService: TagsService,
     private route: ActivatedRoute,
     public dialog: MatDialog
     ) { }
@@ -62,11 +65,22 @@ export class IpQueryComponent implements OnInit {
     this.ipsLimit = 50;
 
     this.route.data.subscribe(routeData => {
-      const savedSearchId = routeData['savedSearchId'];
-      if (savedSearchId && savedSearchId.length !== 0) {
+
+      const queryData = routeData['queryData'];
+      if (queryData.queryId && queryData.queryId.length !== 0) {
+
         this.ipsList = [];
         this.ipsService.dataSource.data = [];
-        this.getAndRunUserSearch(savedSearchId);
+        switch (queryData.queryType) {
+          case 'saved-search':
+            this.getAndRunUserSearch(queryData.queryId);
+            break;
+          case 'tag':
+            this.getAndRunTagSearch(queryData.queryId);
+            break;
+          default:
+            break;
+        }
       }
     });
 
@@ -102,6 +116,18 @@ export class IpQueryComponent implements OnInit {
       },
       (err) => {
 
+      }
+    );
+  }
+
+  getAndRunTagSearch(tagId) {
+    this.tagsService.getUserTagById(tagId).then(
+      (result) => {
+        this.ipsList = result.ips;
+        this.submitQuery(this.ipsList);
+      },
+      (err) => {
+        console.error(err);
       }
     );
   }

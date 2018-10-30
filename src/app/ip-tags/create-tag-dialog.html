@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+  <p>{{data.dialogName}}</p>
+  <mat-form-field class="dialog-input">
+    <input matInput placeholder="Tag Name" [formControl]="tagNameInput" required cdkFocusInitial maxlength="25">
+    <mat-error *ngIf="tagNameInput.invalid">{{getErrorMessage()}}</mat-error>
+    <mat-hint align="end">{{data.tagName.length}} / 25</mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+    <div class="button-row">
+        <button mat-flat-button (click)="onNoClick()">Cancel</button>
+        <button mat-flat-button (click)="closeDialog()">{{data.submitButtonName}}</button>
+    </div>
+</div>

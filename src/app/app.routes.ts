@@ -8,6 +8,7 @@ import { SavedSearchesComponent } from './saved-searches/saved-searches.componen
 import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
+import { IpTagsComponent } from './ip-tags/ip-tags.component';
 
 export const routes: Routes = [
 	{
@@ -23,10 +24,10 @@ export const routes: Routes = [
 		}
 	},
 	{
-		path: 'query/:savedSearchId',
+		path: 'query/:queryType/:queryId',
 		component: IpQueryComponent,
 		resolve: {
-			savedSearchId: IpQueryResolver,
+			queryData: IpQueryResolver,
 			isAuthenticated: LoginResolver
 		}
 	},
@@ -45,6 +46,10 @@ export const routes: Routes = [
 	{
 		path: 'trends',
 		component: TrendsComponent
+	},
+	{
+		path: 'tags',
+		component: IpTagsComponent
 	},
 	{
 		path: 'detail/:ipaddress',

@@ -1,15 +1,15 @@
 <div mat-dialog-content>
   <p>Name your search</p>
-  <mat-form-field>
+  <mat-form-field class="dialog-input">
     <input matInput placeholder="Search Name" maxlength="20" [(ngModel)]="data.queryName">
     <mat-hint align="end">{{data.queryName.length}} / 20</mat-hint>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="dialog-input">
     <textarea matInput placeholder="Description (Optional)" maxlength="160" [(ngModel)]="data.description"></textarea>
     <mat-hint align="end">{{data.description.length}} / 160</mat-hint>
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
     <div class="button-row">
         <button mat-flat-button (click)="onNoClick()">Cancel</button>
         <button mat-flat-button [mat-dialog-close]="data" cdkFocusInitial [disabled]="!data.queryName || data.queryName.length === 0">Save</button>
