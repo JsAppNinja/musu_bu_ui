@@ -52,7 +52,7 @@ export class IpQueryComponent implements OnInit {
     private tagsService: TagsService,
     private route: ActivatedRoute,
     public dialog: MatDialog
-    ) { }
+  ) { }
 
   ngOnInit() {
     // Init user
@@ -164,22 +164,34 @@ export class IpQueryComponent implements OnInit {
   export() {
     const fileName = `musubu_ip_details_${moment().format()}`;
     const dataToExport = this.ipsService.dataSource.data;
+
     if (this.exportType === 'json') {
 
-      const blobToExport = new Blob([JSON.stringify(dataToExport)], {type: 'text/plain;charset=utf-8'});
+      const blobToExport = new Blob([JSON.stringify(dataToExport)], { type: 'text/plain;charset=utf-8' });
       saveAs(blobToExport, fileName + '.json');
 
     } else { // exportType === 'csv'
 
       const header = Object.keys(dataToExport[0]);
-      console.log('header:', header);
+      dataToExport.map(row => this.cleanRowArrays(row)); // clean any arrays up with pipes
       const csv = dataToExport.map(row => header.map(fieldName => JSON.stringify(row[fieldName])).join(','));
       csv.unshift(header.join(','));
       const csvArray = csv.join('\r\n');
-      const blobToExport = new Blob([csvArray], {type: 'text/csv' });
+      const blobToExport = new Blob([csvArray], { type: 'text/csv' });
       saveAs(blobToExport, fileName + '.csv');
 
     }
+  }
+
+  cleanRowArrays(row: any): any {
+
+    Object.keys(row).forEach((keyString) => {
+      if (Array.isArray(row[keyString])) {
+        row[keyString] = row[keyString].join('|');
+      }
+    });
+
+    return row;
   }
 
   // Clears chips
@@ -220,18 +232,18 @@ export class IpQueryComponent implements OnInit {
   paste(event: ClipboardEvent): void {
     event.preventDefault();
     event.clipboardData
-    .getData('Text')
-    .split(/,|\n/)
-    .forEach(value => {
-      if ((value || '').trim()) {
-        if (this.ipsList.length < this.ipsLimit) {
-          const trimmedValue = value.trim();
-          if (!this.ipsList.includes(trimmedValue)) {
-            this.ipsList.push(value.trim());
+      .getData('Text')
+      .split(/,|\n/)
+      .forEach(value => {
+        if ((value || '').trim()) {
+          if (this.ipsList.length < this.ipsLimit) {
+            const trimmedValue = value.trim();
+            if (!this.ipsList.includes(trimmedValue)) {
+              this.ipsList.push(value.trim());
+            }
           }
         }
-      }
-    });
+      });
   }
 
   submitQuery = (ipsList): void => {
@@ -283,7 +295,7 @@ export class QueryNameDialog {
 
   constructor(
     public dialogRef: MatDialogRef<QueryNameDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData) { }
 
   onNoClick(): void {
     this.dialogRef.close();
