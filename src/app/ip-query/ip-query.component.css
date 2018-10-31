@@ -31,26 +31,28 @@
   margin-right: 8px;
 }
 
-@media screen and (max-width: 700px){
-    .cdk-column-blacklist_class{
-        display: none;
-    }
-}
-
 .horizontal-center {
     margin-top: auto;
     margin-bottom: auto;
 }
 
 .export-component-box {
-    display: flex;
-    width: 250px;
     float: right;
 }
-.export-component-box>* {
-    flex: 1 1 200px;
+.export-component-box label,
+.export-component-box .mat-form-field{
+    margin-right: 15px;
+}
+.export-component-box .mat-form-field{
+    max-width: 100px;
 }
 .hide {
     visibility: collapse;
 
+}
+
+@media screen and (max-width: 700px){
+    .cdk-column-blacklist_class{
+        display: none;
+    }
 }

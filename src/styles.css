@@ -33,16 +33,10 @@ a:hover{
 }
 button,
 .musubu-app .mat-raised-button,
-.musubu-app .mat-flat-button,
-.musubu-app .mat-flat-button.mat-primary,
-.musubu-app .mat-raised-button.mat-primary,
-.musubu-app .mat-fab.mat-primary,
-.musubu-app .mat-mini-fab.mat-primary{
+.musubu-app .mat-flat-button{
 	padding: 0.3em 1em;
     border: 2px solid;
 	color: #fff;
-	background: #028b08;
-    border-color: #028b08;
     border-radius: 4px;
     font-size: 20px;
     font-weight: 300;
@@ -51,6 +45,14 @@ button,
     -moz-transition: all .2s;
     transition: all .2s;
     letter-spacing: 1px;
+}
+.musubu-app .mat-flat-button.mat-primary,
+.musubu-app .mat-raised-button.mat-primary,
+.musubu-app .mat-fab.mat-primary,
+.musubu-app .mat-mini-fab.mat-primary{
+	background: #028b08;
+    border-color: #028b08;
+    color: #fff;
 }
 button:hover,
 .musubu-app .mat-raised-button:hover,
@@ -62,14 +64,16 @@ button:hover,
 	background: #333333;
     border-color: #333333;
 }
-button.narrow,
-.musubu-app .mat-raised-button.narrow,
-.musubu-app .mat-flat-button.narrow,
-.musubu-app .mat-raised-button.narrow,
-.musubu-app .mat-fab.narrow,
-.musubu-app .mat-mini-fab.narrow{
-	padding: 0.5em 1em;
+button.button-narrow,
+.musubu-app .mat-raised-button.button-narrow,
+.musubu-app .mat-flat-button.button-narrow,{
 	line-height: 1;
+}
+button.button-small,
+.musubu-app .mat-raised-button.button-small,
+.musubu-app .mat-flat-button.button-small,{
+	line-height: 1;
+	padding: 0.3 0;
 }
 button.button-bottom-spacing{
 	margin-bottom: 10px;
@@ -78,6 +82,14 @@ button.button-block-center{
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+button.button-black,
+.musubu-app .mat-raised-button.button-black,
+.musubu-app .mat-flat-button.button-black,
+.musubu-app .mat-fab.button-black,
+.musubu-app .mat-mini-fab.button-black{
+	background-color: #002b02;
+	border-color: #002b02;
 }
 .mat-icon,
 .mat-icon-button{

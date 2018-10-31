@@ -56,13 +56,15 @@
   </section>
   <section [hidden]="ipsService.dataSource.data.length === 0">
     <div class="export-component-box">
-      <label class="horizontal-center">Export: </label>
-      <mat-select class="horizontal-center" [(value)]="exportType">
-        <mat-option value="csv">CSV</mat-option>
-        <mat-option value="json">JSON</mat-option>
-      </mat-select>
-      <button mat-flat-button (click)="export()">
-        Go
+      <label class="horizontal-center">Export as: </label>
+      <mat-form-field>
+        <mat-select class="horizontal-center" [(value)]="exportType">
+          <mat-option value="csv">CSV</mat-option>
+          <mat-option value="json">JSON</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-mini-fab color="primary" (click)="export()">
+        <mat-icon aria-label="download icon">cloud_download</mat-icon>
       </button>
     </div>
 
