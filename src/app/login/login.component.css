@@ -2,9 +2,13 @@
 .login-directions{
 	text-align: center;
 }
-#okta-sign-in.auth-container .button-primary {
-    background-color: #028b08;
-    background: linear-gradient(#028b08, #028b08);
-    border-color: #028b08;
-    border-bottom-color: #028b08;
+
+/* iPhone 5 */
+@media screen and (max-height: 600px){
+	h1.login-heading{
+		font-size: 1.3em;
+	}
+	.login-directions{
+		display: none;
+	}
 }
