@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { MatGridList, MatChipInputEvent } from '@angular/material';
+import { MatGridList, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { ENTER, COMMA, SPACE } from '@angular/cdk/keycodes';
 import { TagsService } from '../services/tags.service';
 import { FormControl } from '@angular/forms';
 import { map, startWith, switchMap, debounceTime } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
 
 export interface IpDetail {
     ipaddress: string,
@@ -48,6 +49,7 @@ export class IpDetailComponent implements OnInit {
   ) { }
 
   tagsFormControl = new FormControl();
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
   ipDetail: IpDetail;
   fieldNames = {
@@ -156,6 +158,9 @@ export class IpDetailComponent implements OnInit {
   tags;
   tagsLimit;
   tagsSuggestions;
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
+
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("profile"));
@@ -164,7 +169,6 @@ export class IpDetailComponent implements OnInit {
     this.ipISPDetail = {};
     this.tagsLimit = 100;
     this.tags = [];
-    this.tagsSuggestions = [];
     this.route.data.subscribe(routeData => {
       let data = routeData['data'];
       if (data) {
@@ -185,14 +189,29 @@ export class IpDetailComponent implements OnInit {
     })
 
     //Automcomplete
-    // this.tagsFormControl
-    // .valueChanges
-    // .pipe(
-    //   debounceTime(300),
-    //   switchMap(tag => this.tagsService.getUserTagsByIp(this.ipDetail.ipaddress, this.user.email, tag))
-    // ).subscribe(result => this.tagsSuggestions = result)
+    // this.filteredOptions = this.tagsFormControl.valueChanges
+    //   .pipe(
+    //     startWith(''),
+    //     map(value => this._filter(value))
+    //   );
+
+    this.tagsSuggestions = new Observable<string[]>();
+    this.tagsSuggestions = this.tagsFormControl
+    .valueChanges
+    .pipe(
+      debounceTime(300),
+      switchMap(tag => {
+        return this.tagsService.findUserTagByName(this.user.email, tag, this.tags);
+      })
+    )
 
     window.scrollTo(0, 0);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   displayFn(tag) {
@@ -213,12 +232,27 @@ export class IpDetailComponent implements OnInit {
     );
   }
 
+  //Value selected on Autocomplete
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.validateAndAddTag(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    this.tagsFormControl.setValue(null);
+  }
+
   //Adds chips to the textbox
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
     // Add our tag
+    this.validateAndAddTag(value);
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  validateAndAddTag(value){
     if ((value || '').trim()) {
       if(this.tags.length < this.tagsLimit){
         var trimmedValue = value.trim()
@@ -229,7 +263,7 @@ export class IpDetailComponent implements OnInit {
                 //create
                 this.tagsService.createTag(trimmedValue, this.user.email, [this.ipDetail.ipaddress]).then(
                   result =>{
-                    this.tags.push(trimmedValue);
+                    this.getIpTags();
                   },
                   err =>{
 
@@ -243,7 +277,7 @@ export class IpDetailComponent implements OnInit {
                   tag.ips.push(this.ipDetail.ipaddress);
                   this.tagsService.updateTag(tag).then(
                     result =>{
-                      this.tags.push(trimmedValue);
+                      this.getIpTags();
                     },
                     err => {
 
@@ -258,10 +292,6 @@ export class IpDetailComponent implements OnInit {
           )
         }
       }
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
     }
   }
 

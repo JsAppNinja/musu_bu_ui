@@ -36,6 +36,19 @@ export class TagsService {
     return this.tagApi.find<Tag>(filter);
   }
 
+  findUserTagByName(userEmail, tagName, existingTags){
+    let filter: LoopBackFilter = {
+      "where": {
+        "and": [
+          { "name": { "regexp": "^" + tagName } },
+          { "name": { "nin": existingTags} }, //Filter tags already
+          { "userEmail": userEmail }
+        ]
+      }
+    }
+    return this.tagApi.find<Tag>(filter);
+  }
+
   getUserTagsByIp(ip, userEmail, tagName?){
     let filter: LoopBackFilter = {
       "where": {
