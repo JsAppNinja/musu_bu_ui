@@ -1,10 +1,9 @@
-.directions{
-    padding: 40px 0 0;
+.query-icon{
     text-align: center;
 }
-
 .ip-query {
     width: 100%;
+    margin-bottom: 10px;
 }
 .search-width {
     width: 100%;
@@ -54,5 +53,10 @@
 @media screen and (max-width: 700px){
     .cdk-column-blacklist_class{
         display: none;
+    }
+}
+@media screen and (max-width: 500px){
+    .query-icon img{
+        max-width: 100px;
     }
 }
