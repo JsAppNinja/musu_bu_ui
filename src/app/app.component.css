@@ -42,9 +42,11 @@
 
 .mat-toolbar .mat-toolbar-row.desktop-nav{
 	height: 40px;
+	width: auto;
 
 }
 .desktop-nav .nav-item{
+	float: left;
 	margin-right: 20px;
 }
 .desktop-nav .nav-item:last-child{

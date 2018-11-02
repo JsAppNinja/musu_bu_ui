@@ -29,18 +29,20 @@
             </span>
         </mat-toolbar-row>
         <mat-toolbar-row class="desktop-nav" *ngIf="router.url !== '/login'">
-            <span class="nav-item">
-                <a [routerLink]="['/query/']">Home</a>
-            </span>
-            <span class="nav-item">
-                <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
-            </span>
-            <span class="nav-item">
-                <a mat-list-item [routerLink]="['/tags/']">Tags</a>
-            </span>
-            <span class="nav-item">
-                <a mat-list-item [routerLink]="['/trends/']">Trends</a>
-            </span>
+            <div>
+                <span class="nav-item">
+                    <a [routerLink]="['/query/']">Home</a>
+                </span>
+                <span class="nav-item">
+                    <a mat-list-item [routerLink]="['/searches/']">Saved Searches</a>
+                </span>
+                <span class="nav-item">
+                    <a mat-list-item [routerLink]="['/tags/']">Tags</a>
+                </span>
+                <span class="nav-item">
+                    <a mat-list-item [routerLink]="['/trends/']">Trends</a>
+                </span>
+            </div>
         </mat-toolbar-row>
     </mat-toolbar>
     <mat-sidenav-container class="example-container">
