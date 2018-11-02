@@ -1,12 +1,6 @@
-.padded-and-centered{
-    padding: 40px 0 0;
-    text-align: center;
+.content-container{
+	text-align: center;
 }
-
 .trends-image {
     height: 200px;
-}
-
-.coming-soon-text {
-    text-align: center;
 }
