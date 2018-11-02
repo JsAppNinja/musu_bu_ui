@@ -1,11 +1,6 @@
 /* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
-@import '~@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
-@import '~@okta/okta-signin-widget/dist/css/okta-theme.css';
 
-body, input, textarea, select, .musubu-app .mat-table,
-#okta-sign-in.auth-container.main-container,
-#okta-sign-in.auth-container input[type="submit"],
-#okta-sign-in.auth-container input[type="button"]{
+body, input, textarea, select, .musubu-app .mat-table{
 	font-family: 'Open Sans',Helvetica,Arial,Lucida,sans-serif;
 }
 body{
@@ -19,6 +14,10 @@ body{
 .content-container{
 	max-width: 1200px;
 	margin: 0 auto;
+}
+
+p{
+	margin-top: 0;
 }
 
 a,
@@ -35,10 +34,10 @@ button,
 .musubu-app .mat-raised-button,
 .musubu-app .mat-flat-button{
 	padding: 0.3em 1em;
-    border: 2px solid;
+    /*border: 2px solid;*/
 	color: #fff;
     border-radius: 4px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
     line-height: 1.5em;
     -webkit-transition: all .2s;
@@ -51,18 +50,20 @@ button,
 .musubu-app .mat-fab.mat-primary,
 .musubu-app .mat-mini-fab.mat-primary{
 	background: #028b08;
-    border-color: #028b08;
+    /*border-color: #028b08;*/
     color: #fff;
 }
-button:hover,
-.musubu-app .mat-raised-button:hover,
-.musubu-app .mat-flat-button:hover,
+/*button:hover,*/
 .musubu-app .mat-flat-button.mat-primary:hover,
 .musubu-app .mat-raised-button.mat-primary:hover,
 .musubu-app .mat-fab.mat-primary:hover,
-.musubu-app .mat-mini-fab.mat-primary:hover{
+.musubu-app .mat-mini-fab.mat-primary:hover,
+.musubu-app .mat-flat-button.mat-warn:hover,
+.musubu-app .mat-raised-button.mat-warn:hover,
+.musubu-app .mat-fab.mat-warn:hover,
+.musubu-app .mat-mini-fab.mat-warn:hover{
 	background: #333333;
-    border-color: #333333;
+    /*border-color: #333333;*/
 }
 button.button-narrow,
 .musubu-app .mat-raised-button.button-narrow,
@@ -89,27 +90,29 @@ button.button-black,
 .musubu-app .mat-fab.button-black,
 .musubu-app .mat-mini-fab.button-black{
 	background-color: #002b02;
-	border-color: #002b02;
+	/*border-color: #002b02;*/
 }
-.mat-icon,
+/*.mat-icon,
 .mat-icon-button{
 	color: #028b08;
+}*/
+.mat-button.mat-warn .mat-icon{
+	color: #f44336;
 }
-.mat-icon-button:hover{
-	background: #cccccc;
-}
-.mat-primary .mat-icon{
+.mat-flat-button.mat-primary .mat-icon,
+.mat-flat-button.mat-warn .mat-icon,
+.mat-mini-fab.mat-primary .mat-icon{
 	color: #fff;
 }
 .mat-flat-button[disabled] .mat-icon{
 	color: rgba(0, 0, 0, 0.26);
 }
-.mat-flat-button.mat-primary[disabled], .mat-flat-button.mat-accent[disabled], .mat-flat-button.mat-warn[disabled], .mat-flat-button[disabled][disabled], .mat-raised-button.mat-primary[disabled], .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-warn[disabled], .mat-raised-button[disabled][disabled], .mat-fab.mat-primary[disabled], .mat-fab.mat-accent[disabled], .mat-fab.mat-warn[disabled], .mat-fab[disabled][disabled], .mat-mini-fab.mat-primary[disabled], .mat-mini-fab.mat-accent[disabled], .mat-mini-fab.mat-warn[disabled], .mat-mini-fab[disabled][disabled]{
+/*.mat-flat-button.mat-primary[disabled], .mat-flat-button.mat-accent[disabled], .mat-flat-button.mat-warn[disabled], .mat-flat-button[disabled][disabled], .mat-raised-button.mat-primary[disabled], .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-warn[disabled], .mat-raised-button[disabled][disabled], .mat-fab.mat-primary[disabled], .mat-fab.mat-accent[disabled], .mat-fab.mat-warn[disabled], .mat-fab[disabled][disabled], .mat-mini-fab.mat-primary[disabled], .mat-mini-fab.mat-accent[disabled], .mat-mini-fab.mat-warn[disabled], .mat-mini-fab[disabled][disabled]{
 	border-color: #cccccc;
-}
+}*/
 .mat-flat-button.mat-primary[disabled]:hover, .mat-flat-button.mat-accent[disabled]:hover, .mat-flat-button.mat-warn[disabled]:hover, .mat-flat-button[disabled][disabled]:hover, .mat-raised-button.mat-primary[disabled]:hover, .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-warn[disabled]:hover, .mat-raised-button[disabled][disabled]:hover, .mat-fab.mat-primary[disabled]:hover, .mat-fab.mat-accent[disabled]:hover, .mat-fab.mat-warn[disabled]:hover, .mat-fab[disabled][disabled]:hover, .mat-mini-fab.mat-primary[disabled]:hover, .mat-mini-fab.mat-accent[disabled]:hover, .mat-mini-fab.mat-warn[disabled]:hover, .mat-mini-fab[disabled][disabled]:hover{
 	background-color: rgba(0, 0, 0, 0.12);
-	border-color: #cccccc;
+	/*border-color: #cccccc;*/
 	cursor: not-allowed;
 }
 .mat-flat-button .mat-button-wrapper .mat-icon{
@@ -117,19 +120,34 @@ button.button-black,
 }
 
 section{
-    padding: 40px 0;
+    padding: 20px 0;
 }
 
 footer{
-	padding: 10px 0;
+	padding: 10px 0 0;
 	text-align: center;
 	font-size: 14px;
 }
 
+/* Columns */
+.cols{
+	float: left;
+}
+.cols.lg-2{
+	width: 50%;
+}
+
+
 /* results table */
+tr.mat-header-row{
+	background-color: #028b08;
+}
 .musubu-app .mat-header-cell{
-    color: #6d6d6d;
+    color: #fff;
     font-size: 16px;
+}
+.musubu-app .mat-sort-header-arrow {
+    color: #fff;
 }
 .mat-sort-header-button:hover{
     background: transparent;
@@ -152,34 +170,13 @@ footer{
 	padding-left: 20px;
 }
 
-/* sign in */
-#okta-sign-in.auth-container .button-primary{
-    background-color: #028b08;
-    background: linear-gradient(#028b08, #028b08);
-    border-color: #028b08;
-    border-bottom-color: #028b08;
+/* Cards */
+.mat-card{
+	margin: 5px;
 }
-#okta-sign-in.auth-container .button-primary:hover,
-#okta-sign-in.auth-container .button-primary:focus,
-#okta-sign-in.auth-container .button-primary:active,
-#okta-sign-in.auth-container .button-primary:focus{
-    background-color: #333333;
-    background: linear-gradient(#333333, #333333);
-    background-image: linear-gradient(#333333, #333333);
-    border-color: #333333;
-    border-bottom-color: #333333;
-}
-#okta-sign-in.auth-container .button.button-primary.link-button-disabled{
-	background-color: #cccccc;
-	border-color: #cccccc;
-}
-#okta-sign-in .registration-container .registration-link{
+.mat-card-title .mat-icon{
 	color: #028b08;
 }
-#okta-sign-in .registration-container .registration-link:hover{
-	color: #333333;
-}
-
 
 
 @media screen and (max-width: 1200px){
@@ -188,11 +185,29 @@ footer{
 	}
 }
 @media screen and (max-width: 700px){
-	section{
-		padding: 20px 0;
-	}
 	.results-table tbody{
 		text-align: center;
+	}
+}
+@media screen and (max-width: 600px){
+	.content-container{
+		padding: 0 10px;
+	}
+	section{
+		padding: 10px 0;
+	}
+	section:first-child{
+		padding: 20px 0 10px;
+	}
+	p{
+		line-height: 1.5;
+		font-size: 16px;
+	}
+	.cols.sm-1{
+		width: 100%;
+	}
+	.mat-card{
+		padding: 24px !important;
 	}
 }
 @media screen and (max-width: 500px){
@@ -227,5 +242,17 @@ footer{
 	.results-table td.mat-footer-cell:last-of-type,
 	.results-table th.mat-header-cell:last-of-type{
 		padding-left: 10px;
+	}
+}
+/* iPhone 5 */
+@media screen and (max-width: 359px){
+	.table-wrapper{
+		max-width: 300px;
+		width: 100%;
+		margin: 0 auto;
+		overflow: scroll;
+	}
+	.musubu-app .mat-header-cell{
+		font-size: 14px;
 	}
 }
