@@ -5,43 +5,53 @@ div, .content-container{
 .breadcrumb{
 	padding: 20px 0;
 }
-.mat-card{
-	margin-bottom: 40px;
-	padding: 24px 2%;
-}
-.card-grid-card{
-	float: left;
-	width: 28%;
-}
-.card-grid-card.middle{
-	margin: 0 2% 40px;
-}
 
-@media screen and (max-width: 900px){
-	.mat-card{
-		padding: 24px;
-	}
-	.card-grid-card{
-		float: none;
-		width: auto;
-	}
-	.card-grid-card.middle{
-		margin: 0 0 40px;
-	}
-	.card-grid-card.last{
-		margin: 0;
-	}
-}
-
-.risk-circles-grid-list {
+.risk-circles-grid-list{
 	min-height: 220px;
-    margin-bottom: 40px;
 }
-.risk-circles-grid-tile {
+.risk-circles-grid-tile{
     padding-top: 10px;
 	padding-bottom: 10px;
 }
 
 .tags-input{
-	width: 80%;
+	width: 100%;
+}
+
+.card-grid .mat-card{
+	margin: 0 0.5% 40px;
+}
+.card-grid-card{
+	float: left;
+	width: 27.3%;
+}
+.card-grid .middle{
+	margin-left: 2%;
+	margin-right: 2%;
+}
+.card-grid-card.last .mat-list-item{
+	height: auto;
+}
+.card-grid-card.last h3{
+	padding-top: 9px;
+}
+.card-grid-card.last p{
+	padding-bottom: 9px;
+}
+.card-grid-card .mat-chip-list{
+	padding: 5px 0 15px;
+}
+
+@media screen and (max-width: 900px){
+	.card-grid .card-grid-card.mat-card{
+		padding: 24px;
+		margin: 0 1% 20px;
+		float: none;
+		width: auto;
+	}
+}
+@media screen and (max-width: 600px){
+	.risk-circle{
+		text-align: center;
+	}
 }
