@@ -19,7 +19,7 @@ export interface QueryNameDialogData {
   styleUrls: ['./ip-tags.component.css']
 })
 export class IpTagsComponent implements OnInit {
-  tagsGridColumns: string[] = ['name', 'options']
+  tagsGridColumns: string[] = ['name', 'date', 'viewButton', 'options']
   tags;
   user;
   constructor(

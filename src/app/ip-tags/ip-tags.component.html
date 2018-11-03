@@ -15,16 +15,27 @@
                             {{element.name}}
                         </mat-chip>
                     </mat-chip-list>
-                    <div>{{humanizeDate(element.createdOn)}}</div>
+                    
                 </td>
             </ng-container>
-            <ng-container matColumnDef="options">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                <td mat-cell class="options-column" *matCellDef="let element">
-                    <mat-button-toggle-group>
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Created </th>
+                <td mat-cell *matCellDef="let element">
+                    {{humanizeDate(element.createdOn)}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="viewButton">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell class="td-align-right" *matCellDef="let element">
                         <button mat-button color="primary" [routerLink]="['/query/tag/', element.id]">
                             View
                         </button>
+                    </td>
+                </ng-container>
+            <ng-container matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell class="td-align-right" *matCellDef="let element">
+                    <mat-button-toggle-group>
                         <button mat-icon-button [matMenuTriggerFor]="menu">
                             <mat-icon>more_vert</mat-icon>
                         </button>
