@@ -152,7 +152,7 @@ export class IpDetailComponent implements OnInit {
   visible = true;
   selectable = true;
   removable = true;
-  addOnBlur = true;
+  addOnBlur = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   tagsFull;
   tags;
@@ -247,9 +247,8 @@ export class IpDetailComponent implements OnInit {
     // Add our tag
     this.validateAndAddTag(value);
     // Reset the input value
-    if (input) {
-      input.value = '';
-    }
+    this.tagInput.nativeElement.value = '';
+    this.tagsFormControl.setValue(null);
   }
 
   validateAndAddTag(value){
