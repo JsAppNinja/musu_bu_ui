@@ -18,14 +18,15 @@
 			</div>
 			<div class="cols lg-2 md-2 sm-1">
 				<mat-card class="tags-card">
+					<mat-card-title>Add Tags</mat-card-title>
 					<mat-form-field class="tags-input">
 						<mat-chip-list #chipList>
 							<mat-chip *ngFor="let tag of tags" [selectable]="selectable"
 									[removable]="removable" (removed)="remove(tag)">
-							{{tag}}
-							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+								{{tag}}
+								<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 							</mat-chip>
-							<input placeholder="Add tags."
+							<input placeholder="Add tags to describe or group this IP with others."
 								#tagInput
 								[matChipInputFor]="chipList"
 								[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
