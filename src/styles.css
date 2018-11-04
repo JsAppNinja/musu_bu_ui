@@ -245,13 +245,28 @@ tr.mat-header-row{
 		padding-left: 10px;
 	}
 }
+/* iPhone 6/7/8 Plus + Pixel 2/2XL */
+@media screen and (max-width: 414px){
+	.table-wrapper{
+		max-width: 391px;
+		width: 100%;
+		margin: 0 auto;
+		overflow: scroll;
+	}
+	.mat-table.mat-elevation-z8{
+		box-shadow: none;
+	}
+}
+/* iPhone 6/7/8 */
+@media screen and (max-width: 375px){
+	.table-wrapper{
+		max-width: 355px;
+	}
+}
 /* iPhone 5 */
 @media screen and (max-width: 359px){
 	.table-wrapper{
 		max-width: 300px;
-		width: 100%;
-		margin: 0 auto;
-		overflow: scroll;
 	}
 	.musubu-app .mat-header-cell{
 		font-size: 14px;
