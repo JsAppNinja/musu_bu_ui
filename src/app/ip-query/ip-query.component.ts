@@ -11,6 +11,8 @@ import { TagsService } from '../services/tags.service';
 import saveAs from 'file-saver';
 import * as moment from 'moment';
 
+import { Address4, Address6 } from 'ip-address';
+
 export interface IPSummary {
   ipaddress: string;
   threat_potential_score_pct: number;
@@ -42,6 +44,7 @@ export class IpQueryComponent implements OnInit {
   user;
   queryName;
   description;
+  invalidList; // array of invalid IPs entered in query form
 
   exportType = 'csv';
 
@@ -247,30 +250,62 @@ export class IpQueryComponent implements OnInit {
   }
 
   submitQuery = (ipsList): void => {
+    this.invalidList = [];
     this.ipsService.highRiskCircle.count = 0;
     this.ipsService.mediumRiskCircle.count = 0;
     this.ipsService.lowRiskCircle.count = 0;
     this.ipsList = ipsList;
     if (ipsList.length !== 0) {
-      this.ipsService.getIpsDetail(ipsList).then(
-        results => {
-          this.ipsService.dataSource.data = results.ipsDetail;
-          this.ipsService.dataSource.sort = this.sort;
-          results.ipsDetail.forEach(element => {
-            if (element.threat_classification === 'High') {
-              this.ipsService.highRiskCircle.count++;
-            }
-            if (element.threat_classification === 'Medium') {
-              this.ipsService.mediumRiskCircle.count++;
-            }
-            if (element.threat_classification === 'Low') {
-              this.ipsService.lowRiskCircle.count++;
-            }
-          });
-        }
-      );
+      this.validateIpListDeferred(ipsList)
+      .then((cleanIpsList) => {
+        this.ipsService.getIpsDetail(cleanIpsList).then(
+          results => {
+            this.ipsService.dataSource.data = results.ipsDetail;
+            this.ipsService.dataSource.sort = this.sort;
+            results.ipsDetail.forEach(element => {
+              if (element.threat_classification === 'High') {
+                this.ipsService.highRiskCircle.count++;
+              }
+              if (element.threat_classification === 'Medium') {
+                this.ipsService.mediumRiskCircle.count++;
+              }
+              if (element.threat_classification === 'Low') {
+                this.ipsService.lowRiskCircle.count++;
+              }
+            });
+          }
+        );
+      }, (invalidList) => {
+        // TODO: highlight and let user know which ones were bad
+        console.log('invalids were found:', invalidList);
+        this.invalidList = invalidList;
+      });
     }
   }
+
+  validateIpListDeferred = (ipsList): any => {
+    return new Promise(function (resolve, reject) {
+      const invalidIPs = [];
+      ipsList.forEach(ip => {
+        const addressV6 = new Address6(ip);
+        const addressV4 = new Address4(ip);
+
+        const isValidIP = (addressV4.isValid() || addressV6.isValid());
+
+        if (!isValidIP) {
+          invalidIPs.push(ip);
+        }
+      });
+
+      if (invalidIPs.length > 0) {
+        reject(invalidIPs);
+      } else {
+        resolve(ipsList);
+      }
+    });
+  }
+
+
   gridByBreakpoint = {
     xl: 3,
     lg: 3,
