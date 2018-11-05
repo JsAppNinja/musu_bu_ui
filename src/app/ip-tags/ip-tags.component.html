@@ -1,7 +1,7 @@
 <div class="content-container">
     <section>
         <h2>Tags</h2>
-        <p class="no-tags-text" *ngIf="tags && tags.length === 0">You have no tags</p>
+        <p *ngIf="tags && tags.length === 0">You have no tags.</p>
         <button mat-flat-button (click)="createTagDialog({}, 'Create tag', 'create', 'Save')"> Create </button>
     </section>
     <section>

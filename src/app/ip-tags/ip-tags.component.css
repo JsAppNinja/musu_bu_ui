@@ -16,12 +16,6 @@ table {
     text-align: right
 }
 
-.no-tags-text{
-    font-size: 40px;
-    text-align: center;
-    color: gray;
-}
-
 .button-row button,
 .button-row a {
   margin-right: 8px;
