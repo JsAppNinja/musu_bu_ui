@@ -1,8 +1,10 @@
 <div class="content-container">
     <section>
         <h2>Saved Searches</h2>
+        <p *ngIf="savedSearches && savedSearches.length === 0">You have no saved searches.</p>
+        <button mat-flat-button color="primary" [routerLink]="['/query/']" *ngIf="savedSearches && savedSearches.length === 0">Create</button>
         <!-- Using [hidden] here because the table needs to be rendered to be initialized -->
-        <div class="table-wrapper">
+        <div class="table-wrapper" *ngIf="savedSearches && savedSearches.length !== 0">
             <table mat-table [dataSource]="savedSearches" matSort class="mat-elevation-z8 results-table">
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
