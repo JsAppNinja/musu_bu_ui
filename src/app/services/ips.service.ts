@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IpDetailApi, IpDetail, LoopBackFilter } from '../../../sdk'
+import { IpDetailApi, IpDetail, LoopBackFilter } from '../../../sdk';
 import { MatTableDataSource } from '@angular/material';
 import { IpRiskCircleProperties } from '../ip-risk-circle/ip-risk-circle.component';
 // import { AnswerApi, Answer } from '../../../sdk';
@@ -10,19 +10,19 @@ export class IpsService {
   constructor(
     private http: HttpClient,
     private ipDetailApi: IpDetailApi
-  ){}
+  ) {}
 
-  getIpDetail(ip){
+  getIpDetail(ip) {
     return this.ipDetailApi.getIpDetailFromMusubuAPI(ip)
     .toPromise();
   }
 
-  getIpsDetail(ips){
+  getIpsDetail(ips) {
     return this.ipDetailApi.getIpsDetail(ips)
     .toPromise();
   }
 
-  clearServiceCache(){
+  clearServiceCache() {
     this.dataSource = new MatTableDataSource([]);
     this.highRiskCount = 0;
     this.mediumRiskCount = 0;
