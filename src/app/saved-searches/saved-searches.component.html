@@ -1,7 +1,7 @@
 <div class="content-container">
     <section>
         <h2>Watchlists</h2>
-        <p *ngIf="savedSearches && savedSearches.length === 0">You have no saved searches.</p>
+        <p *ngIf="savedSearches && savedSearches.length === 0">You have no watchlists.</p>
         <button mat-flat-button color="primary" [routerLink]="['/query/']" *ngIf="savedSearches && savedSearches.length === 0">Create</button>
         <!-- Using [hidden] here because the table needs to be rendered to be initialized -->
         <div class="table-wrapper" *ngIf="savedSearches && savedSearches.length !== 0">
