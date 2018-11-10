@@ -1,6 +1,3 @@
-<!-- <mat-form-field> -->
-<!-- <textarea matInput placeholder="Enter one or more IPs separated by commas."></textarea> -->
-<!-- </mat-form-field> -->
 <div class="content-container">
     <section>
         <div class="query-icon" [hidden]="ipsService.dataSource.data.length !== 0">
@@ -12,8 +9,8 @@
             <form class="ip-query">
                 <mat-form-field class="search-width">
                     <mat-chip-list #chipList>
-                        <mat-chip *ngFor="let ip of ipsList" [selectable]="selectable" [removable]="removable" (removed)="remove(ip)">
-                            {{ip}}
+                        <mat-chip *ngFor="let ip of ipsList" [removable]="removable" (removed)="remove(ip.label)" color="{{ ip.isInvalid ? 'warn' : ''}}">
+                            {{ip.label}}
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
                         <input placeholder="Search by IP address" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -22,6 +19,7 @@
                     <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
                 </mat-form-field>
             </form>
+            <label class="warning-message" *ngIf="isFormInvalid">One or more IP Address are not valid IP Addresses.</label>
             <div class="button-row">
                 <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
                     <mat-icon>search</mat-icon> Search
