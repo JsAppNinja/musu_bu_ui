@@ -11,7 +11,13 @@ import { TagsService } from '../services/tags.service';
 import saveAs from 'file-saver';
 import * as moment from 'moment';
 
+import * as _ from 'lodash';
+
 import { Address4, Address6 } from 'ip-address';
+
+export interface Ip {
+  label: string;
+}
 
 export interface IPSummary {
   ipaddress: string;
@@ -32,19 +38,18 @@ export interface QueryNameDialogData {
 export class IpQueryComponent implements OnInit {
   // Chip input properties
   visible = true;
-  selectable = true;
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
-  ipsList;
+  ipsList: Ip[] = [];
   ipsLimit;
   user;
   queryName;
   description;
-  invalidList; // array of invalid IPs entered in query form
+  isFormInvalid: boolean;
 
   exportType = 'csv';
 
@@ -113,7 +118,11 @@ export class IpQueryComponent implements OnInit {
   getAndRunUserSearch(savedSearchId) {
     this.savedSearchesService.getUserSearchById(savedSearchId).then(
       (result) => {
-        this.ipsList = result.ips;
+        if (result && result.ips) {
+          result.ips.forEach(ip => {
+            this.ipsList.push({label: ip });
+          });
+        }
         this.submitQuery(this.ipsList);
       },
       (err) => {
@@ -125,7 +134,11 @@ export class IpQueryComponent implements OnInit {
   getAndRunTagSearch(tagId) {
     this.tagsService.getUserTagById(tagId).then(
       (result) => {
-        this.ipsList = result.ips;
+        if (result && result.ips) {
+          result.ips.forEach(ip => {
+            this.ipsList.push({label: ip });
+          });
+        }
         this.submitQuery(this.ipsList);
       },
       (err) => {
@@ -211,8 +224,8 @@ export class IpQueryComponent implements OnInit {
     if ((value || '').trim()) {
       if (this.ipsList.length < this.ipsLimit) {
         const trimmedValue = value.trim();
-        if (!this.ipsList.includes(trimmedValue)) {
-          this.ipsList.push(value.trim());
+        if (_.findIndex(this.ipsList, function(o) { return o.label === trimmedValue; }) === -1) {
+          this.ipsList.push({ label: value.trim() });
         }
       }
     }
@@ -225,7 +238,7 @@ export class IpQueryComponent implements OnInit {
 
   // Removes chips to the textbox
   remove(ip): void {
-    const index = this.ipsList.indexOf(ip);
+    const index = _.findIndex(this.ipsList, function(o) { return o.label === ip; });
     if (index >= 0) {
       this.ipsList.splice(index, 1);
     }
@@ -241,8 +254,8 @@ export class IpQueryComponent implements OnInit {
         if ((value || '').trim()) {
           if (this.ipsList.length < this.ipsLimit) {
             const trimmedValue = value.trim();
-            if (!this.ipsList.includes(trimmedValue)) {
-              this.ipsList.push(value.trim());
+            if (_.findIndex(this.ipsList, function(o) { return o.label === trimmedValue; }) === -1) {
+              this.ipsList.push({ label: value.trim() });
             }
           }
         }
@@ -250,7 +263,6 @@ export class IpQueryComponent implements OnInit {
   }
 
   submitQuery = (ipsList): void => {
-    this.invalidList = [];
     this.ipsService.highRiskCircle.count = 0;
     this.ipsService.mediumRiskCircle.count = 0;
     this.ipsService.lowRiskCircle.count = 0;
@@ -258,6 +270,8 @@ export class IpQueryComponent implements OnInit {
     if (ipsList.length !== 0) {
       this.validateIpListDeferred(ipsList)
       .then((cleanIpsList) => {
+        this.isFormInvalid = false;
+
         this.ipsService.getIpsDetail(cleanIpsList).then(
           results => {
             this.ipsService.dataSource.data = results.ipsDetail;
@@ -276,32 +290,39 @@ export class IpQueryComponent implements OnInit {
           }
         );
       }, (invalidList) => {
-        // TODO: highlight and let user know which ones were bad
-        console.log('invalids were found:', invalidList);
-        this.invalidList = invalidList;
+        this.isFormInvalid = true;
+        this.ipsService.dataSource.data = [];
       });
     }
   }
 
   validateIpListDeferred = (ipsList): any => {
     return new Promise(function (resolve, reject) {
-      const invalidIPs = [];
+      let anyInvalids = false;
       ipsList.forEach(ip => {
-        const addressV6 = new Address6(ip);
-        const addressV4 = new Address4(ip);
+        const addressV6 = new Address6(ip.label);
+        const addressV4 = new Address4(ip.label);
 
         const isValidIP = (addressV4.isValid() || addressV6.isValid());
 
         if (!isValidIP) {
-          invalidIPs.push(ip);
+          anyInvalids = true;
+          ip.isInvalid = true;
+        } else {
+          ip.isInvalid = false;
         }
       });
 
-      if (invalidIPs.length > 0) {
-        reject(invalidIPs);
+      if (anyInvalids) {
+        reject(ipsList);
       } else {
-        resolve(ipsList);
+        const arrayOfStrings = [];
+        ipsList.forEach(element => {
+          arrayOfStrings.push(element.label);
+        });
+        resolve(arrayOfStrings);
       }
+
     });
   }
 

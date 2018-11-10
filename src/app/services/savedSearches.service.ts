@@ -7,35 +7,40 @@ import { SavedSearchApi, SavedSearch, LoopBackFilter } from '../../../sdk'
 export class SavedSearchesService {
   constructor(
     private savedSearchApi: SavedSearchApi
-  ){}
+  ) {}
 
-  createSearch(userEmail, ips, queryName, description){
-      let data = new SavedSearch();
+  createSearch(userEmail, ips, queryName, description) {
+      const data = new SavedSearch();
       data.queryName = queryName;
       data.userEmail = userEmail;
-      data.ips = ips;
+
+      data.ips = [];
+      ips.forEach(element => {
+        data.ips.push(element.label);
+      });
+
       data.description = description ? description : '';
 
       return this.savedSearchApi.create<SavedSearch>(data)
       .toPromise();
   }
 
-  getUserSearchById(savedSearchId){
+  getUserSearchById(savedSearchId) {
     return this.savedSearchApi.findById<SavedSearch>(savedSearchId)
     .toPromise();
   }
 
-  getUserSearches(userEmail){
-    let filter: LoopBackFilter = {
-        "where": {
-          "userEmail": userEmail
+  getUserSearches(userEmail) {
+    const filter: LoopBackFilter = {
+        'where': {
+          'userEmail': userEmail
         }
-      }
+      };
       return this.savedSearchApi.find<SavedSearch>(filter)
-      .toPromise()
+      .toPromise();
   }
 
-  deleteSearch(id){
+  deleteSearch(id) {
     return this.savedSearchApi.deleteById<SavedSearch>(id)
     .toPromise();
   }
