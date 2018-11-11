@@ -49,6 +49,8 @@ import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
 import { AdminComponent, DeleteUserDialog, CreateUserDialog } from './admin/admin.component';
 import { AdminResolver } from './admin/admin.resolver';
+import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,10 @@ import { AdminResolver } from './admin/admin.resolver';
       useHash: false
     }
     ),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBusR6KbRONW95CPdaTs9o9i4vM13eG1oA'
+    }),
+    AgmSnazzyInfoWindowModule,
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,

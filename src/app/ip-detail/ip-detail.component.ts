@@ -40,7 +40,7 @@ export interface IpDetail {
   styleUrls: ['./ip-detail.component.css']
 })
 export class IpDetailComponent implements OnInit {
-  
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
