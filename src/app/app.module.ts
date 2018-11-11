@@ -51,6 +51,7 @@ import { AdminComponent, DeleteUserDialog, CreateUserDialog } from './admin/admi
 import { AdminResolver } from './admin/admin.resolver';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { GmapComponent } from './gmap/gmap.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
     CreateTagDialog,
     DeleteUserDialog,
     CreateUserDialog,
-    AdminComponent
+    AdminComponent,
+    GmapComponent
   ],
   imports: [
     RouterModule.forRoot(routes,

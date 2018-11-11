@@ -9,6 +9,7 @@ import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver'
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent } from './ip-tags/ip-tags.component';
+import { GmapComponent } from './gmap/gmap.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminResolver } from './admin/admin.resolver';
 
@@ -64,6 +65,18 @@ export const routes: Routes = [
 		path: 'tags',
 		component: IpTagsComponent,
 		resolve: {
+			isAuthenticated: LoginResolver
+		}
+	},
+	{
+		path: 'map',
+		component: GmapComponent
+	},
+	{
+		path: 'map/:queryType/:queryId',
+		component: GmapComponent,
+		resolve: {
+			queryData: IpQueryResolver,
 			isAuthenticated: LoginResolver
 		}
 	},
