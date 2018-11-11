@@ -13,18 +13,17 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   title = 'Musubu';
   oktaSignIn;
-  
-  
+
   constructor(
     private authService: AuthService,
-    private changeDetectorRef: ChangeDetectorRef, 
+    private changeDetectorRef: ChangeDetectorRef,
     public router: Router,
     public ipsService: IpsService,
     public userService: UserService) {
   }
 
   ngOnInit(){
-  
+
   }
 
   onClickBuyApp(){
@@ -33,7 +32,7 @@ export class AppComponent {
 
   onClickBuy(){
     window.open("https://musubu.io/pricing/", "_blank");
-  } 
+  }
 
   logout() {
     this.authService.logout();

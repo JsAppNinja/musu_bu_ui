@@ -8,11 +8,11 @@
 		<h2>IP Specific Detail</h2>
 		<div class="col-wrapper clearfix">
 			<div class="cols lg-2 md-2 sm-1 risk-circle">
-				<app-ip-risk-circle 
-					[title]="circleTitle" 
-					[subtitle]="circleSubtitle" 
-					[riskLevel]="circleRiskLevel" 
-					[backgroundColor]="circleBackgroundColor" 
+				<app-ip-risk-circle
+					[title]="circleTitle"
+					[subtitle]="circleSubtitle"
+					[riskLevel]="circleRiskLevel"
+					[backgroundColor]="circleBackgroundColor"
 					[outerStrokeColor]="circleOuterStrokeColor">
 				</app-ip-risk-circle>
 			</div>
@@ -96,6 +96,33 @@
 			        </mat-list-item>
 			    </mat-list>
 			</mat-card>
+		</div>
+	</section>
+	<section>
+		<div class="col-wrapper">
+			<div class="cols lg-2">
+				<h2>Address Mapping</h2>
+				<p>IP: {{ipDetail.ipaddress}}</p>
+				<p>Latitude/Longitude: {{ipGeoDetail.latitude}} / {{ipGeoDetail.longitude}}</p>
+				<div>
+					<p>Address:
+						<a href="https://www.google.com.sa/maps/search/{{ipGeoDetail.latitude}},{{ipGeoDetail.longitude}}" target="_blank">
+							{{ipGeoDetail.district}}
+							{{ipGeoDetail.city}}
+							{{ipGeoDetail.stateprov}}
+							{{ipGeoDetail.zipcode}}
+							{{ipGeoDetail.country}}
+						</a>
+					</p>
+				</div>
+			</div>
+			<div class="cols lg-2">
+				<agm-map [latitude]="+ipGeoDetail.latitude" [longitude]="+ipGeoDetail.longitude">
+				  <agm-marker [latitude]="+ipGeoDetail.latitude" [longitude]="+ipGeoDetail.longitude">
+						<agm-info-window>{{ipDetail.ipaddress}}</agm-info-window>
+					</agm-marker>
+				</agm-map>
+			</div>
 		</div>
 	</section>
 </div>

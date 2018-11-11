@@ -70,3 +70,7 @@ div, .content-container{
 		text-align: center;
 	}
 }
+
+agm-map {
+  height: 300px;
+}
