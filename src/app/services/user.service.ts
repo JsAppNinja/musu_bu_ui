@@ -10,6 +10,8 @@ export class UserService {
     private subscriptionPlanApi: SubscriptionPlanApi
   ){}
 
+  user;
+
   getOktaUser(id){
       return this.userApi.getOktaUser(id)
       .toPromise()

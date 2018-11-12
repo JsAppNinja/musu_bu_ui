@@ -29,16 +29,16 @@ export const routes: Routes = [
 		path: 'query/:queryType/:queryId',
 		component: IpQueryComponent,
 		resolve: {
+			isAuthenticated: LoginResolver,
 			queryData: IpQueryResolver,
-			isAuthenticated: LoginResolver
 		}
 	},
 	{
 		path: 'searches',
 		component: SavedSearchesComponent,
 		resolve: {
+			isAuthenticated: LoginResolver,
 			data: SavedSearchesResolver,
-			isAuthenticated: LoginResolver
 		}
 	},
 	{
@@ -71,8 +71,8 @@ export const routes: Routes = [
 		path: 'detail/:ipaddress',
 		component: IpDetailComponent,
 		resolve: {
-			data: IpDetailResolver,
-			isAuthenticated: LoginResolver
+			isAuthenticated: LoginResolver,
+			data: IpDetailResolver
 		}
 	}
 ];

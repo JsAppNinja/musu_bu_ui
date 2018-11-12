@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IpsService } from './services/ips.service';
 import { AuthService } from './services/auth.service';
 import { environment } from '../environments/environment';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,19 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = 'Musubu';
-  user;
   oktaSignIn;
+  
   
   constructor(
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef, 
     public router: Router,
-    public ipsService: IpsService) {
+    public ipsService: IpsService,
+    public userService: UserService) {
+  }
+
+  ngOnInit(){
+  
   }
 
   onClickBuyApp(){

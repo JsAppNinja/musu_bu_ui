@@ -80,6 +80,9 @@
 							{{detail}}
 							</mat-chip>
 						</mat-chip-list>
+						<button mat-mini-fab color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade for drill-in data on this field!" *ngIf="userService.user.subscriptionPlan !== 'large'">
+							<mat-icon aria-label="download icon">shop</mat-icon>
+						</button>
 			          	<mat-divider [inset]="true" *ngIf="!last"></mat-divider>
 			        </mat-list-item>
 			    </mat-list>

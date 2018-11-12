@@ -24,7 +24,20 @@ export class LoginResolver implements Resolve<any> {
             .then(result => {
               //If there is no record of the user in our DB, create it.
               if(result && result.length !== 0){
-                return resolve(isAuthenticated);
+                if(this.userService.user){
+                  return resolve(isAuthenticated);
+                }
+                else{
+                  this.userService.user = result[0]
+                  this.userService.getSubscriptionPlanObject(this.userService.user.subscriptionPlan)
+                  .then(result => {
+                    this.userService.user.subscriptionPlanObject = result[0];
+                    return resolve(isAuthenticated);
+                  }, err => {
+                    
+                  });
+                }
+                  
               }
               else{
                 this.userService.createUser({ email: this.user.email })

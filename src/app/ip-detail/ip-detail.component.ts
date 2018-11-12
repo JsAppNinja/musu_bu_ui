@@ -8,6 +8,7 @@ import { TagsService } from '../services/tags.service';
 import { FormControl } from '@angular/forms';
 import { map, startWith, switchMap, debounceTime } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 export interface IpDetail {
     ipaddress: string,
@@ -45,7 +46,8 @@ export class IpDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private _location: Location,
     private observableMedia: ObservableMedia,
-    private tagsService: TagsService
+    private tagsService: TagsService,
+    private userService: UserService
   ) { }
 
   tagsFormControl = new FormControl();
@@ -147,7 +149,6 @@ export class IpDetailComponent implements OnInit {
     }
   }
 
-  user;
   //Chip input properties for tags section
   visible = true;
   selectable = true;
@@ -163,7 +164,6 @@ export class IpDetailComponent implements OnInit {
 
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem("profile"));
     this.ipThreatDetail = {};
     this.ipGeoDetail = {};
     this.ipISPDetail = {};
@@ -201,7 +201,7 @@ export class IpDetailComponent implements OnInit {
     .pipe(
       debounceTime(300),
       switchMap(tag => {
-        return this.tagsService.findUserTagByName(this.user.email, tag, this.tags);
+        return this.tagsService.findUserTagByName(this.userService.user.email, tag, this.tags);
       })
     )
 
@@ -219,7 +219,7 @@ export class IpDetailComponent implements OnInit {
   }
 
   getIpTags(){
-    this.tagsService.getUserTagsByIp(this.ipDetail.ipaddress, this.user.email).toPromise().then(
+    this.tagsService.getUserTagsByIp(this.ipDetail.ipaddress, this.userService.user.email).toPromise().then(
       result => {
         this.tagsFull = result;
         this.tags = result.map(val =>{
@@ -256,11 +256,11 @@ export class IpDetailComponent implements OnInit {
       if(this.tags.length < this.tagsLimit){
         var trimmedValue = value.trim()
         if(!this.tags.includes(trimmedValue)){
-          this.tagsService.getUserTagByName(trimmedValue, this.user.email).toPromise().then(
+          this.tagsService.getUserTagByName(trimmedValue, this.userService.user.email).toPromise().then(
             result =>{
               if(result.length === 0){
                 //create
-                this.tagsService.createTag(trimmedValue, this.user.email, [this.ipDetail.ipaddress]).then(
+                this.tagsService.createTag(trimmedValue, this.userService.user.email, [this.ipDetail.ipaddress]).then(
                   result =>{
                     this.getIpTags();
                   },
@@ -328,6 +328,10 @@ export class IpDetailComponent implements OnInit {
         }
       }
     })
+  }
+
+  onClickBuyApp(){
+    window.open("https://musubu.io/app-pricing/", "_blank");
   }
 
   isArray(value){

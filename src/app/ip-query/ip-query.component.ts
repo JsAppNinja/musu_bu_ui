@@ -39,7 +39,7 @@ export class IpQueryComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
   ipsList;
-  ipQueryLimit;
+  ipQueryLimit=50;
   user;
   queryName;
   description;
@@ -61,25 +61,10 @@ export class IpQueryComponent implements OnInit {
     // this.route.data.subscribe(routeData => {
     //   this.user = routeData['user'];
     // })
-    this.user = JSON.parse(localStorage.getItem('profile'));
-    this.user.subscriptionPlan = "free";
-    this.ipQueryLimit = 50;
-    this.userService.getUserByEmail(this.user.email)
-    .then(result => {
-      this.user.subscriptionPlan = result[0].subscriptionPlan;
-      this.userService.getSubscriptionPlanObject(this.user.subscriptionPlan)
-      .then(result => {
-        this.user.subscriptionPlanObject = result[0];
-        this.ipQueryLimit = this.user.subscriptionPlanObject.ipQueryLimit;
-      }, err => {
-        
-      });
-      this.user.subscriptionPlan = result[0].subscriptionPlan;
-    },
-    err =>{
-
-    });
-    
+    this.user = this.userService.user;
+    if(this.userService.user.subscriptionPlanObject && this.userService.user.subscriptionPlanObject.ipQueryLimit){
+      this.ipQueryLimit = this.userService.user.subscriptionPlanObject.ipQueryLimit;
+    }
     this.ipsList = [];
     
 
@@ -263,6 +248,10 @@ export class IpQueryComponent implements OnInit {
           }
         }
       });
+  }
+
+  onClickBuyApp(){
+    window.open("https://musubu.io/app-pricing/", "_blank");
   }
 
   submitQuery = (ipsList): void => {

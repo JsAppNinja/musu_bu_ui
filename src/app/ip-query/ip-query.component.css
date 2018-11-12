@@ -35,6 +35,12 @@
     margin-bottom: auto;
 }
 
+.export-upgrade-message{
+    font-size: 75%;
+    text-align: right;
+    cursor: pointer;
+}
+
 .export-component-box {
     float: right;
 }
