@@ -338,6 +338,10 @@ export class IpDetailComponent implements OnInit {
     return Array.isArray(value);
   }
 
+  convertToSet(array){
+    return new Set(array);
+  }
+
   getKeys(map){
     return Object.keys(map);
   }

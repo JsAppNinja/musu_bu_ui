@@ -76,7 +76,7 @@
 			            <h3 mat-line>{{fieldNames[ipISPDetailKey]}}</h3>
 						<p mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey])"> {{ipISPDetail[ipISPDetailKey]}} </p>
 						<mat-chip-list mat-line #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey])">
-							<mat-chip *ngFor="let detail of ipISPDetail[ipISPDetailKey]" [selectable]="selectable">
+							<mat-chip *ngFor="let detail of convertToSet(ipISPDetail[ipISPDetailKey])" [selectable]="selectable">
 							{{detail}}
 							</mat-chip>
 						</mat-chip-list>
