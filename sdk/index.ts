@@ -52,6 +52,8 @@ import { IpDetailApi } from './services/custom/IpDetail';
 import { UserApi } from './services/custom/User';
 import { SavedSearchApi } from './services/custom/SavedSearch';
 import { TagApi } from './services/custom/Tag';
+import { IpRangeApi } from './services/custom/IpRange';
+import { SubscriptionPlanApi } from './services/custom/SubscriptionPlan';
 /**
 * @module SDKBrowserModule
 * @description
@@ -86,6 +88,8 @@ export class SDKBrowserModule {
         UserApi,
         SavedSearchApi,
         TagApi,
+        IpRangeApi,
+        SubscriptionPlanApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

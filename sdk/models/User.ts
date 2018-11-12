@@ -3,8 +3,10 @@
 declare var Object: any;
 export interface UserInterface {
   "email": string;
-  "firstName": string;
-  "lastName": string;
+  "firstName"?: string;
+  "lastName"?: string;
+  "subscriptionPlan": string;
+  "isAdmin"?: boolean;
   "id"?: any;
 }
 
@@ -12,6 +14,8 @@ export class User implements UserInterface {
   "email": string;
   "firstName": string;
   "lastName": string;
+  "subscriptionPlan": string;
+  "isAdmin": boolean;
   "id": any;
   constructor(data?: UserInterface) {
     Object.assign(this, data);
@@ -57,6 +61,15 @@ export class User implements UserInterface {
         "lastName": {
           name: 'lastName',
           type: 'string'
+        },
+        "subscriptionPlan": {
+          name: 'subscriptionPlan',
+          type: 'string',
+          default: 'free'
+        },
+        "isAdmin": {
+          name: 'isAdmin',
+          type: 'boolean'
         },
         "id": {
           name: 'id',

@@ -46,6 +46,8 @@ import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver'
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
+import { AdminComponent, DeleteUserDialog, CreateUserDialog } from './admin/admin.component';
+import { AdminResolver } from './admin/admin.resolver';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,10 @@ import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
     SavedSearchesComponent,
     TrendsComponent,
     IpTagsComponent,
-    CreateTagDialog
+    CreateTagDialog,
+    DeleteUserDialog,
+    CreateUserDialog,
+    AdminComponent
   ],
   imports: [
     RouterModule.forRoot(routes,
@@ -130,11 +135,14 @@ import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
     SavedSearchesResolver,
     IpQueryResolver,
     LoginResolver,
+    AdminResolver,
     MatDialog
   ],
   entryComponents: [
     QueryNameDialog,
-    CreateTagDialog
+    CreateTagDialog,
+    DeleteUserDialog,
+    CreateUserDialog
   ],
   bootstrap: [AppComponent]
 })

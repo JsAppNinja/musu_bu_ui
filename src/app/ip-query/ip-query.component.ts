@@ -10,6 +10,7 @@ import { TagsService } from '../services/tags.service';
 
 import saveAs from 'file-saver';
 import * as moment from 'moment';
+import { UserService } from '../services/user.service';
 
 export interface IPSummary {
   ipaddress: string;
@@ -38,7 +39,7 @@ export class IpQueryComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
   ipsList;
-  ipsLimit;
+  ipQueryLimit;
   user;
   queryName;
   description;
@@ -50,6 +51,7 @@ export class IpQueryComponent implements OnInit {
     private observableMedia: ObservableMedia,
     private savedSearchesService: SavedSearchesService,
     private tagsService: TagsService,
+    private userService: UserService,
     private route: ActivatedRoute,
     public dialog: MatDialog
   ) { }
@@ -60,9 +62,26 @@ export class IpQueryComponent implements OnInit {
     //   this.user = routeData['user'];
     // })
     this.user = JSON.parse(localStorage.getItem('profile'));
+    this.user.subscriptionPlan = "free";
+    this.ipQueryLimit = 50;
+    this.userService.getUserByEmail(this.user.email)
+    .then(result => {
+      this.user.subscriptionPlan = result[0].subscriptionPlan;
+      this.userService.getSubscriptionPlanObject(this.user.subscriptionPlan)
+      .then(result => {
+        this.user.subscriptionPlanObject = result[0];
+        this.ipQueryLimit = this.user.subscriptionPlanObject.ipQueryLimit;
+      }, err => {
+        
+      });
+      this.user.subscriptionPlan = result[0].subscriptionPlan;
+    },
+    err =>{
 
+    });
+    
     this.ipsList = [];
-    this.ipsLimit = 50;
+    
 
     this.route.data.subscribe(routeData => {
 
@@ -206,7 +225,7 @@ export class IpQueryComponent implements OnInit {
 
     // Add our ip
     if ((value || '').trim()) {
-      if (this.ipsList.length < this.ipsLimit) {
+      if (this.ipsList.length < this.ipQueryLimit) {
         const trimmedValue = value.trim();
         if (!this.ipsList.includes(trimmedValue)) {
           this.ipsList.push(value.trim());
@@ -236,7 +255,7 @@ export class IpQueryComponent implements OnInit {
       .split(/,|\n/)
       .forEach(value => {
         if ((value || '').trim()) {
-          if (this.ipsList.length < this.ipsLimit) {
+          if (this.ipsList.length < this.ipQueryLimit) {
             const trimmedValue = value.trim();
             if (!this.ipsList.includes(trimmedValue)) {
               this.ipsList.push(value.trim());

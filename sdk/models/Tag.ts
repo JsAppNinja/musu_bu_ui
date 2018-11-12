@@ -4,7 +4,7 @@ declare var Object: any;
 export interface TagInterface {
   "name": string;
   "userEmail": string;
-  "ips": Array<any>;
+  "ips"?: Array<any>;
   "createdOn": Date;
   "id"?: any;
 }

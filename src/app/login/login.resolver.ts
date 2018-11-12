@@ -16,10 +16,28 @@ export class LoginResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot) {
     var router = this.router;
+    this.user = JSON.parse(localStorage.getItem("profile"));
     return new Promise ((resolve, reject) => {
         var isAuthenticated = this.authService.isAuthenticated();
         if(isAuthenticated){
-            return resolve(isAuthenticated);
+            this.userService.getUserByEmail(this.user.email)
+            .then(result => {
+              //If there is no record of the user in our DB, create it.
+              if(result && result.length !== 0){
+                return resolve(isAuthenticated);
+              }
+              else{
+                this.userService.createUser({ email: this.user.email })
+                .then(result => {
+                  return resolve(isAuthenticated);
+                }, 
+                err =>{
+
+                });
+                
+              }
+            })
+            
         }
         else{
             this.router.navigate(['login']);
