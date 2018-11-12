@@ -30,6 +30,9 @@
                 <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
                     <mat-icon>save</mat-icon> Save
                 </button>
+                <button mat-flat-button (click)="openImportDialog()" [disabled]="ipsList.length > 0" class="button-bottom-spacing">
+                    <mat-icon>description</mat-icon> Import
+                </button>
             </div>
         </mat-card>
     </section>

@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+  <p>Import by File</p>
+  <label>Your ____ plan allows for ____ IPs</label>
+  <label class="horizontal-center">File Type: </label>
+  <mat-form-field>
+    <mat-select class="horizontal-center" [(value)]="fileType">
+      <mat-option value="csv">CSV</mat-option>
+      <mat-option value="json">JSON</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx">
+
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <div class="button-row">
+    <button mat-flat-button (click)="onNoClick()">Cancel</button>
+    <button mat-flat-button [mat-dialog-close]="data" cdkFocusInitial [disabled]="!data.queryName || data.queryName.length === 0">Save</button>
+  </div>
+</div>

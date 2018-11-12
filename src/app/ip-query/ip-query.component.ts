@@ -30,6 +30,11 @@ export interface QueryNameDialogData {
   queryName: string;
   description: string;
 }
+
+export interface ImportDialogData {
+  ipsList: any[];
+}
+
 @Component({
   selector: 'app-ip-query',
   templateUrl: './ip-query.component.html',
@@ -172,6 +177,22 @@ export class IpQueryComponent implements OnInit {
       if (result) {
         this.queryName = result.queryName;
         this.description = result.description;
+        this.save();
+      }
+    });
+  }
+
+  openImportDialog(): void {
+    const importDialogRef = this.dialog.open(ImportDialogComponent, {
+      width: '275px',
+      data: {
+        ipsList: this.ipsList
+      }
+    });
+
+    importDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // 
         this.save();
       }
     });
@@ -352,6 +373,23 @@ export class QueryNameDialog {
   constructor(
     public dialogRef: MatDialogRef<QueryNameDialog>,
     @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'app-import-dialog',
+  templateUrl: 'import-dialog.html',
+  styleUrls: ['ip-query.component.css']
+})
+export class ImportDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<ImportDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ImportDialogData) { }
 
   onNoClick(): void {
     this.dialogRef.close();
