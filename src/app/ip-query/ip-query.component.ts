@@ -12,6 +12,14 @@ import saveAs from 'file-saver';
 import * as moment from 'moment';
 import { UserService } from '../services/user.service';
 
+import * as _ from 'lodash';
+
+import { Address4, Address6 } from 'ip-address';
+
+export interface Ip {
+  label: string;
+}
+
 export interface IPSummary {
   ipaddress: string;
   threat_potential_score_pct: number;
@@ -31,18 +39,20 @@ export interface QueryNameDialogData {
 export class IpQueryComponent implements OnInit {
   // Chip input properties
   visible = true;
-  selectable = true;
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
-  ipsList;
-  ipQueryLimit=50;
+
+  ipQueryLimit = 50;
+  ipsList: Ip[] = [];
+
   user;
   queryName;
   description;
+  isFormInvalid: boolean;
 
   exportType = 'csv';
 
@@ -62,11 +72,10 @@ export class IpQueryComponent implements OnInit {
     //   this.user = routeData['user'];
     // })
     this.user = this.userService.user;
-    if(this.userService.user.subscriptionPlanObject && this.userService.user.subscriptionPlanObject.ipQueryLimit){
+    if (this.userService.user.subscriptionPlanObject && this.userService.user.subscriptionPlanObject.ipQueryLimit) {
       this.ipQueryLimit = this.userService.user.subscriptionPlanObject.ipQueryLimit;
     }
     this.ipsList = [];
-    
 
     this.route.data.subscribe(routeData => {
 
@@ -114,7 +123,11 @@ export class IpQueryComponent implements OnInit {
   getAndRunUserSearch(savedSearchId) {
     this.savedSearchesService.getUserSearchById(savedSearchId).then(
       (result) => {
-        this.ipsList = result.ips;
+        if (result && result.ips) {
+          result.ips.forEach(ip => {
+            this.ipsList.push({label: ip });
+          });
+        }
         this.submitQuery(this.ipsList);
       },
       (err) => {
@@ -126,7 +139,11 @@ export class IpQueryComponent implements OnInit {
   getAndRunTagSearch(tagId) {
     this.tagsService.getUserTagById(tagId).then(
       (result) => {
-        this.ipsList = result.ips;
+        if (result && result.ips) {
+          result.ips.forEach(ip => {
+            this.ipsList.push({label: ip });
+          });
+        }
         this.submitQuery(this.ipsList);
       },
       (err) => {
@@ -212,8 +229,8 @@ export class IpQueryComponent implements OnInit {
     if ((value || '').trim()) {
       if (this.ipsList.length < this.ipQueryLimit) {
         const trimmedValue = value.trim();
-        if (!this.ipsList.includes(trimmedValue)) {
-          this.ipsList.push(value.trim());
+        if (_.findIndex(this.ipsList, function(o) { return o.label === trimmedValue; }) === -1) {
+          this.ipsList.push({ label: value.trim() });
         }
       }
     }
@@ -226,7 +243,7 @@ export class IpQueryComponent implements OnInit {
 
   // Removes chips to the textbox
   remove(ip): void {
-    const index = this.ipsList.indexOf(ip);
+    const index = _.findIndex(this.ipsList, function(o) { return o.label === ip; });
     if (index >= 0) {
       this.ipsList.splice(index, 1);
     }
@@ -242,16 +259,16 @@ export class IpQueryComponent implements OnInit {
         if ((value || '').trim()) {
           if (this.ipsList.length < this.ipQueryLimit) {
             const trimmedValue = value.trim();
-            if (!this.ipsList.includes(trimmedValue)) {
-              this.ipsList.push(value.trim());
+            if (_.findIndex(this.ipsList, function(o) { return o.label === trimmedValue; }) === -1) {
+              this.ipsList.push({ label: value.trim() });
             }
           }
         }
       });
   }
 
-  onClickBuyApp(){
-    window.open("https://musubu.io/app-pricing/", "_blank");
+  onClickBuyApp() {
+    window.open('https://musubu.io/app-pricing/', '_blank');
   }
 
   submitQuery = (ipsList): void => {
@@ -260,25 +277,65 @@ export class IpQueryComponent implements OnInit {
     this.ipsService.lowRiskCircle.count = 0;
     this.ipsList = ipsList;
     if (ipsList.length !== 0) {
-      this.ipsService.getIpsDetail(ipsList).then(
-        results => {
-          this.ipsService.dataSource.data = results.ipsDetail;
-          this.ipsService.dataSource.sort = this.sort;
-          results.ipsDetail.forEach(element => {
-            if (element.threat_classification === 'High') {
-              this.ipsService.highRiskCircle.count++;
-            }
-            if (element.threat_classification === 'Medium') {
-              this.ipsService.mediumRiskCircle.count++;
-            }
-            if (element.threat_classification === 'Low') {
-              this.ipsService.lowRiskCircle.count++;
-            }
-          });
-        }
-      );
+      this.validateIpListDeferred(ipsList)
+      .then((cleanIpsList) => {
+        this.isFormInvalid = false;
+
+        this.ipsService.getIpsDetail(cleanIpsList).then(
+          results => {
+            this.ipsService.dataSource.data = results.ipsDetail;
+            this.ipsService.dataSource.sort = this.sort;
+            results.ipsDetail.forEach(element => {
+              if (element.threat_classification === 'High') {
+                this.ipsService.highRiskCircle.count++;
+              }
+              if (element.threat_classification === 'Medium') {
+                this.ipsService.mediumRiskCircle.count++;
+              }
+              if (element.threat_classification === 'Low') {
+                this.ipsService.lowRiskCircle.count++;
+              }
+            });
+          }
+        );
+      }, (invalidList) => {
+        this.isFormInvalid = true;
+        this.ipsService.dataSource.data = [];
+      });
     }
   }
+
+  validateIpListDeferred = (ipsList): any => {
+    return new Promise(function (resolve, reject) {
+      let anyInvalids = false;
+      ipsList.forEach(ip => {
+        const addressV6 = new Address6(ip.label);
+        const addressV4 = new Address4(ip.label);
+
+        const isValidIP = (addressV4.isValid() || addressV6.isValid());
+
+        if (!isValidIP) {
+          anyInvalids = true;
+          ip.isInvalid = true;
+        } else {
+          ip.isInvalid = false;
+        }
+      });
+
+      if (anyInvalids) {
+        reject(ipsList);
+      } else {
+        const arrayOfStrings = [];
+        ipsList.forEach(element => {
+          arrayOfStrings.push(element.label);
+        });
+        resolve(arrayOfStrings);
+      }
+
+    });
+  }
+
+
   gridByBreakpoint = {
     xl: 3,
     lg: 3,
@@ -295,14 +352,14 @@ export class IpQueryComponent implements OnInit {
 }
 
 @Component({
-  selector: 'query-name-dialog',
+  selector: 'app-query-name-dialog',
   templateUrl: 'query-name-dialog.html',
   styleUrls: ['ip-query.component.css']
 })
-export class QueryNameDialog {
+export class QueryNameDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<QueryNameDialog>,
+    public dialogRef: MatDialogRef<QueryNameDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData) { }
 
   onNoClick(): void {
