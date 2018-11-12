@@ -165,7 +165,7 @@ export class IpQueryComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(QueryNameDialog, {
+    const dialogRef = this.dialog.open(QueryNameDialogComponent, {
       width: '275px',
       data: {
         queryName: this.queryName,

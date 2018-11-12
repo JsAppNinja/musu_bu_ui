@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { SDKBrowserModule } from '../../sdk/index';
 import { AppComponent } from './app.component';
-import { IpQueryComponent, QueryNameDialog } from './ip-query/ip-query.component';
+import { IpQueryComponent, QueryNameDialogComponent } from './ip-query/ip-query.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import {
@@ -56,7 +56,7 @@ import { AdminResolver } from './admin/admin.resolver';
     IpDetailComponent,
     LoginComponent,
     IpRiskCircleComponent,
-    QueryNameDialog,
+    QueryNameDialogComponent,
     SavedSearchesComponent,
     TrendsComponent,
     IpTagsComponent,
@@ -123,7 +123,7 @@ import { AdminResolver } from './admin/admin.resolver';
     MatIconModule,
     MatTooltipModule,
     MatSortModule,
-    QueryNameDialog,
+    QueryNameDialogComponent,
     MatSidenavModule,
     MatMenuModule,
     MatButtonToggleModule,
@@ -139,7 +139,7 @@ import { AdminResolver } from './admin/admin.resolver';
     MatDialog
   ],
   entryComponents: [
-    QueryNameDialog,
+    QueryNameDialogComponent,
     CreateTagDialog,
     DeleteUserDialog,
     CreateUserDialog
