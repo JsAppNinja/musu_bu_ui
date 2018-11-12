@@ -16,6 +16,11 @@
                         <input placeholder="Search by IP address" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                           [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
                     </mat-chip-list>
+                    <mat-hint align="start">
+                        <mat-error *ngIf="isFormInvalid">
+                            One or more entries are invalid IP Addresses.
+                        </mat-error>
+                    </mat-hint>
                     <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
                 </mat-form-field>
             </form>
