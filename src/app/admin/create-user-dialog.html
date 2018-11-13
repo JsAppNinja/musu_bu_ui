@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+    <p>Name your search</p>
+    <mat-form-field class="dialog-input">
+      <input matInput placeholder="Email" [(ngModel)]="data.user.email">
+    </mat-form-field>
+    <mat-form-field class="dialog-input">
+        <mat-select placeholder="Subscription Plan" [(ngModel)]="data.user.subscriptionPlan">
+            <mat-option *ngFor="let subscriptionPlan of data.subscriptionPlans" [value]="subscriptionPlan.name">
+                {{subscriptionPlan.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-checkbox [(ngModel)]="data.user.isAdmin">Is Admin?</mat-checkbox>
+  </div>
+  <div mat-dialog-actions align="end">
+      <div class="button-row">
+          <button mat-flat-button (click)="onNoClick()">Cancel</button>
+          <button mat-flat-button [mat-dialog-close]="data" cdkFocusInitial [disabled]="!data.user.email || data.user.email.length === 0">Save</button>
+      </div>
+  </div>

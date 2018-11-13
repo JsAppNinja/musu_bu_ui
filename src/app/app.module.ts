@@ -6,7 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { SDKBrowserModule } from '../../sdk/index';
 import { AppComponent } from './app.component';
-import { IpQueryComponent, QueryNameDialog, ImportDialogComponent } from './ip-query/ip-query.component';
+import { IpQueryComponent, QueryNameDialogComponent, ImportDialogComponent } from './ip-query/ip-query.component';
+
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import {
@@ -46,6 +47,8 @@ import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver'
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
+import { AdminComponent, DeleteUserDialog, CreateUserDialog } from './admin/admin.component';
+import { AdminResolver } from './admin/admin.resolver';
 
 @NgModule({
   declarations: [
@@ -54,12 +57,15 @@ import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
     IpDetailComponent,
     LoginComponent,
     IpRiskCircleComponent,
-    QueryNameDialog,
     ImportDialogComponent,
+    QueryNameDialogComponent,
     SavedSearchesComponent,
     TrendsComponent,
     IpTagsComponent,
-    CreateTagDialog
+    CreateTagDialog,
+    DeleteUserDialog,
+    CreateUserDialog,
+    AdminComponent
   ],
   imports: [
     RouterModule.forRoot(routes,
@@ -119,8 +125,8 @@ import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
     MatIconModule,
     MatTooltipModule,
     MatSortModule,
-    QueryNameDialog,
     ImportDialogComponent,
+    QueryNameDialogComponent,
     MatSidenavModule,
     MatMenuModule,
     MatButtonToggleModule,
@@ -132,12 +138,16 @@ import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
     SavedSearchesResolver,
     IpQueryResolver,
     LoginResolver,
+    AdminResolver,
     MatDialog
   ],
   entryComponents: [
-    QueryNameDialog,
     ImportDialogComponent,
     CreateTagDialog
+    QueryNameDialogComponent,
+    CreateTagDialog,
+    DeleteUserDialog,
+    CreateUserDialog
   ],
   bootstrap: [AppComponent]
 })

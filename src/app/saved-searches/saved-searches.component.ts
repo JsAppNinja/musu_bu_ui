@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SavedSearchesService } from '../services/savedSearches.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-saved-searches',
@@ -9,7 +10,6 @@ import * as moment from 'moment';
   styleUrls: ['./saved-searches.component.css']
 })
 export class SavedSearchesComponent implements OnInit {
-  user;
   queryName;
   savedSearches=[];
   savedSearchesGridColumns: string[] = ['queryName', 'description', 'createdOn', 'deleteButton']
@@ -17,11 +17,11 @@ export class SavedSearchesComponent implements OnInit {
   constructor(
     private savedSearchesService: SavedSearchesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
     ) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem("profile"));
     this.route.data.subscribe(routeData => {
       let data = routeData['data'];
       if (data) {
@@ -35,7 +35,7 @@ export class SavedSearchesComponent implements OnInit {
   }
 
   getUserSearches(){
-    this.savedSearchesService.getUserSearches(this.user.email).then(
+    this.savedSearchesService.getUserSearches(this.userService.user.email).then(
       (result) => {
         this.savedSearches = result;
       },
