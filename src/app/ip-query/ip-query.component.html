@@ -24,7 +24,6 @@
                     <mat-hint align="end">{{ipsList.length}} / {{ipQueryLimit}}</mat-hint>
                 </mat-form-field>
             </form>
-            <label class="warning-message" *ngIf="isFormInvalid">One or more IP Address are not valid IP Addresses.</label>
             <div class="button-row">
                 <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
                     <mat-icon>search</mat-icon> Search
