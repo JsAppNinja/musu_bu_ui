@@ -9,6 +9,8 @@ import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver'
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent } from './ip-tags/ip-tags.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminResolver } from './admin/admin.resolver';
 
 export const routes: Routes = [
 	{
@@ -27,16 +29,16 @@ export const routes: Routes = [
 		path: 'query/:queryType/:queryId',
 		component: IpQueryComponent,
 		resolve: {
+			isAuthenticated: LoginResolver,
 			queryData: IpQueryResolver,
-			isAuthenticated: LoginResolver
 		}
 	},
 	{
 		path: 'searches',
 		component: SavedSearchesComponent,
 		resolve: {
+			isAuthenticated: LoginResolver,
 			data: SavedSearchesResolver,
-			isAuthenticated: LoginResolver
 		}
 	},
 	{
@@ -44,19 +46,33 @@ export const routes: Routes = [
 		component: LoginComponent
 	},
 	{
+		path: 'admin',
+		component: AdminComponent,
+		resolve: {
+			isAuthenticated: LoginResolver,
+			isAdmin: AdminResolver
+		}
+	},
+	{
 		path: 'trends',
-		component: TrendsComponent
+		component: TrendsComponent,
+		resolve: {
+			isAuthenticated: LoginResolver
+		}
 	},
 	{
 		path: 'tags',
-		component: IpTagsComponent
+		component: IpTagsComponent,
+		resolve: {
+			isAuthenticated: LoginResolver
+		}
 	},
 	{
 		path: 'detail/:ipaddress',
 		component: IpDetailComponent,
 		resolve: {
-			data: IpDetailResolver,
-			isAuthenticated: LoginResolver
+			isAuthenticated: LoginResolver,
+			data: IpDetailResolver
 		}
 	}
 ];

@@ -21,7 +21,7 @@
                             One or more entries are invalid IP Addresses.
                         </mat-error>
                     </mat-hint>
-                    <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
+                    <mat-hint align="end">{{ipsList.length}} / {{ipQueryLimit}}</mat-hint>
                 </mat-form-field>
             </form>
             <div class="button-row">
@@ -61,14 +61,17 @@
 
     <section [hidden]="ipsService.dataSource.data.length === 0">
         <div class="export-component-box">
+            <div class="export-upgrade-message" *ngIf="userService.user.subscriptionPlan !== 'large'">
+                <a (click)="onClickBuyApp()"><div>Upgrade to export!</div></a>
+            </div>
             <label class="horizontal-center">Export as: </label>
             <mat-form-field>
-                <mat-select class="horizontal-center" [(value)]="exportType">
+                <mat-select class="horizontal-center" [(value)]="exportType" [disabled]="userService.user.subscriptionPlan !== 'large'">
                     <mat-option value="csv">CSV</mat-option>
                     <mat-option value="json">JSON</mat-option>
                 </mat-select>
             </mat-form-field>
-            <button mat-mini-fab color="primary" (click)="export()">
+            <button mat-mini-fab color="primary" (click)="export()" [disabled]="userService.user.subscriptionPlan !== 'large'">
                 <mat-icon aria-label="download icon">cloud_download</mat-icon>
             </button>
         </div>

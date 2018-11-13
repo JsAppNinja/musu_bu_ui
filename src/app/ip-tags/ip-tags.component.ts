@@ -6,6 +6,7 @@ import { FormControl, Validators, AbstractControl, ValidationErrors, AsyncValida
 import { Observable } from 'rxjs';
 import { debounce, debounceTime, take, map } from 'rxjs/operators'
 import { timer, from } from 'rxjs'
+import { UserService } from '../services/user.service';
 
 export interface QueryNameDialogData {
   dialogName: string;
@@ -21,19 +22,18 @@ export interface QueryNameDialogData {
 export class IpTagsComponent implements OnInit {
   tagsGridColumns: string[] = ['name', 'date', 'options']
   tags;
-  user;
   constructor(
     private tagsService: TagsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem("profile"));
     this.getUserTags();
   }
 
   getUserTags(){
-    this.tagsService.getUserTags(this.user.email).then(
+    this.tagsService.getUserTags(this.userService.user.email).then(
       (result) => {
         this.tags = result;
       },
@@ -49,7 +49,7 @@ export class IpTagsComponent implements OnInit {
       data: {
         tagData: data,
         tagName: data.name ? data.name : "",
-        user: this.user.email,
+        user: this.userService.user.email,
         dialogName: dialogName,
         submitButtonName: submitButtonNAme
       }
@@ -66,7 +66,7 @@ export class IpTagsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         if(type === "create"){
-          this.tagsService.createTag(result.tagName, this.user.email, []).then(
+          this.tagsService.createTag(result.tagName, this.userService.user.email, []).then(
             result => {
               this.getUserTags();
             },

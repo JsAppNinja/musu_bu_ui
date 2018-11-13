@@ -4,6 +4,8 @@ import { IpDetail } from '../../models/IpDetail';
 import { User } from '../../models/User';
 import { SavedSearch } from '../../models/SavedSearch';
 import { Tag } from '../../models/Tag';
+import { IpRange } from '../../models/IpRange';
+import { SubscriptionPlan } from '../../models/SubscriptionPlan';
 
 export interface Models { [name: string]: any }
 
@@ -15,6 +17,8 @@ export class SDKModels {
     User: User,
     SavedSearch: SavedSearch,
     Tag: Tag,
+    IpRange: IpRange,
+    SubscriptionPlan: SubscriptionPlan,
     
   };
 

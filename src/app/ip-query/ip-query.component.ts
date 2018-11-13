@@ -10,6 +10,7 @@ import { TagsService } from '../services/tags.service';
 
 import saveAs from 'file-saver';
 import * as moment from 'moment';
+import { UserService } from '../services/user.service';
 
 import * as _ from 'lodash';
 
@@ -44,8 +45,10 @@ export class IpQueryComponent implements OnInit {
   displayedColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('grid') grid: MatGridList;
+
+  ipQueryLimit = 50;
   ipsList: Ip[] = [];
-  ipsLimit;
+
   user;
   queryName;
   description;
@@ -58,6 +61,7 @@ export class IpQueryComponent implements OnInit {
     private observableMedia: ObservableMedia,
     private savedSearchesService: SavedSearchesService,
     private tagsService: TagsService,
+    private userService: UserService,
     private route: ActivatedRoute,
     public dialog: MatDialog
   ) { }
@@ -67,10 +71,11 @@ export class IpQueryComponent implements OnInit {
     // this.route.data.subscribe(routeData => {
     //   this.user = routeData['user'];
     // })
-    this.user = JSON.parse(localStorage.getItem('profile'));
-
+    this.user = this.userService.user;
+    if (this.userService.user.subscriptionPlanObject && this.userService.user.subscriptionPlanObject.ipQueryLimit) {
+      this.ipQueryLimit = this.userService.user.subscriptionPlanObject.ipQueryLimit;
+    }
     this.ipsList = [];
-    this.ipsLimit = 50;
 
     this.route.data.subscribe(routeData => {
 
@@ -160,7 +165,7 @@ export class IpQueryComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(QueryNameDialog, {
+    const dialogRef = this.dialog.open(QueryNameDialogComponent, {
       width: '275px',
       data: {
         queryName: this.queryName,
@@ -222,7 +227,7 @@ export class IpQueryComponent implements OnInit {
 
     // Add our ip
     if ((value || '').trim()) {
-      if (this.ipsList.length < this.ipsLimit) {
+      if (this.ipsList.length < this.ipQueryLimit) {
         const trimmedValue = value.trim();
         if (_.findIndex(this.ipsList, function(o) { return o.label === trimmedValue; }) === -1) {
           this.ipsList.push({ label: value.trim() });
@@ -252,7 +257,7 @@ export class IpQueryComponent implements OnInit {
       .split(/,|\n/)
       .forEach(value => {
         if ((value || '').trim()) {
-          if (this.ipsList.length < this.ipsLimit) {
+          if (this.ipsList.length < this.ipQueryLimit) {
             const trimmedValue = value.trim();
             if (_.findIndex(this.ipsList, function(o) { return o.label === trimmedValue; }) === -1) {
               this.ipsList.push({ label: value.trim() });
@@ -260,6 +265,10 @@ export class IpQueryComponent implements OnInit {
           }
         }
       });
+  }
+
+  onClickBuyApp() {
+    window.open('https://musubu.io/app-pricing/', '_blank');
   }
 
   submitQuery = (ipsList): void => {
@@ -343,14 +352,14 @@ export class IpQueryComponent implements OnInit {
 }
 
 @Component({
-  selector: 'query-name-dialog',
+  selector: 'app-query-name-dialog',
   templateUrl: 'query-name-dialog.html',
   styleUrls: ['ip-query.component.css']
 })
-export class QueryNameDialog {
+export class QueryNameDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<QueryNameDialog>,
+    public dialogRef: MatDialogRef<QueryNameDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData) { }
 
   onNoClick(): void {

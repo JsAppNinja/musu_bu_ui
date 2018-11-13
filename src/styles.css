@@ -121,6 +121,15 @@ button.button-black,
     vertical-align: text-bottom;
 }
 
+.mat-chip.mat-standard-chip.mat-warn{
+	background-color: #f44336;
+	color: #fff;
+}
+.mat-chip.mat-standard-chip.mat-warn .mat-chip-remove{
+    color: #fff;
+    opacity: 0.7;
+}
+
 section{
     padding: 20px 0;
 }
