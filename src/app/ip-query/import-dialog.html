@@ -28,7 +28,7 @@
 
   <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".json,.csv">
   <br/>
-  <label>Your file contains {{ data.ipsList.length }} IP Addresses.</label>
+  <label *ngIf="fileChanged">Your file contains {{ data.ipsList.length }} IP Addresses.</label>
   <br/>
 </div>
 <div mat-dialog-actions align="end">

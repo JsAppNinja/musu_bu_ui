@@ -399,11 +399,13 @@ export class QueryNameDialogComponent {
 export class ImportDialogComponent {
 
   importFileType = 'csv';
+  fileChanged = false;
 
   constructor(
     public dialogRef: MatDialogRef<ImportDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ImportDialogData) {
       data.ipsList = [];
+      this.fileChanged = false;
     }
 
   onNoClick(): void {
@@ -413,6 +415,7 @@ export class ImportDialogComponent {
   fileChange(event) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
+        this.fileChanged = false;
         const file: File = fileList[0];
 
         const reader = new FileReader();
@@ -443,6 +446,7 @@ export class ImportDialogComponent {
                 }
               }
             }
+            this.fileChanged = true;
         };
         reader.readAsText(file);
     }
