@@ -58,6 +58,11 @@
     color: red;
 }
 
+.import-code-pre {
+    width: 100%;
+    font-size: 11px;
+}
+
 @media screen and (max-width: 700px){
     .cdk-column-blacklist_class{
         display: none;

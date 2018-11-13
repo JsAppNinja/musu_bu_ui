@@ -33,6 +33,7 @@ export interface QueryNameDialogData {
 
 export interface ImportDialogData {
   ipsList: any[];
+  ipQueryLimit: number;
 }
 
 @Component({
@@ -184,16 +185,17 @@ export class IpQueryComponent implements OnInit {
 
   openImportDialog(): void {
     const importDialogRef = this.dialog.open(ImportDialogComponent, {
-      width: '275px',
+      width: '375px',
       data: {
-        ipsList: this.ipsList
+        ipsList: this.ipsList,
+        ipQueryLimit: this.ipsLimit
       }
     });
 
     importDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // 
-        this.save();
+        this.ipsList = result.ipsList;
+        this.submitQuery(this.ipsList);
       }
     });
   }
@@ -387,12 +389,54 @@ export class QueryNameDialog {
 })
 export class ImportDialogComponent {
 
+  importFileType = 'csv';
+
   constructor(
     public dialogRef: MatDialogRef<ImportDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ImportDialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: ImportDialogData) {
+      data.ipsList = [];
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  fileChange(event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+        const file: File = fileList[0];
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            // this 'text' is the content of the file
+            const text = reader.result as string;
+            if (this.importFileType === 'json') {
+              const parsed = JSON.parse(text);
+
+              for (let i = 0; i < parsed.length; i++) {
+                if (i - 1 >= this.data.ipQueryLimit) {
+                  break;
+                } else {
+                  this.data.ipsList.push({label: parsed[i].ipaddress});
+                }
+              }
+
+            } else { // is a csv
+              const rows = text.split('\r\n');
+              if (rows && rows.length > 0) {
+                for (let i = 1; i < rows.length; i++) {
+                  if (i - 1 >= this.data.ipQueryLimit) {
+                    break;
+                  } else {
+                    const cols = rows[i].split(',');
+                    this.data.ipsList.push({label: cols[0].replace(/\"*/gi, '')});
+                  }
+                }
+              }
+            }
+        };
+        reader.readAsText(file);
+    }
+}
 
 }
