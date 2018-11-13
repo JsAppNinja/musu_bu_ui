@@ -143,7 +143,6 @@ import { AdminResolver } from './admin/admin.resolver';
   ],
   entryComponents: [
     ImportDialogComponent,
-    CreateTagDialog
     QueryNameDialogComponent,
     CreateTagDialog,
     DeleteUserDialog,
