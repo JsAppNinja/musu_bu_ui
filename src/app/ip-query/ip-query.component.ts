@@ -193,7 +193,7 @@ export class IpQueryComponent implements OnInit {
       width: '375px',
       data: {
         ipsList: this.ipsList,
-        ipQueryLimit: this.ipsLimit
+        ipQueryLimit: this.ipQueryLimit
       }
     });
 
