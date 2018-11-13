@@ -7,7 +7,7 @@
       <mat-option value="json">JSON</mat-option>
     </mat-select>
   </mat-form-field>
-    <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".json,.csv">
+  <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".json,.csv">
   <label *ngIf="fileChanged">Your file contains {{ data.ipsList.length }} IP Addresses.</label>
   <br/>
   <pre *ngIf="importFileType === 'json'" class="import-code-pre">
