@@ -24,7 +24,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/musubu-app-theme.scss"
+              "src/musubu-app-theme.scss",
+              "node_modules/snazzy-info-window/dist/snazzy-info-window.css"
             ],
             "scripts": []
           },
