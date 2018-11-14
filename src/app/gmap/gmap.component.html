@@ -1,1 +1,52 @@
-<agm-map></agm-map>
+<div class="content-container">
+  <section>
+      <h2>Search</h2>
+      <p>Enter up to 50 comma-separated IP addresses in the search bar below, then click search.</p>
+      <mat-card>
+          <form class="ip-query">
+              <mat-form-field class="search-width">
+                  <mat-chip-list #chipList>
+                      <mat-chip *ngFor="let ip of ipsList" [selectable]="selectable" [removable]="removable" (removed)="remove(ip)">
+                          {{ip}}
+                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Search by IP address" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
+                  </mat-chip-list>
+                  <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
+              </mat-form-field>
+          </form>
+          <div class="button-row">
+              <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                  <mat-icon>search</mat-icon> Search
+              </button>
+              <button mat-flat-button color="warn" (click)="clear()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                  <mat-icon>clear</mat-icon> Clear
+              </button>
+              <button mat-flat-button [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                  <mat-icon>save</mat-icon> Save
+              </button>
+          </div>
+      </mat-card>
+  </section>
+  <section>
+    <agm-map>
+      <agm-marker
+        *ngFor="let ip of ipsGeoData; let i = index"
+        [latitude]="+ip.latitude"
+        [longitude]="+ip.longitude"
+      >
+        <agm-snazzy-info-window
+          [backgroundColor]="ip.color"
+          [latitude]="+ip.latitude"
+          [longitude]="+ip.longitude"
+          [isOpen]="true"
+        >
+          <ng-template>
+            {{ip.ipaddress}}
+          </ng-template>
+        </agm-snazzy-info-window>
+      </agm-marker>
+    </agm-map>
+  </section>
+</div>
