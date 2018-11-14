@@ -67,7 +67,7 @@ export class IpQueryComponent implements OnInit {
     private observableMedia: ObservableMedia,
     private savedSearchesService: SavedSearchesService,
     private tagsService: TagsService,
-    private userService: UserService,
+    public userService: UserService,
     private route: ActivatedRoute,
     public dialog: MatDialog
   ) { }

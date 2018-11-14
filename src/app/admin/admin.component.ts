@@ -20,7 +20,7 @@ export interface CreateUserDialogData {
 export class AdminComponent implements OnInit {
 
   constructor(private userService: UserService, public dialog: MatDialog) { }
-  currentUser={};
+  currentUser;
   users;
   subscriptionPlans;
   usersGridColumns: string[] = ['email', 'subscriptionPlan', 'isAdmin', 'deleteButton'];
