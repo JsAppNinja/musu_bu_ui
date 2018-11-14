@@ -124,12 +124,12 @@
 						</mat-list-item>
 						<mat-list-item role="listitem">
 							<h3 mat-line>Latitude/Longitude:</h3>
-							<p mat-line> {{ipGeoDetail.latitude}} / {{ipGeoDetail.longitude}} </p>
+							<p mat-line> {{latitude}} / {{longitude}} </p>
 							<mat-divider [inset]="true" *ngIf="!last"></mat-divider>
 						</mat-list-item>
 						<mat-list-item role="listitem">
 							<h3 mat-line>Address:</h3>
-							<a mat-line href="https://www.google.com/maps/search/{{ipGeoDetail.latitude}},{{ipGeoDetail.longitude}}" target="_blank">
+							<a mat-line href="https://www.google.com/maps/search/{{latitude}},{{longitude}}" target="_blank">
 								{{ipGeoDetail.district}}
 								{{ipGeoDetail.city}}
 								{{ipGeoDetail.stateprov}}
@@ -140,12 +140,12 @@
 					</mat-list>
 				</div>
 				<div class="cols gmap-content">
-					<agm-map [latitude]="+ipGeoDetail.latitude" [longitude]="+ipGeoDetail.longitude">
-						<agm-marker [latitude]="+ipGeoDetail.latitude" [longitude]="+ipGeoDetail.longitude">
+					<agm-map [latitude]="+latitude" [longitude]="+longitude">
+						<agm-marker [latitude]="+latitude" [longitude]="+longitude">
 							<agm-snazzy-info-window
 								[backgroundColor]="circleBackgroundColor"
-								[latitude]="+ipGeoDetail.latitude"
-								[longitude]="+ipGeoDetail.longitude"
+								[latitude]="+latitude"
+								[longitude]="+longitude"
 							 	[isOpen]="true"
 							>
 					      <ng-template>
