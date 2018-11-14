@@ -123,17 +123,17 @@
 							<mat-divider [inset]="true" *ngIf="!last"></mat-divider>
 						</mat-list-item>
 						<mat-list-item role="listitem">
-							<h3 mat-line>Latitude/Longitude:</h3>
+							<h3 mat-line>Latitude / Longitude</h3>
 							<p mat-line> {{latitude}} / {{longitude}} </p>
 							<mat-divider [inset]="true" *ngIf="!last"></mat-divider>
 						</mat-list-item>
 						<mat-list-item role="listitem">
-							<h3 mat-line>Address:</h3>
+							<h3 mat-line>Address</h3>
 							<a mat-line href="https://www.google.com/maps/search/{{latitude}},{{longitude}}" target="_blank">
-								{{ipGeoDetail.district}}
-								{{ipGeoDetail.city}}
-								{{ipGeoDetail.stateprov}}
-								{{ipGeoDetail.zipcode}}
+								{{ipGeoDetail.district}}<span *ngIf="ipGeoDetail.district !== ''">, </span>
+								{{ipGeoDetail.city}}<span *ngIf="ipGeoDetail.city !== ''">, </span>
+								{{ipGeoDetail.stateprov}}<span *ngIf="ipGeoDetail.stateprov !== ''">, </span> 
+								{{ipGeoDetail.zipcode}}<span *ngIf="ipGeoDetail.zipcode !== ''">, </span>
 								{{ipGeoDetail.country}}
 							</a>
 						</mat-list-item>
