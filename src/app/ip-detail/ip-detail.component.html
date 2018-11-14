@@ -54,7 +54,12 @@
 			    <mat-list role="list">
 			        <mat-list-item role="listitem" *ngFor="let ipThreatDetailKey of getKeys(ipThreatDetail); last as last">
 			            <h3 mat-line>{{fieldNames[ipThreatDetailKey]}}</h3>
-			            <p mat-line> {{ipThreatDetail[ipThreatDetailKey]}} </p>
+			            <p mat-line *ngIf="ipThreatDetailKey !== 'threat_potential_score_pct' && ipThreatDetailKey !== 'threat_classification' && ipThreatDetailKey !== 'blacklist_class'"> {{ipThreatDetail[ipThreatDetailKey]}} </p>
+			            <p mat-line *ngIf="ipThreatDetailKey == 'threat_potential_score_pct'"> {{ipThreatDetail[ipThreatDetailKey]}} </p>
+			            <p mat-line *ngIf="ipThreatDetailKey == 'threat_classification'"> {{ipThreatDetail[ipThreatDetailKey]}} </p>
+			            <mat-chip-list mat-line *ngIf="ipThreatDetailKey == 'blacklist_class'">
+			            	<mat-chip id="{{ipThreatDetail[ipThreatDetailKey]}}"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
+			            </mat-chip-list>
 			          	<mat-divider [inset]="true" *ngIf="!last"></mat-divider>
 			        </mat-list-item>
 			    </mat-list>

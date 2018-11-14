@@ -25,10 +25,25 @@ div, .content-container{
 	float: left;
 	width: 27.3%;
 }
+.mat-list h3{
+	font-weight: 500;
+}
+
+/* Threat */
+
+/* Blacklist Class*/
+.mat-chip#tor{
+	background-color: #774C93;
+	color: #fff;
+}
+
+/* Geo-location */
 .card-grid .middle{
 	margin-left: 2%;
 	margin-right: 2%;
 }
+
+/* ISP & Network Info */
 .card-grid-card.last .mat-list-item{
 	height: auto;
 }
@@ -38,7 +53,7 @@ div, .content-container{
 .card-grid-card.last p{
 	padding-bottom: 9px;
 }
-.card-grid-card .mat-chip-list{
+.card-grid-card.last .mat-chip-list{
 	padding: 5px 0 15px;
 }
 
