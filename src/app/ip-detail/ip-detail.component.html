@@ -98,15 +98,15 @@
 			</mat-card>
 		</div>
 	</section>
-	<section>
+	<section class="container">
 		<div class="col-wrapper">
-			<div class="cols lg-2">
+			<div class="cols gmap-detail">
 				<h2>Address Mapping</h2>
 				<p>IP: {{ipDetail.ipaddress}}</p>
 				<p>Latitude/Longitude: {{ipGeoDetail.latitude}} / {{ipGeoDetail.longitude}}</p>
 				<div>
 					<p>Address:
-						<a href="https://www.google.com.sa/maps/search/{{ipGeoDetail.latitude}},{{ipGeoDetail.longitude}}" target="_blank">
+						<a href="https://www.google.com/maps/search/{{ipGeoDetail.latitude}},{{ipGeoDetail.longitude}}" target="_blank">
 							{{ipGeoDetail.district}}
 							{{ipGeoDetail.city}}
 							{{ipGeoDetail.stateprov}}
@@ -116,10 +116,19 @@
 					</p>
 				</div>
 			</div>
-			<div class="cols lg-2">
+			<div class="cols gmap-content">
 				<agm-map [latitude]="+ipGeoDetail.latitude" [longitude]="+ipGeoDetail.longitude">
-				  <agm-marker [latitude]="+ipGeoDetail.latitude" [longitude]="+ipGeoDetail.longitude">
-						<agm-info-window>{{ipDetail.ipaddress}}</agm-info-window>
+					<agm-marker [latitude]="+ipGeoDetail.latitude" [longitude]="+ipGeoDetail.longitude">
+						<agm-snazzy-info-window
+							[backgroundColor]="circleBackgroundColor"
+							[latitude]="+ipGeoDetail.latitude"
+							[longitude]="+ipGeoDetail.longitude"
+						 	[isOpen]="true"
+						>
+				      <ng-template>
+				        {{ipDetail.ipaddress}}
+				      </ng-template>
+				    </agm-snazzy-info-window>
 					</agm-marker>
 				</agm-map>
 			</div>

@@ -74,3 +74,14 @@ div, .content-container{
 agm-map {
   height: 300px;
 }
+
+.gmap-detail {
+	width: 30%;
+}
+.gmap-content {
+	width: 70%;
+}
+
+agm-snazzy-info-window .si-content-wrapper {
+	padding: 10px;
+}
