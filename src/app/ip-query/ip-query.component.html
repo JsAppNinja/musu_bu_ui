@@ -37,7 +37,7 @@
                 <button mat-flat-button (click)="openImportDialog()" [disabled]="isImportDisabled()" class="button-bottom-spacing">
                     <mat-icon>description</mat-icon> Import
                 </button>
-                <p *ngIf="isImportDisabled()">Upgrade subscription to be able to import in bulk.</p>
+                <p *ngIf="isImportDisabled()"><a (click)="onClickBuyApp()">Upgrade to import!</a></p>
             </div>
         </mat-card>
     </section>
@@ -66,7 +66,7 @@
     <section [hidden]="ipsService.dataSource.data.length === 0">
         <div class="export-component-box">
             <div class="export-upgrade-message" *ngIf="userService.user.subscriptionPlan !== 'large'">
-                <a (click)="onClickBuyApp()"><div>Upgrade to export!</div></a>
+                <a (click)="onClickBuyApp()">Upgrade to export!</a>
             </div>
             <label class="horizontal-center">Export as: </label>
             <mat-form-field>
