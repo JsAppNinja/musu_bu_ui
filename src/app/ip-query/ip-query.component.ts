@@ -153,6 +153,16 @@ export class IpQueryComponent implements OnInit {
 
     return result;
   }
+  upgradeToImport(): boolean {
+    let result = true;
+
+    if (this.userService.user.subscriptionPlanObject
+      && this.userService.user.subscriptionPlanObject.name !== 'free'{
+      result = false;
+    }
+
+    return result;
+  }
 
   getAndRunTagSearch(tagId) {
     this.tagsService.getUserTagById(tagId).then(
