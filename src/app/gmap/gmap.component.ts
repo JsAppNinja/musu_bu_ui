@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IpsService } from '../services/ips.service';
 import { SavedSearchesService } from '../services/savedSearches.service';
 import { TagsService } from '../services/tags.service';
-import { MatSort, MatDialog, MatDialogRef } from '@angular/material';
+import { MatSort, MatDialog, MatChipInputEvent } from '@angular/material';
 
 export interface QueryNameDialogData {
   queryName: string;
@@ -83,35 +83,35 @@ export class GmapComponent implements OnInit {
     );
   }
 
-  // Save search
-  save() {
-    this.savedSearchesService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
-      result => {
-
-      },
-      err => {
-
-      }
-    );
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(QueryNameDialog, {
-      width: '275px',
-      data: {
-        queryName: this.queryName,
-        description: this.description
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.queryName = result.queryName;
-        this.description = result.description;
-        this.save();
-      }
-    });
-  }
+  // // Save search
+  // save() {
+  //   this.savedSearchesService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
+  //     result => {
+  //
+  //     },
+  //     err => {
+  //
+  //     }
+  //   );
+  // }
+  //
+  // openDialog(): void {
+  //   const dialogRef = this.dialog.open(QueryNameDialog, {
+  //     width: '275px',
+  //     data: {
+  //       queryName: this.queryName,
+  //       description: this.description
+  //     }
+  //   });
+  //
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       this.queryName = result.queryName;
+  //       this.description = result.description;
+  //       this.save();
+  //     }
+  //   });
+  // }
 
   clear() {
     this.ipsList = [];
@@ -176,7 +176,7 @@ export class GmapComponent implements OnInit {
     Promise.all(ipsList.map(ip =>
       this.ipsService.getIpDetail(ip).then(data => data.ipDetail)
     )).then(result => {
-      this.ipsGeoData = result.map(item => ({
+      this.ipsGeoData = result.map((item: any) => ({
         latitude: item.latitude,
         longitude: item.longitude,
         ipaddress: item.ipaddress,
