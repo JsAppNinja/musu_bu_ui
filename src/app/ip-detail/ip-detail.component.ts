@@ -24,8 +24,6 @@ export interface IpDetail {
     district: string,
     city: string,
     zipcode: string,
-    latitude: number,
-    longitude: number,
     timezone_offset: number,
     timezone_name: string,
     ispname: string,
@@ -68,8 +66,6 @@ export class IpDetailComponent implements OnInit {
     district: "District",
     city: "City",
     zipcode: "Zip Code",
-    latitude: "Latitude",
-    longitude: "Longitude",
     timezone_offset: "Timezone Offset",
     timezone_name: "Timezone",
     ispname: "ISP Name",
@@ -95,11 +91,11 @@ export class IpDetailComponent implements OnInit {
     "district",
     "city",
     "zipcode",
-    "latitude",
-    "longitude",
     "timezone_offset",
     "timezone_name"
   ];
+  latitude;
+  longitude;
 
   ipISPDetail;
   ipISPDetailFields = [
@@ -169,6 +165,8 @@ export class IpDetailComponent implements OnInit {
     this.ipISPDetail = {};
     this.tagsLimit = 100;
     this.tags = [];
+    this.latitude = 0;
+    this.longitude = 0;
     this.route.data.subscribe(routeData => {
       let data = routeData['data'];
       if (data) {
@@ -183,6 +181,8 @@ export class IpDetailComponent implements OnInit {
         });
         this.ipGeoDetailFields.forEach( key =>{
           this.ipGeoDetail[key] = data[key];
+          this.latitude = data['latitude'];
+          this.longitude = data['longitude'];
         });
         this.ipISPDetailFields.forEach( key =>{
           this.ipISPDetail[key] = data[key];
