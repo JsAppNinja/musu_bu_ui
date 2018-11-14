@@ -17,7 +17,7 @@ export interface IpDetail {
     threat_classification: string,
     blacklist_class: string,
     blacklist_class_cnt: number,
-    blacklist_network_neighbors: number,
+    blacklist_network_neighbor_cnt: number,
     blacklist_observations: number,
     country: string,
     stateprov: string,
@@ -61,7 +61,7 @@ export class IpDetailComponent implements OnInit {
     threat_classification: "Threat Classification",
     blacklist_class: "Blacklist Class",
     blacklist_class_cnt: "Blacklist Count",
-    blacklist_network_neighbors: "Blacklist Network Neighbors",
+    blacklist_network_neighbor_cnt: "Blacklist Network Neighbors",
     blacklist_observations: "Blacklist Observations",
     country: "Country",
     stateprov: "State/Province",
@@ -84,7 +84,7 @@ export class IpDetailComponent implements OnInit {
     "threat_classification",
     "blacklist_class",
     "blacklist_class_cnt",
-    "blacklist_network_neighbors",
+    "blacklist_network_neighbor_cnt",
     "blacklist_observations"
   ];
 
@@ -173,6 +173,9 @@ export class IpDetailComponent implements OnInit {
       let data = routeData['data'];
       if (data) {
         this.ipDetail = data;
+        if(!this.ipDetail.zipcode || this.ipDetail.zipcode === ''){
+          this.ipDetail.zipcode = "N/A"
+        }
         //Set circle data
         this.setCircleData();
         this.ipThreatDetailFields.forEach( key =>{
