@@ -8,11 +8,11 @@
             <table mat-table [dataSource]="savedSearches" matSort class="mat-elevation-z8 results-table">
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
-          
+
                 <!-- Query Name Column -->
                 <ng-container matColumnDef="queryName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                    <td mat-cell *matCellDef="let element"> 
+                    <td mat-cell *matCellDef="let element">
                         <a matTooltip="Click here to execute search." [routerLink]="['/query/saved-search', element.id]">
                             {{element.queryName}}
                         </a>
@@ -30,7 +30,7 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
                     <td mat-cell *matCellDef="let element"> {{humanizeDate(element.createdOn)}} </td>
                 </ng-container>
-          
+
                 <!-- Query Name Column -->
                 <ng-container matColumnDef="deleteButton">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
@@ -38,6 +38,17 @@
                         <button mat-button color="primary" matTooltip="Click here to execute search." [routerLink]="['/query/saved-search', element.id]">
                             View
                         </button>
+                        <mat-button-toggle-group>
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item [routerLink]="['/map/saved-search', element.id]">
+                                    <mat-icon>add_location</mat-icon>
+                                    <span>Send to Map</span>
+                                </button>
+                            </mat-menu>
+                        </mat-button-toggle-group>
                         <button mat-button color="warn" (click)="delete(element.id)">
                             <mat-icon>delete</mat-icon> Delete
                         </button>

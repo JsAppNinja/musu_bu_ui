@@ -36,6 +36,10 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
+                                <button mat-menu-item [routerLink]="['/map/tag', element.id]">
+                                    <mat-icon>add_location</mat-icon>
+                                    <span>Send to Map</span>
+                                </button>
                                 <button mat-menu-item (click)="createTagDialog(element, 'Rename tag', 'update', 'Update')">
                                     <mat-icon>edit</mat-icon>
                                     <span>Rename</span>
@@ -60,7 +64,7 @@
                 </td>
                 </ng-container>-->
                 <tr mat-header-row *matHeaderRowDef="tagsGridColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: tagsGridColumns;"></tr> 
+                <tr mat-row *matRowDef="let row; columns: tagsGridColumns;"></tr>
             </table>
         </div>
     </section>
