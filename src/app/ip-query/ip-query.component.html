@@ -34,9 +34,10 @@
                 <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
                     <mat-icon>save</mat-icon> Save
                 </button>
-                <button mat-flat-button (click)="openImportDialog()" [disabled]="ipsList.length > 0" class="button-bottom-spacing">
+                <button mat-flat-button (click)="openImportDialog()" [disabled]="isImportDisabled()" class="button-bottom-spacing">
                     <mat-icon>description</mat-icon> Import
                 </button>
+                <p *ngIf="isImportDisabled()">Upgrade subscription to be able to import in bulk.</p>
             </div>
         </mat-card>
     </section>

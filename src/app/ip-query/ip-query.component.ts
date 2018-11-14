@@ -142,6 +142,18 @@ export class IpQueryComponent implements OnInit {
     );
   }
 
+  isImportDisabled(): boolean {
+    let result = true;
+
+    if (this.userService.user.subscriptionPlanObject
+      && this.userService.user.subscriptionPlanObject.name !== 'free'
+      && this.ipsList.length === 0) { // user has a sub and hasnt typed in ips
+      result = false;
+    }
+
+    return result;
+  }
+
   getAndRunTagSearch(tagId) {
     this.tagsService.getUserTagById(tagId).then(
       (result) => {
@@ -434,17 +446,12 @@ export class ImportDialogComponent {
               }
 
             } else { // is a csv
-              const rows = text.split('\r\n');
-              if (rows && rows.length > 0) {
-                for (let i = 1; i < rows.length; i++) {
-                  if (i - 1 >= this.data.ipQueryLimit) {
-                    break;
-                  } else {
-                    const cols = rows[i].split(',');
-                    this.data.ipsList.push({label: cols[0].replace(/\"*/gi, '')});
-                  }
-                }
-              }
+
+              const ips = text.split(',');
+              ips.forEach((element) => {
+                this.data.ipsList.push({label: element.replace(/\"*/gi, '') });
+              });
+
             }
             this.fileChanged = true;
         };
