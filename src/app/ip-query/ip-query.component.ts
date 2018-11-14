@@ -157,7 +157,7 @@ export class IpQueryComponent implements OnInit {
     let result = true;
 
     if (this.userService.user.subscriptionPlanObject
-      && this.userService.user.subscriptionPlanObject.name !== 'free'{
+      && this.userService.user.subscriptionPlanObject.name !== 'free') {
       result = false;
     }
 
