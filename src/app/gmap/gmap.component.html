@@ -43,7 +43,8 @@
           [isOpen]="true"
         >
           <ng-template>
-            {{ip.ipaddress}}
+            <strong>IP: </strong>
+            <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', ip.ipaddress]">{{ip.ipaddress}}</a>
           </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>
