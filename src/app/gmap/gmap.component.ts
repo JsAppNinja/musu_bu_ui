@@ -1,10 +1,13 @@
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IpsService } from '../services/ips.service';
 import { SavedSearchesService } from '../services/savedSearches.service';
 import { TagsService } from '../services/tags.service';
 import { MatSort, MatDialog, MatChipInputEvent } from '@angular/material';
+import { AgmCoreModule, GoogleMapsAPIWrapper, AgmMap, LatLngBounds, LatLngBoundsLiteral } from '@agm/core';
+
+declare var google: any;
 
 export interface QueryNameDialogData {
   queryName: string;
@@ -19,13 +22,15 @@ export interface QueryNameDialogData {
     '../ip-query/ip-query.component.css'
   ]
 })
-export class GmapComponent implements OnInit {
+export class GmapComponent implements OnInit, AfterViewInit {
   ipsList;
   ipsLimit;
   ipsGeoData;
   removable = true;
+  map;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('AgmMap') agmMap: AgmMap;
   constructor(
     public ipsService: IpsService,
     private savedSearchesService: SavedSearchesService,
@@ -56,7 +61,12 @@ export class GmapComponent implements OnInit {
         }
       }
     });
+  }
 
+  ngAfterViewInit() {
+    this.agmMap.mapReady.subscribe(map => {
+      this.map = map;
+    });
   }
 
   getAndRunUserSearch(savedSearchId) {
@@ -186,6 +196,15 @@ export class GmapComponent implements OnInit {
             ? '#FFE9A9'
             : '#FDC6CB'
       }));
+
+      const bounds: LatLngBounds = new google.maps.LatLngBounds();
+      let mm: any;
+      for (mm of result) {
+        bounds.extend(new google.maps.LatLng(mm.latitude, mm.longitude));
+      }
+      if (this.map) {
+        this.map.fitBounds(bounds);
+      }
     });
   }
 }
