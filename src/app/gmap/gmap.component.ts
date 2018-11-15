@@ -190,11 +190,13 @@ export class GmapComponent implements OnInit, AfterViewInit {
     Promise.all(ipsList.map(ip =>
       this.ipsService.getIpDetail(ip).then(data => data.ipDetail)
     )).then(result => {
+      console.log(result)
       this.ipsGeoData = result.map((item: any) => ({
         latitude: item.latitude,
         longitude: item.longitude,
         ipaddress: item.ipaddress,
         threatLevel: item.threat_classification,
+        blacklistClass: item.blacklist_class,
         iconUrl: {
           url: item.threat_classification === 'Low'
             ? '../../assets/markers/green.png'
