@@ -54,23 +54,5 @@ export class IpRangesResolver implements Resolve<any> {
             )
         });
     }
-    
-    return new Promise((resolve, reject) => {
-      let ipDetail = paramTypes[currentRoute].promise(encodedNetworkName)
-      .then(
-        data => {
-            if(this.userService.user.subscriptionPlan === 'large'){
-                return resolve(data);
-            }
-            else{
-                return resolve(null);
-            }
-        },
-        err => {
-            console.log(err)
-            return resolve(null)
-        }
-      )
-    });
   }
 }
