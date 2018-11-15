@@ -135,7 +135,7 @@
 							<a mat-line href="https://www.google.com/maps/search/{{latitude}},{{longitude}}" target="_blank">
 								{{ipGeoDetail.district}}<span *ngIf="ipGeoDetail.district !== ''">, </span>
 								{{ipGeoDetail.city}}<span *ngIf="ipGeoDetail.city !== ''">, </span>
-								{{ipGeoDetail.stateprov}}<span *ngIf="ipGeoDetail.stateprov !== ''">, </span> 
+								{{ipGeoDetail.stateprov}}<span *ngIf="ipGeoDetail.stateprov !== ''">, </span>
 								{{ipGeoDetail.zipcode}}<span *ngIf="ipGeoDetail.zipcode !== ''">, </span>
 								{{ipGeoDetail.country}}
 							</a>
@@ -144,9 +144,8 @@
 				</div>
 				<div class="cols gmap-content">
 					<agm-map [latitude]="+latitude" [longitude]="+longitude">
-						<agm-marker [latitude]="+latitude" [longitude]="+longitude">
+						<agm-marker [iconUrl]="iconUrl" [latitude]="+latitude" [longitude]="+longitude">
 							<agm-snazzy-info-window
-								[backgroundColor]="circleBackgroundColor"
 								[latitude]="+latitude"
 								[longitude]="+longitude"
 							 	[isOpen]="true"

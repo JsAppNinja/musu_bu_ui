@@ -35,9 +35,9 @@
         *ngFor="let ip of ipsGeoData; let i = index"
         [latitude]="+ip.latitude"
         [longitude]="+ip.longitude"
+        [iconUrl]="ip.iconUrl"
       >
         <agm-snazzy-info-window
-          [backgroundColor]="ip.color"
           [latitude]="+ip.latitude"
           [longitude]="+ip.longitude"
           [isOpen]="true"
