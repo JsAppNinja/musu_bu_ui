@@ -7,7 +7,8 @@ import { NgModule } from '@angular/core';
 import { SDKBrowserModule } from '../../sdk/index';
 import { AppComponent } from './app.component';
 import { IpQueryComponent, QueryNameDialogComponent, ImportDialogComponent } from './ip-query/ip-query.component';
-
+import { IpRangesComponent } from './ip-ranges/ip-ranges.component';
+import { IpRangesResolver } from './ip-ranges/ip-ranges.resolver';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import {
@@ -66,6 +67,7 @@ import { GmapComponent } from './gmap/gmap.component';
     TrendsComponent,
     IpTagsComponent,
     CreateTagDialog,
+    IpRangesComponent,
     DeleteUserDialog,
     CreateUserDialog,
     AdminComponent,
@@ -147,7 +149,8 @@ import { GmapComponent } from './gmap/gmap.component';
     IpQueryResolver,
     LoginResolver,
     AdminResolver,
-    MatDialog
+    MatDialog,
+    IpRangesResolver
   ],
   entryComponents: [
     ImportDialogComponent,
