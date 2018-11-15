@@ -29,6 +29,9 @@ export class GmapComponent implements OnInit, AfterViewInit {
   removable = true;
   map;
   maxZoomLevel = 16;
+  addOnBlur = true;
+  longitude;
+  latitude;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('AgmMap') agmMap: AgmMap;

@@ -51,6 +51,7 @@ export class IpDetailComponent implements OnInit {
   tagsFormControl = new FormControl();
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
+  last;
   ipDetail: IpDetail;
   fieldNames = {
     ipaddress: "IP Address",
