@@ -56,6 +56,22 @@ div, .content-container{
 .card-grid-card.last .mat-chip-list{
 	padding: 5px 0 15px;
 }
+.card-grid-card.last .mat-mini-fab.fab-upgrade{
+	margin-bottom: 6px;
+}
+
+/* Upgrade button */
+.mat-mini-fab.fab-upgrade{
+	line-height: 26px;
+	width: 30px;
+	height: 30px;
+}
+.fab-upgrade.mat-mini-fab .material-icons{
+    font-size: 20px;
+    height: 24px;
+    width: 20px;
+    margin-top: -6px; /* parent span.mat-button-wrapper doesn't respond to any styles to remove 8px padding */
+}
 
 /* Google Map */
 agm-map {
