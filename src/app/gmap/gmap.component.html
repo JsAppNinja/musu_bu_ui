@@ -45,6 +45,9 @@
           <ng-template>
             <strong>IP: </strong>
             <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', ip.ipaddress]">{{ip.ipaddress}}</a>
+            <br />
+            <strong>Threat level: </strong>
+            <span>{{ip.threatLevel}}</span>
           </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>

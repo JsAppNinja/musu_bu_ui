@@ -191,6 +191,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
         latitude: item.latitude,
         longitude: item.longitude,
         ipaddress: item.ipaddress,
+        threatLevel: item.threat_classification,
         iconUrl: {
           url: item.threat_classification === 'Low'
             ? '../../assets/markers/green.png'
