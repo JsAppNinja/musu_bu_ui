@@ -99,6 +99,9 @@
 								{{detail}}
 							</mat-chip>
 						</mat-chip-list>
+						<button mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to drill-in on this field!" *ngIf="['free', 'small', 'large'].indexOf(userService.user.subscriptionPlan) < 0 && ipISPDetailKey !== 'ispname'">
+							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
+						</button>
 						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['medium', 'large'].indexOf(userService.user.subscriptionPlan) < 0 && ipISPDetailKey !== 'ispname'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
