@@ -190,11 +190,17 @@ export class GmapComponent implements OnInit, AfterViewInit {
         latitude: item.latitude,
         longitude: item.longitude,
         ipaddress: item.ipaddress,
-        color: item.threat_classification === 'Low'
-          ? '#B8ECC3'
-          : item.threat_classification === 'Medium'
-            ? '#FFE9A9'
-            : '#FDC6CB'
+        iconUrl: {
+          url: item.threat_classification === 'Low'
+            ? '../../assets/markers/green.png'
+            : item.threat_classification === 'Medium'
+              ? '../../assets/markers/yellow.png'
+              : '../../assets/markers/red.png',
+          scaledSize: {
+            width: 50,
+            height: 50
+          }
+        }
       }));
 
       const bounds: LatLngBounds = new google.maps.LatLngBounds();

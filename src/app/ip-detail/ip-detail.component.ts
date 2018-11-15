@@ -96,7 +96,13 @@ export class IpDetailComponent implements OnInit {
   ];
   latitude;
   longitude;
-
+  iconUrl = {
+    url: '../../assets/markers/green.png',
+    scaledSize: {
+      width: 50,
+      height: 50
+    }
+  };
   ipISPDetail;
   ipISPDetailFields = [
     "ispname",
@@ -121,6 +127,7 @@ export class IpDetailComponent implements OnInit {
         this.circleRiskLevel = this.ipDetail.threat_classification;
         this.circleBackgroundColor = '#FDC6CB';
         this.circleOuterStrokeColor = '#dc3545';
+        this.iconUrl.url = '../../assets/markers/red.png';
         break;
       case "Medium":
         this.circleTitle = ['Medium', 'Risk', ''];
@@ -128,6 +135,7 @@ export class IpDetailComponent implements OnInit {
         this.circleRiskLevel = this.ipDetail.threat_classification;
         this.circleBackgroundColor = '#FFE9A9';
         this.circleOuterStrokeColor = '#ffc107';
+        this.iconUrl.url = '../../assets/markers/yellow.png';
         break;
       case "Low":
         this.circleTitle = ['Low', 'Risk', ''];
@@ -135,6 +143,7 @@ export class IpDetailComponent implements OnInit {
         this.circleRiskLevel = this.ipDetail.threat_classification;
         this.circleBackgroundColor = '#B8ECC3';
         this.circleOuterStrokeColor = '#28a745';
+        this.iconUrl.url = '../../assets/markers/green.png';
         break;
       default:
         this.circleTitle = [];
