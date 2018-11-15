@@ -30,7 +30,7 @@
       </mat-card>
   </section>
   <section>
-    <agm-map>
+    <agm-map #AgmMap [latitude]="latitude" [longitude]="longitude">
       <agm-marker
         *ngFor="let ip of ipsGeoData; let i = index"
         [latitude]="+ip.latitude"
