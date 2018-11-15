@@ -12,6 +12,8 @@ import { IpTagsComponent } from './ip-tags/ip-tags.component';
 import { GmapComponent } from './gmap/gmap.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminResolver } from './admin/admin.resolver';
+import { IpRangesComponent } from './ip-ranges/ip-ranges.component';
+import { IpRangesResolver } from './ip-ranges/ip-ranges.resolver';
 
 export const routes: Routes = [
 	{
@@ -32,6 +34,22 @@ export const routes: Routes = [
 		resolve: {
 			isAuthenticated: LoginResolver,
 			queryData: IpQueryResolver,
+		}
+	},
+	{
+		path: 'network-name/:networkName',
+		component: IpRangesComponent,
+		resolve: {
+			ipRanges: IpRangesResolver,
+			isAuthenticated: LoginResolver
+		}
+	},
+	{
+		path: 'network-type/:networkType',
+		component: IpRangesComponent,
+		resolve: {
+			ipRanges: IpRangesResolver,
+			isAuthenticated: LoginResolver
 		}
 	},
 	{

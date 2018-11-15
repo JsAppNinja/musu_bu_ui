@@ -1,0 +1,42 @@
+<div class="content-container">
+  <section>
+      <!-- <h2>Tags</h2> -->
+      <!-- <p *ngIf="ipRanges && ipRanges.length === 0">No IPs found.</p> -->
+  </section>
+  <section>
+    <table mat-table [dataSource]="ipRanges" matSort *ngIf="ipRanges && ipRanges.length !== 0" class="mat-elevation-z8 results-table">
+      <ng-container matColumnDef="ipStartInt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> IP Start </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.ip_start_int}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="ipEndInt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> IP End </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.ip_end_int}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="networkName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Name </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.network_name}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="networkType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Type </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.network_type}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="networkGroup">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Group </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.network_group}}
+          </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="ipRangesColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: ipRangesColumns;"></tr> 
+    </table>
+  </section>
+</div> 
