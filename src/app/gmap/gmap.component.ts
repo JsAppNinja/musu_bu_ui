@@ -28,6 +28,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
   ipsGeoData;
   removable = true;
   map;
+  maxZoomLevel = 10;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('AgmMap') agmMap: AgmMap;
