@@ -32,6 +32,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
   addOnBlur = true;
   longitude;
   latitude;
+  isLoading = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('AgmMap') agmMap: AgmMap;
@@ -186,11 +187,12 @@ export class GmapComponent implements OnInit, AfterViewInit {
     this.ipsService.mediumRiskCircle.count = 0;
     this.ipsService.lowRiskCircle.count = 0;
     this.ipsList = ipsList;
-
+    this.isLoading = true;
     Promise.all(ipsList.map(ip =>
       this.ipsService.getIpDetail(ip).then(data => data.ipDetail)
     )).then(result => {
-      console.log(result)
+      this.isLoading = false;
+
       this.ipsGeoData = result.map((item: any) => ({
         latitude: item.latitude,
         longitude: item.longitude,
