@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="68px" viewBox="0 0 36 68" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M29.49,15.44 C29.49,7.16 22.59,0.536 14.241,0.95 C6.72,1.364 0.648,7.643 0.51,15.164 C0.372,21.788 4.719,27.446 10.722,29.309 L10.722,58.91 C10.722,61.187 12.585,63.05 14.862,63.05 C17.139,63.05 19.002,61.187 19.002,58.91 L19.002,29.378 C25.074,27.653 29.49,22.064 29.49,15.44 Z" id="path-1"></path>
+        <filter x="-17.3%" y="-6.4%" width="134.5%" height="116.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.75073596 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="noun_Pin_737775" transform="translate(3.000000, 1.000000)" fill-rule="nonzero">
+            <g id="Shape">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#28A745" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

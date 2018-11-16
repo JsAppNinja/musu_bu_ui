@@ -32,7 +32,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
   addOnBlur = true;
   longitude;
   latitude;
-  isLoading = true;
+  isLoading = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('AgmMap') agmMap: AgmMap;
@@ -201,13 +201,13 @@ export class GmapComponent implements OnInit, AfterViewInit {
         blacklistClass: item.blacklist_class,
         iconUrl: {
           url: item.threat_classification === 'Low'
-            ? '../../assets/markers/green.png'
+            ? '../../assets/markers/green.svg'
             : item.threat_classification === 'Medium'
-              ? '../../assets/markers/yellow.png'
-              : '../../assets/markers/red.png',
+              ? '../../assets/markers/yellow.svg'
+              : '../../assets/markers/red.svg',
           scaledSize: {
-            width: 50,
-            height: 50
+            width: 40,
+            height: 40
           }
         }
       }));
