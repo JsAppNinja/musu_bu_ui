@@ -196,6 +196,18 @@ tr.mat-header-row{
 	color: #028b08;
 }
 
+/* Maps Page */
+.si-frame.si-content-wrapper{
+	padding: 22px;
+}
+.si-close-button{
+	line-height: 0.5em;
+	padding: 8px 6px;
+}
+.si-content{
+	min-width: 150px;
+}
+
 
 @media screen and (max-width: 1200px){
 	.content-container{
