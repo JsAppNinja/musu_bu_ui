@@ -10,6 +10,7 @@ import { IpQueryComponent, QueryNameDialogComponent, ImportDialogComponent } fro
 import { IpRangesComponent } from './ip-ranges/ip-ranges.component';
 import { IpRangesResolver } from './ip-ranges/ip-ranges.resolver';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { NgxLoadingModule } from 'ngx-loading';
 
 import {
   MatButtonModule,
@@ -32,7 +33,8 @@ import {
   MatSelectModule,
   MatMenuModule,
   MatButtonToggleModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -109,6 +111,8 @@ import { GmapComponent } from './gmap/gmap.component';
     MatMenuModule,
     MatButtonToggleModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    NgxLoadingModule.forRoot({}),
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
