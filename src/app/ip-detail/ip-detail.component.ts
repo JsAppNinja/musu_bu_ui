@@ -50,7 +50,7 @@ export class IpDetailComponent implements OnInit {
 
   tagsFormControl = new FormControl();
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
-
+  subscriptionPlan;
   last;
   ipDetail: IpDetail;
   fieldNames = {
@@ -177,6 +177,7 @@ export class IpDetailComponent implements OnInit {
     this.tags = [];
     this.latitude = 0;
     this.longitude = 0;
+    this.subscriptionPlan = this.userService.user.subscriptionPlan;
     this.route.data.subscribe(routeData => {
       let data = routeData['data'];
       if (data) {
