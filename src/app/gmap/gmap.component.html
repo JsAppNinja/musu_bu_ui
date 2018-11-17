@@ -43,14 +43,20 @@
           [isOpen]="true"
         >
           <ng-template>
-            <strong>IP: </strong>
-            <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', ip.ipaddress]">{{ip.ipaddress}}</a>
-            <br />
-            <strong>Threat level: </strong>
-            <span>{{ip.threatLevel}}</span>
-            <br />
-            <strong>Black list class: </strong>
-            <span>{{ip.blacklistClass}}</span>
+            <div>
+              <strong>IP: </strong>
+              <a matTooltip="Click here for IP details." [routerLink]="['/detail/', ip.ipaddress]">{{ip.ipaddress}}</a>
+            </div>
+            <div>
+              <strong>Threat level: </strong>
+              <span *ngIf="ip.threatLevel == 'High' || ip.threatLevel == 'high' || ip.threatLevel == 'HIGH'" style="color: #CD444A;">{{ip.threatLevel}}</span>
+              <span *ngIf="ip.threatLevel == 'Medium' || ip.threatLevel == 'medium' || ip.threatLevel == 'MEDIUM'" style="color: #FFB300;">{{ip.threatLevel}}</span>
+              <span *ngIf="ip.threatLevel == 'Low' || ip.threatLevel == 'low' || ip.threatLevel == 'LOW'" style="color: #28A745;">{{ip.threatLevel}}</span>
+            </div>
+            <div>
+              <strong>Blacklist class: </strong>
+              <span>{{ip.blacklistClass}}</span>
+            </div>
           </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>

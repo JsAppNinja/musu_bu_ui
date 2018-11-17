@@ -89,7 +89,7 @@
                 <ng-container matColumnDef="ipaddress">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> IP Address </th>
                     <td mat-cell *matCellDef="let element">
-                        <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', element.ipaddress]">{{element.ipaddress}}</a>
+                        <a matTooltip="Click here for IP details." [routerLink]="['/detail/', element.ipaddress]">{{element.ipaddress}}</a>
                     </td>
                 </ng-container>
 
