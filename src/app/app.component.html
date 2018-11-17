@@ -42,7 +42,7 @@
                 <span class="nav-item">
                     <a mat-list-item [routerLink]="['/trends/']">Trends</a>
                 </span>
-                <span class="nav-item">
+                <span class="nav-item" *ngIf="subscriptionPlan === 'large'">
                     <a mat-list-item [routerLink]="['/map/']">Map</a>
                 </span>
             </div>
@@ -55,7 +55,7 @@
                 <a mat-list-item [routerLink]="['/searches/']">Watchlists</a>
                 <a mat-list-item [routerLink]="['/tags/']">Tags</a>
                 <a mat-list-item [routerLink]="['/trends/']">Trends</a>
-                <a mat-list-item [routerLink]="['/map/']">Map</a>
+                <a mat-list-item [routerLink]="['/map/']" *ngIf="subscriptionPlan === 'large'">Map</a>
                 <span class="button-row">
                     <button mat-flat-button class="button-bottom-spacing" (click)="onClickBuyApp()">
                         Buy App

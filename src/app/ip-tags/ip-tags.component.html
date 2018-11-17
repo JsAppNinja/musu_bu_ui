@@ -16,7 +16,7 @@
                                 {{element.name}}
                             </mat-chip>
                         </mat-chip-list>
-                        
+
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="date">
@@ -36,7 +36,7 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item [routerLink]="['/map/tag', element.id]">
+                                <button mat-menu-item [routerLink]="['/map/tag', element.id]"  *ngIf="userService.user.subscriptionPlan === 'large'">
                                     <mat-icon>add_location</mat-icon>
                                     <span>Send to Map</span>
                                 </button>
