@@ -30,7 +30,7 @@
       </mat-card>
   </section>
   <section class="loading">
-    <agm-map #AgmMap [latitude]="latitude" [longitude]="longitude" [maxZoom]="maxZoomLevel">
+    <agm-map #AgmMap [latitude]="latitude" [longitude]="longitude" [zoom]="3" [maxZoom]="maxZoomLevel">
       <agm-marker
         *ngFor="let ip of ipsGeoData; let i = index"
         [latitude]="+ip.latitude"

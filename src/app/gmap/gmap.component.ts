@@ -30,8 +30,8 @@ export class GmapComponent implements OnInit, AfterViewInit {
   map;
   maxZoomLevel = 16;
   addOnBlur = true;
-  longitude;
-  latitude;
+  longitude = -98.35;
+  latitude = 39.5;
   isLoading = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
@@ -217,7 +217,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
       for (mm of result) {
         bounds.extend(new google.maps.LatLng(mm.latitude, mm.longitude));
       }
-      if (this.map) {
+      if (this.map && !!result.length) {
         this.map.fitBounds(bounds);
       }
     });
