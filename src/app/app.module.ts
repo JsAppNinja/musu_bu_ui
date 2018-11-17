@@ -55,6 +55,7 @@ import { AdminResolver } from './admin/admin.resolver';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { GmapComponent } from './gmap/gmap.component';
+import { GmapResolver } from './gmap/gmap.resolver';
 
 @NgModule({
   declarations: [
@@ -154,7 +155,8 @@ import { GmapComponent } from './gmap/gmap.component';
     LoginResolver,
     AdminResolver,
     MatDialog,
-    IpRangesResolver
+    IpRangesResolver,
+    GmapResolver
   ],
   entryComponents: [
     ImportDialogComponent,

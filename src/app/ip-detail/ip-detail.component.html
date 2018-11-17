@@ -114,7 +114,7 @@
 			</mat-card>
 		</div>
 	</section>
-	<section class="container">
+	<section class="container" *ngIf="userService.user.subscriptionPlan === 'large'">
 		<mat-card>
 			<mat-card-title><mat-icon>place</mat-icon> Address Mapping</mat-card-title>
 			<div class="col-wrapper">

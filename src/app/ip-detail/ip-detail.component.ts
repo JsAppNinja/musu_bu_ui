@@ -98,7 +98,7 @@ export class IpDetailComponent implements OnInit {
   latitude;
   longitude;
   iconUrl = {
-    url: '../../assets/markers/green.png',
+    url: '../../assets/markers/green.svg',
     scaledSize: {
       width: 40,
       height: 40
