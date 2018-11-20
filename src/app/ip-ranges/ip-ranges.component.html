@@ -3,18 +3,20 @@
       <!-- <h2>Tags</h2> -->
       <!-- <p *ngIf="ipRanges && ipRanges.length === 0">No IPs found.</p> -->
   </section>
-  <section>
+  <section *ngIf="currentRoute === 'network-type' || currentRoute === 'network-name' || currentRoute === 'network-group'">
+    <h2>{{title}} Drill-In</h2>
+    <h3>{{queryParam}}</h3>
     <table mat-table [dataSource]="ipRanges" matSort *ngIf="ipRanges && ipRanges.length !== 0" class="mat-elevation-z8 results-table">
       <ng-container matColumnDef="ipStartInt">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> IP Start </th>
           <td mat-cell *matCellDef="let element">
-            {{element.ip_start_int}}
+            <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', element.ip_start_int]">{{element.ip_start_int}}</a>
           </td>
       </ng-container>
       <ng-container matColumnDef="ipEndInt">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> IP End </th>
           <td mat-cell *matCellDef="let element">
-            {{element.ip_end_int}}
+            <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', element.ip_end_int]">{{element.ip_end_int}}</a>
           </td>
       </ng-container>
       <ng-container matColumnDef="networkName">
@@ -36,7 +38,16 @@
           </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="ipRangesColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: ipRangesColumns;"></tr> 
+      <tr mat-row *matRowDef="let row; columns: ipRangesColumns;"></tr>
     </table>
   </section>
-</div> 
+  <section *ngIf="currentRoute === 'isp-name' || currentRoute === 'blacklist-neighbors'">
+    <h2>{{title}} Drill-In</h2>
+    <h3>{{queryParam}}</h3>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let ip of ipsList">
+        <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', ip]">{{ip}}</a>
+      </mat-chip>
+    </mat-chip-list>
+  </section>
+</div>
