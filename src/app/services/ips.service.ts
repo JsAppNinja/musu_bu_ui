@@ -33,6 +33,21 @@ export class IpsService {
     .toPromise();
   }
 
+  getIpRangesByIspName(ispName){
+    return this.ipRangeApi.getIpDetailRangesByIspName(ispName)
+    .toPromise();
+  }
+
+  getIpRangesByNetworkGroup(networkGroup){
+    return this.ipRangeApi.getIpDetailRangesByNetworkGroup(networkGroup)
+    .toPromise();
+  }
+
+  getIpRangesByBlacklistNeighbors(blacklistNeighbors){
+    return this.ipRangeApi.getIpDetailRangesByBlacklistNeighbors(blacklistNeighbors)
+    .toPromise();
+  }
+
   clearServiceCache() {
     this.dataSource = new MatTableDataSource([]);
     this.highRiskCount = 0;
