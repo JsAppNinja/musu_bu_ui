@@ -43,7 +43,7 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item [routerLink]="['/map/saved-search', element.id]">
+                                <button mat-menu-item [routerLink]="['/map/saved-search', element.id]"  *ngIf="userService.user.subscriptionPlan === 'large'">
                                     <mat-icon>add_location</mat-icon>
                                     <span>Send to Map</span>
                                 </button>

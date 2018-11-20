@@ -13,7 +13,8 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   title = 'Musubu';
   oktaSignIn;
-
+  subscriptionPlan;
+  user;
   constructor(
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -23,7 +24,11 @@ export class AppComponent {
   }
 
   ngOnInit(){
-
+    this.user = JSON.parse(localStorage.getItem("profile"));
+    this.userService.getUserByEmail(this.user.email)
+      .then(result => {
+        this.subscriptionPlan = result[0].subscriptionPlan;
+      })
   }
 
   onClickBuyApp(){

@@ -62,7 +62,8 @@
 						</mat-chip-list>
 
 						<!-- Blacklist Network Neighbors -->
-						<a mat-line *ngIf="['free'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
+						<a mat-line *ngIf="subscriptionPlan === 'large' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
+						<div mat-line *ngIf="ipThreatDetailKey === 'blacklist_network_neighbor_cnt' && subscriptionPlan !== 'large' && subscriptionPlan !== 'free'"> {{ipThreatDetail[ipThreatDetailKey]}} </div>
 						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
@@ -88,17 +89,17 @@
 			            <h3 mat-line>{{fieldNames[ipISPDetailKey]}}</h3>
 
 			            <!-- ISP Name -->
-											<a mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && ['free'].indexOf(subscriptionPlan) < 0" [routerLink]="['/isp-name/', ipISPDetail[ipISPDetailKey]]">{{ipISPDetail[ipISPDetailKey]}}</a>
-
+											<a mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', ipISPDetail[ipISPDetailKey]]"> {{ipISPDetail[ipISPDetailKey]}} </a>
+											<div mat-line *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan !== 'large' && subscriptionPlan !== 'free'"> {{ipISPDetail[ipISPDetailKey]}} </div>
 
 						<!-- Network Type, Group & Name -->
 						<mat-chip-list mat-line #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey]) && ['free', 'small'].indexOf(subscriptionPlan) < 0">
 							<mat-chip *ngFor="let detail of convertToSet(ipISPDetail[ipISPDetailKey])" [selectable]="selectable">
-								<a *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', detail]">{{detail}}</a>
-								<a *ngIf="ipISPDetailKey !== 'network_name' && ipISPDetailKey !== 'network_type'" [routerLink]="['/network-group/', detail]">{{detail}}</a>
-								<div *ngIf="(ipISPDetailKey === 'network_name' || ipISPDetailKey === 'network-type') && subscriptionPlan !== 'large'">{{detail}}</div>
-								<a *ngIf="ipISPDetailKey === 'network_name' && subscriptionPlan === 'large'" [routerLink]="['/network-name/', detail]">{{detail}}</a>
-								<a *ngIf="ipISPDetailKey === 'network_type' && subscriptionPlan === 'large'" [routerLink]="['/network-type/', detail]">{{detail}}</a>
+								<a *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', detail]"> {{detail}} </a>
+								<div *ngIf="(ipISPDetailKey === 'network_name' || ipISPDetailKey === 'network_type' || ipISPDetailKey === 'network_group') && subscriptionPlan !== 'large'"> {{detail}} </div>
+								<a *ngIf="ipISPDetailKey === 'network_group' && subscriptionPlan === 'large'" [routerLink]="['/network-group/', detail]"> {{detail}} </a>
+								<a *ngIf="ipISPDetailKey === 'network_name' && subscriptionPlan === 'large'" [routerLink]="['/network-name/', detail]"> {{detail}} </a>
+								<a *ngIf="ipISPDetailKey === 'network_type' && subscriptionPlan === 'large'" [routerLink]="['/network-type/', detail]"> {{detail}} </a>
 							</mat-chip>
 						</mat-chip-list>
 						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipISPDetailKey === 'ispname'">
@@ -116,7 +117,7 @@
 			</mat-card>
 		</div>
 	</section>
-	<section class="container">
+	<section class="container" *ngIf="subscriptionPlan === 'large'">
 		<mat-card>
 			<mat-card-title><mat-icon>place</mat-icon> Address Mapping</mat-card-title>
 			<div class="col-wrapper">
@@ -145,10 +146,9 @@
 					</mat-list>
 				</div>
 				<div class="cols gmap-content">
-					<agm-map [latitude]="+latitude" [longitude]="+longitude">
-						<agm-marker [latitude]="+latitude" [longitude]="+longitude">
+					<agm-map [latitude]="+latitude" [longitude]="+longitude" [scrollwheel]="false">
+						<agm-marker [iconUrl]="iconUrl" [latitude]="+latitude" [longitude]="+longitude">
 							<agm-snazzy-info-window
-								[backgroundColor]="circleBackgroundColor"
 								[latitude]="+latitude"
 								[longitude]="+longitude"
 							 	[isOpen]="true"

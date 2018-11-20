@@ -10,6 +10,7 @@ import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent } from './ip-tags/ip-tags.component';
 import { GmapComponent } from './gmap/gmap.component';
+import { GmapResolver } from './gmap/gmap.resolver';
 import { AdminComponent } from './admin/admin.component';
 import { AdminResolver } from './admin/admin.resolver';
 import { IpRangesComponent } from './ip-ranges/ip-ranges.component';
@@ -112,14 +113,18 @@ export const routes: Routes = [
 	},
 	{
 		path: 'map',
-		component: GmapComponent
+		component: GmapComponent,
+		resolve: {
+			isLargePlanUser: GmapResolver
+		}
 	},
 	{
 		path: 'map/:queryType/:queryId',
 		component: GmapComponent,
 		resolve: {
 			queryData: IpQueryResolver,
-			isAuthenticated: LoginResolver
+			isAuthenticated: LoginResolver,
+			isLargePlanUser: GmapResolver
 		}
 	},
 	{

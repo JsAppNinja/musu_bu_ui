@@ -30,8 +30,9 @@ export class GmapComponent implements OnInit, AfterViewInit {
   map;
   maxZoomLevel = 16;
   addOnBlur = true;
-  longitude;
-  latitude;
+  longitude = -98.35;
+  latitude = 39.5;
+  isLoading = false;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('AgmMap') agmMap: AgmMap;
@@ -186,19 +187,29 @@ export class GmapComponent implements OnInit, AfterViewInit {
     this.ipsService.mediumRiskCircle.count = 0;
     this.ipsService.lowRiskCircle.count = 0;
     this.ipsList = ipsList;
-
+    this.isLoading = true;
     Promise.all(ipsList.map(ip =>
       this.ipsService.getIpDetail(ip).then(data => data.ipDetail)
     )).then(result => {
+      this.isLoading = false;
+
       this.ipsGeoData = result.map((item: any) => ({
         latitude: item.latitude,
         longitude: item.longitude,
         ipaddress: item.ipaddress,
-        color: item.threat_classification === 'Low'
-          ? '#B8ECC3'
-          : item.threat_classification === 'Medium'
-            ? '#FFE9A9'
-            : '#FDC6CB'
+        threatLevel: item.threat_classification,
+        blacklistClass: item.blacklist_class,
+        iconUrl: {
+          url: item.threat_classification === 'Low'
+            ? '../../assets/markers/green.svg'
+            : item.threat_classification === 'Medium'
+              ? '../../assets/markers/yellow.svg'
+              : '../../assets/markers/red.svg',
+          scaledSize: {
+            width: 40,
+            height: 40
+          }
+        }
       }));
 
       const bounds: LatLngBounds = new google.maps.LatLngBounds();
@@ -206,7 +217,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
       for (mm of result) {
         bounds.extend(new google.maps.LatLng(mm.latitude, mm.longitude));
       }
-      if (this.map) {
+      if (this.map && !!result.length) {
         this.map.fitBounds(bounds);
       }
     });

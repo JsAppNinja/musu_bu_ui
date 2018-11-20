@@ -29,24 +29,38 @@
           </div>
       </mat-card>
   </section>
-  <section>
-    <agm-map #AgmMap [latitude]="latitude" [longitude]="longitude" [maxZoom]="maxZoomLevel">
+  <section class="loading">
+    <agm-map #AgmMap [latitude]="latitude" [longitude]="longitude" [zoom]="3" [maxZoom]="maxZoomLevel" [scrollwheel]="false">
       <agm-marker
         *ngFor="let ip of ipsGeoData; let i = index"
         [latitude]="+ip.latitude"
         [longitude]="+ip.longitude"
+        [iconUrl]="ip.iconUrl"
       >
         <agm-snazzy-info-window
-          [backgroundColor]="ip.color"
           [latitude]="+ip.latitude"
           [longitude]="+ip.longitude"
           [isOpen]="true"
         >
           <ng-template>
-            {{ip.ipaddress}}
+            <div>
+              <strong>IP: </strong>
+              <a matTooltip="Click here for IP details." [routerLink]="['/detail/', ip.ipaddress]">{{ip.ipaddress}}</a>
+            </div>
+            <div>
+              <strong>Threat level: </strong>
+              <span *ngIf="ip.threatLevel == 'High' || ip.threatLevel == 'high' || ip.threatLevel == 'HIGH'" style="color: #CD444A;">{{ip.threatLevel}}</span>
+              <span *ngIf="ip.threatLevel == 'Medium' || ip.threatLevel == 'medium' || ip.threatLevel == 'MEDIUM'" style="color: #FFB300;">{{ip.threatLevel}}</span>
+              <span *ngIf="ip.threatLevel == 'Low' || ip.threatLevel == 'low' || ip.threatLevel == 'LOW'" style="color: #28A745;">{{ip.threatLevel}}</span>
+            </div>
+            <div>
+              <strong>Blacklist class: </strong>
+              <span>{{ip.blacklistClass}}</span>
+            </div>
           </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>
     </agm-map>
+    <ngx-loading [show]="isLoading"></ngx-loading>
   </section>
 </div>

@@ -10,6 +10,7 @@ import { IpQueryComponent, QueryNameDialogComponent, ImportDialogComponent } fro
 import { IpRangesComponent } from './ip-ranges/ip-ranges.component';
 import { IpRangesResolver } from './ip-ranges/ip-ranges.resolver';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { NgxLoadingModule } from 'ngx-loading';
 
 import {
   MatButtonModule,
@@ -32,7 +33,8 @@ import {
   MatSelectModule,
   MatMenuModule,
   MatButtonToggleModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -53,6 +55,7 @@ import { AdminResolver } from './admin/admin.resolver';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { GmapComponent } from './gmap/gmap.component';
+import { GmapResolver } from './gmap/gmap.resolver';
 
 @NgModule({
   declarations: [
@@ -109,6 +112,8 @@ import { GmapComponent } from './gmap/gmap.component';
     MatMenuModule,
     MatButtonToggleModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    NgxLoadingModule.forRoot({}),
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
@@ -150,7 +155,8 @@ import { GmapComponent } from './gmap/gmap.component';
     LoginResolver,
     AdminResolver,
     MatDialog,
-    IpRangesResolver
+    IpRangesResolver,
+    GmapResolver
   ],
   entryComponents: [
     ImportDialogComponent,
