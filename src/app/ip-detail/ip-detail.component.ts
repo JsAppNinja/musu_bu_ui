@@ -75,8 +75,6 @@ export class IpDetailComponent implements OnInit {
     network_name: "Network Name"
   }
 
-  subscriptionPlan;
-
   ipThreatDetail;
   ipThreatDetailFields = [
     "threat_potential_score_pct",
