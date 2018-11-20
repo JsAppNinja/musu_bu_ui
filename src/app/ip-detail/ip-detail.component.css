@@ -74,18 +74,18 @@ div, .content-container{
 }
 
 /* Google Map */
-agm-map {
+agm-map{
   height: 300px;
 }
-.gmap-detail {
+.gmap-detail{
 	width: 29%;
 	padding-right: 1%;
 }
-.gmap-content {
+.gmap-content{
 	width: 69%;
 	padding-left: 1%;
 }
-agm-snazzy-info-window .si-content-wrapper {
+agm-snazzy-info-window .si-content-wrapper{
 	padding: 10px;
 }
 
@@ -100,5 +100,14 @@ agm-snazzy-info-window .si-content-wrapper {
 @media screen and (max-width: 600px){
 	.risk-circle{
 		text-align: center;
+	}
+	.gmap-detail{
+		width: 100%;
+		padding-right: 0;
+		padding-bottom: 3%;
+	}
+	.gmap-content{
+		width: 100%;
+		padding-left: 0;
 	}
 }
