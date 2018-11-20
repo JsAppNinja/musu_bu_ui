@@ -62,8 +62,8 @@
 						</mat-chip-list>
 
 						<!-- Blacklist Network Neighbors -->
-						<p mat-line *ngIf="['free'].indexOf(userService.user.subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'"> {{ipThreatDetail[ipThreatDetailKey]}} </p>
-						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(userService.user.subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
+						<a mat-line *ngIf="['free'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
+						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
 
@@ -88,24 +88,26 @@
 			            <h3 mat-line>{{fieldNames[ipISPDetailKey]}}</h3>
 
 			            <!-- ISP Name -->
-						<p mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && ['free'].indexOf(userService.user.subscriptionPlan) < 0"> {{ipISPDetail[ipISPDetailKey]}} </p>
-						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(userService.user.subscriptionPlan) < 0 && ipISPDetailKey === 'ispname'">
-							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
-						</button>
+											<a mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && ['free'].indexOf(subscriptionPlan) < 0" [routerLink]="['/isp-name/', ipISPDetail[ipISPDetailKey]]">{{ipISPDetail[ipISPDetailKey]}}</a>
+
 
 						<!-- Network Type, Group & Name -->
-						<mat-chip-list mat-line #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey]) && ['free', 'small'].indexOf(userService.user.subscriptionPlan) < 0">
+						<mat-chip-list mat-line #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey]) && ['free', 'small'].indexOf(subscriptionPlan) < 0">
 							<mat-chip *ngFor="let detail of convertToSet(ipISPDetail[ipISPDetailKey])" [selectable]="selectable">
-								<div *ngIf="ipISPDetailKey !== 'network_name' && ipISPDetailKey !== 'network_type'">{{detail}}</div>
-								<div *ngIf="(ipISPDetailKey === 'network_name' || ipISPDetailKey === 'network-type') && userService.user.subscriptionPlan !== 'large'">{{detail}}</div>
-								<a *ngIf="ipISPDetailKey === 'network_name' && userService.user.subscriptionPlan === 'large'" [routerLink]="['/network-name/', detail]">{{detail}}</a>
-								<a *ngIf="ipISPDetailKey === 'network_type' && userService.user.subscriptionPlan === 'large'" [routerLink]="['/network-type/', detail]">{{detail}}</a>
+								<a *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', detail]">{{detail}}</a>
+								<a *ngIf="ipISPDetailKey !== 'network_name' && ipISPDetailKey !== 'network_type'" [routerLink]="['/network-group/', detail]">{{detail}}</a>
+								<div *ngIf="(ipISPDetailKey === 'network_name' || ipISPDetailKey === 'network-type') && subscriptionPlan !== 'large'">{{detail}}</div>
+								<a *ngIf="ipISPDetailKey === 'network_name' && subscriptionPlan === 'large'" [routerLink]="['/network-name/', detail]">{{detail}}</a>
+								<a *ngIf="ipISPDetailKey === 'network_type' && subscriptionPlan === 'large'" [routerLink]="['/network-type/', detail]">{{detail}}</a>
 							</mat-chip>
 						</mat-chip-list>
-						<button mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to drill-in on this field!" *ngIf="['free', 'small', 'large'].indexOf(userService.user.subscriptionPlan) < 0 && ipISPDetailKey !== 'ispname'">
+						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipISPDetailKey === 'ispname'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
-						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['medium', 'large'].indexOf(userService.user.subscriptionPlan) < 0 && ipISPDetailKey !== 'ispname'">
+						<button mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to drill-in on this field!" *ngIf="['free', 'small', 'large'].indexOf(subscriptionPlan) < 0 && ipISPDetailKey !== 'ispname'">
+							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
+						</button>
+						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['medium', 'large'].indexOf(subscriptionPlan) < 0 && ipISPDetailKey !== 'ispname'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
 			          	<mat-divider [inset]="true" *ngIf="!last"></mat-divider>
@@ -135,7 +137,7 @@
 							<a mat-line href="https://www.google.com/maps/search/{{latitude}},{{longitude}}" target="_blank">
 								{{ipGeoDetail.district}}<span *ngIf="ipGeoDetail.district !== ''">, </span>
 								{{ipGeoDetail.city}}<span *ngIf="ipGeoDetail.city !== ''">, </span>
-								{{ipGeoDetail.stateprov}}<span *ngIf="ipGeoDetail.stateprov !== ''">, </span> 
+								{{ipGeoDetail.stateprov}}<span *ngIf="ipGeoDetail.stateprov !== ''">, </span>
 								{{ipGeoDetail.zipcode}}<span *ngIf="ipGeoDetail.zipcode !== ''">, </span>
 								{{ipGeoDetail.country}}
 							</a>

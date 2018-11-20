@@ -75,6 +75,8 @@ export class IpDetailComponent implements OnInit {
     network_name: "Network Name"
   }
 
+  subscriptionPlan;
+
   ipThreatDetail;
   ipThreatDetailFields = [
     "threat_potential_score_pct",
@@ -168,6 +170,7 @@ export class IpDetailComponent implements OnInit {
     this.tags = [];
     this.latitude = 0;
     this.longitude = 0;
+    this.subscriptionPlan = this.userService.user.subscriptionPlan;
     this.route.data.subscribe(routeData => {
       let data = routeData['data'];
       if (data) {
