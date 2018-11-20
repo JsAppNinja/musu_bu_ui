@@ -53,6 +53,30 @@ export const routes: Routes = [
 		}
 	},
 	{
+		path: 'isp-name/:ispName',
+		component: IpRangesComponent,
+		resolve: {
+			ipRanges: IpRangesResolver,
+			isAuthenticated: LoginResolver
+		}
+	},
+	{
+		path: 'network-group/:networkGroup',
+		component: IpRangesComponent,
+		resolve: {
+			ipRanges: IpRangesResolver,
+			isAuthenticated: LoginResolver
+		}
+	},
+	{
+		path: 'blacklist-neighbors/:blacklistNeighbors',
+		component: IpRangesComponent,
+		resolve: {
+			ipRanges: IpRangesResolver,
+			isAuthenticated: LoginResolver
+		}
+	},
+	{
 		path: 'searches',
 		component: SavedSearchesComponent,
 		resolve: {
