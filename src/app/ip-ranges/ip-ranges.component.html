@@ -3,7 +3,7 @@
       <!-- <h2>Tags</h2> -->
       <!-- <p *ngIf="ipRanges && ipRanges.length === 0">No IPs found.</p> -->
   </section>
-  <section *ngIf="currentRoute === 'network-type' || currentRoute === 'network-name' || currentRoute === 'network-group'">
+  <section class="loading" *ngIf="currentRoute === 'network-type' || currentRoute === 'network-name' || currentRoute === 'network-group'">
     <h2>{{title}} Drill-In</h2>
     <h3>{{queryParam}}</h3>
     <table mat-table [dataSource]="ipRanges" matSort *ngIf="ipRanges && ipRanges.length !== 0" class="mat-elevation-z8 results-table">
@@ -40,6 +40,16 @@
       <tr mat-header-row *matHeaderRowDef="ipRangesColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: ipRangesColumns;"></tr>
     </table>
+    <mat-paginator
+        #paginator
+        [length]="length"
+        [pageIndex]="pageIndex"
+        [pageSize]="50"
+        [showFirstLastButtons]="true"
+        (page)="pageEvent = getPageInfo($event)"
+    >
+    </mat-paginator>
+    <ngx-loading [show]="isLoading"></ngx-loading>
   </section>
   <section *ngIf="currentRoute === 'isp-name' || currentRoute === 'blacklist-neighbors'">
     <h2>{{title}} Drill-In</h2>

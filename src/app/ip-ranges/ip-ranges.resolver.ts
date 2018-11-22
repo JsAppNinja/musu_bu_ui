@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from "@angular/router";
 import { IpsService } from '../services/ips.service';
 import { UserService } from '../services/user.service';
- @Injectable()
+
+@Injectable()
 export class IpRangesResolver implements Resolve<any> {
-   constructor(
+  constructor(
     private ipsService: IpsService,
     private userService: UserService
   ) { }
-   resolve(route: ActivatedRouteSnapshot) {
+
+  resolve(route: ActivatedRouteSnapshot) {
     var currentRoute = route.url[0].path;
     if(currentRoute === 'network-name'){
         let queryParam = route.paramMap.get('networkName');
         let parser =  new DOMParser();
         let encodedNetworkName = parser.parseFromString(queryParam, "text/html").documentElement.textContent;
         return new Promise((resolve, reject) => {
-            let ipDetail = this.ipsService.getIpRangesByNetworkName(encodedNetworkName)
+            let ipDetail = this.ipsService.getIpRangesByNetworkName(encodedNetworkName, 1)
             .then(
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){
@@ -39,9 +41,9 @@ export class IpRangesResolver implements Resolve<any> {
     if(currentRoute === 'network-type'){
         let queryParam = route.paramMap.get('networkType');
         let parser =  new DOMParser();
-        let encodedNetworkName = parser.parseFromString(queryParam, "text/html").documentElement.textContent;
+        let encodedNetworkType = parser.parseFromString(queryParam, "text/html").documentElement.textContent;
         return new Promise((resolve, reject) => {
-            let ipDetail = this.ipsService.getIpRangesByNetworkType(encodedNetworkName)
+            let ipDetail = this.ipsService.getIpRangesByNetworkType(encodedNetworkType, 1)
             .then(
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){
@@ -95,7 +97,7 @@ export class IpRangesResolver implements Resolve<any> {
         let parser =  new DOMParser();
         let encodedNetworkGroup = parser.parseFromString(queryParam, "text/html").documentElement.textContent;
         return new Promise((resolve, reject) => {
-            let ipDetail = this.ipsService.getIpRangesByNetworkGroup(encodedNetworkGroup)
+            let ipDetail = this.ipsService.getIpRangesByNetworkGroup(encodedNetworkGroup, 1)
             .then(
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){

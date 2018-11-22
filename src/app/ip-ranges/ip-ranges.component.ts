@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
- @Component({
+import { MatPaginator } from '@angular/material';
+import { IpsService } from '../services/ips.service';
+
+@Component({
   selector: 'app-ip-ranges',
   templateUrl: './ip-ranges.component.html',
   styleUrls: ['./ip-ranges.component.css']
 })
 export class IpRangesComponent implements OnInit {
-  constructor(private route: ActivatedRoute,) { }
+  @ViewChild('paginator') paginator: MatPaginator;
+  constructor(
+    private route: ActivatedRoute,
+    private ipsService: IpsService,
+  ) { }
   ipRangesColumns: string[] = ['ipStartInt', 'ipEndInt', 'networkName', 'networkType', 'networkGroup'];
   ipRanges = [];
   totalIpRanges;
@@ -16,21 +23,28 @@ export class IpRangesComponent implements OnInit {
   title = '';
   currentRoute;
   queryParam;
+  length: number;
+  isLoading = false;
+
   ngOnInit() {
     this.route.data.subscribe(routeData => {
       this.currentRoute = routeData.ipRanges.currentRoute;
       this.queryParam = routeData.ipRanges.queryParam;
+
       switch (routeData.ipRanges.currentRoute) {
         case 'network-type':
           this.title = 'Network Type';
+          this.length = routeData.ipRanges.ipRanges.result_count;
           this.ipRanges = routeData.ipRanges.ipRanges.entries;
           break;
         case 'network-name':
           this.title = 'Network Name';
+          this.length = routeData.ipRanges.ipRanges.result_count;
           this.ipRanges = routeData.ipRanges.ipRanges.entries;
           break;
         case 'network-group':
           this.title = 'Network Group';
+          this.length = routeData.ipRanges.ipRanges.result_count;
           this.ipRanges = routeData.ipRanges.ipRanges.entries;
           break;
         case 'isp-name':
@@ -45,5 +59,36 @@ export class IpRangesComponent implements OnInit {
           break;
       }
     });
+  }
+
+  getPageInfo(e) {
+    this.isLoading = true;
+    return new Promise((resolve, reject) => {
+      switch(this.currentRoute) {
+        case 'network-name':
+          this.ipsService.getIpRangesByNetworkName(this.queryParam, (e.pageIndex + 1).toString())
+            .then(data => {
+              this.ipRanges = data.ipRanges.entries;
+              this.isLoading = false;
+            }, err => resolve(null));
+          break;
+        case 'network-type':
+          this.ipsService.getIpRangesByNetworkType(this.queryParam, (e.pageIndex + 1).toString())
+            .then(data => {
+              this.isLoading = false;
+              this.ipRanges = data.ipRanges.entries;
+            }, err => resolve(null));
+          break;
+        case 'network-group':
+          this.ipsService.getIpRangesByNetworkGroup(this.queryParam, (e.pageIndex + 1).toString())
+            .then(data => {
+              this.isLoading = false;
+              this.ipRanges = data.ipRanges.entries;
+            }, err => resolve(null));
+          break;
+        default:
+          break;
+      }
+    })
   }
 }
