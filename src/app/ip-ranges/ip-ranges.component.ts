@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatPaginator } from '@angular/material';
 import { IpsService } from '../services/ips.service';
 
@@ -13,6 +13,7 @@ export class IpRangesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private ipsService: IpsService,
+    private router: Router,
   ) { }
   ipRangesColumns: string[] = ['ipStartInt', 'ipEndInt', 'networkName', 'networkType', 'networkGroup'];
   ipRanges = [];
@@ -27,6 +28,11 @@ export class IpRangesComponent implements OnInit {
   isLoading = false;
 
   ngOnInit() {
+    this.router.events.subscribe((event: NavigationEnd) => {
+      if(event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
     this.route.data.subscribe(routeData => {
       this.currentRoute = routeData.ipRanges.currentRoute;
       this.queryParam = routeData.ipRanges.queryParam;
