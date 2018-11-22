@@ -46,7 +46,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginResolver } from './login/login.resolver';
 import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SavedSearchesComponent } from './saved-searches/saved-searches.component';
+import { SavedSearchesComponent, CreateSavedSearchDialog } from './saved-searches/saved-searches.component';
 import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
@@ -71,6 +71,7 @@ import { GmapResolver } from './gmap/gmap.resolver';
     TrendsComponent,
     IpTagsComponent,
     CreateTagDialog,
+    CreateSavedSearchDialog,
     IpRangesComponent,
     DeleteUserDialog,
     CreateUserDialog,
@@ -164,6 +165,7 @@ import { GmapResolver } from './gmap/gmap.resolver';
     ImportDialogComponent,
     QueryNameDialogComponent,
     CreateTagDialog,
+    CreateSavedSearchDialog,
     DeleteUserDialog,
     CreateUserDialog
   ],

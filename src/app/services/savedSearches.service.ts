@@ -30,6 +30,16 @@ export class SavedSearchesService {
     .toPromise();
   }
 
+  getUserSearchByName(name, userEmail){
+    let filter: LoopBackFilter = {
+      "where": {
+        "name": name,
+        "userEmail": userEmail
+      }
+    }
+    return this.savedSearchApi.find<SavedSearch>(filter);
+  }
+
   getUserSearches(userEmail) {
     const filter: LoopBackFilter = {
         'where': {
@@ -38,6 +48,11 @@ export class SavedSearchesService {
       };
       return this.savedSearchApi.find<SavedSearch>(filter)
       .toPromise();
+  }
+
+  updateSearch(data){
+    return this.savedSearchApi.updateAttributes<SavedSearch>(data.id, data)
+    .toPromise();
   }
 
   deleteSearch(id) {
