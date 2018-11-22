@@ -26,6 +26,14 @@
               <button mat-flat-button [disabled]="ipsList.length === 0" class="button-bottom-spacing">
                   <mat-icon>save</mat-icon> Save
               </button>
+              <mat-slide-toggle
+                #flagToggle
+                class="example-margin"
+                [disabled]="disabled"
+                (change)="setFlagShow()"
+              >
+                Show flag
+              </mat-slide-toggle>
           </div>
       </mat-card>
   </section>
@@ -40,7 +48,7 @@
         <agm-snazzy-info-window
           [latitude]="+ip.latitude"
           [longitude]="+ip.longitude"
-          [isOpen]="true"
+          [isOpen]="isOpen"
         >
           <ng-template>
             <div>
