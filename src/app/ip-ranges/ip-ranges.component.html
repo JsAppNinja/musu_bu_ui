@@ -3,42 +3,61 @@
       <!-- <h2>Tags</h2> -->
       <!-- <p *ngIf="ipRanges && ipRanges.length === 0">No IPs found.</p> -->
   </section>
-  <section>
-    <div class="table-wrapper">
-      <table mat-table [dataSource]="ipRanges" matSort *ngIf="ipRanges && ipRanges.length !== 0" class="mat-elevation-z8 results-table">
-        <ng-container matColumnDef="ipStartInt">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> IP Start </th>
-            <td mat-cell *matCellDef="let element">
-              {{element.ip_start_int}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="ipEndInt">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> IP End </th>
-            <td mat-cell *matCellDef="let element">
-              {{element.ip_end_int}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="networkName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Name </th>
-            <td mat-cell *matCellDef="let element">
-              {{element.network_name}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="networkType">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Type </th>
-            <td mat-cell *matCellDef="let element">
-              {{element.network_type}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="networkGroup">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Group </th>
-            <td mat-cell *matCellDef="let element">
-              {{element.network_group}}
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="ipRangesColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: ipRangesColumns;"></tr> 
-      </table>
-    </div>
+  <section class="loading" *ngIf="currentRoute === 'network-type' || currentRoute === 'network-name' || currentRoute === 'network-group'">
+    <h2>{{title}} Drill-In</h2>
+    <h3>{{queryParam}}</h3>
+    <table mat-table [dataSource]="ipRanges" matSort *ngIf="ipRanges && ipRanges.length !== 0" class="mat-elevation-z8 results-table">
+      <ng-container matColumnDef="ipStartInt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> IP Start </th>
+          <td mat-cell *matCellDef="let element">
+            <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', element.ip_start_int]">{{element.ip_start_int}}</a>
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="ipEndInt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> IP End </th>
+          <td mat-cell *matCellDef="let element">
+            <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', element.ip_end_int]">{{element.ip_end_int}}</a>
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="networkName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Name </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.network_name}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="networkType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Type </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.network_type}}
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="networkGroup">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Network Group </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.network_group}}
+          </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="ipRangesColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: ipRangesColumns;"></tr>
+    </table>
+    <mat-paginator
+        #paginator
+        [length]="length"
+        [pageIndex]="pageIndex"
+        [pageSize]="50"
+        [showFirstLastButtons]="true"
+        (page)="pageEvent = getPageInfo($event)"
+    >
+    </mat-paginator>
+    <ngx-loading [show]="isLoading"></ngx-loading>
   </section>
-</div> 
+  <section *ngIf="currentRoute === 'isp-name' || currentRoute === 'blacklist-neighbors'">
+    <h2>{{title}} Drill-In</h2>
+    <h3>{{queryParam}}</h3>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let ip of ipsList">
+        <a matTooltip="Click here for IP Record info." [routerLink]="['/detail/', ip]">{{ip}}</a>
+      </mat-chip>
+    </mat-chip-list>
+  </section>
+</div>
