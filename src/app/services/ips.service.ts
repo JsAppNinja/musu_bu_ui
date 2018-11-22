@@ -23,13 +23,13 @@ export class IpsService {
     .toPromise();
   }
 
-  getIpRangesByNetworkName(networkName){
-    return this.ipRangeApi.getIpDetailRangesByNetworkName(networkName)
+  getIpRangesByNetworkName(networkName, pageNum){
+    return this.ipRangeApi.getIpDetailRangesByNetworkName(networkName, pageNum)
     .toPromise();
   }
 
-  getIpRangesByNetworkType(networkType){
-    return this.ipRangeApi.getIpDetailRangesByNetworkType(networkType)
+  getIpRangesByNetworkType(networkType, pageNum){
+    return this.ipRangeApi.getIpDetailRangesByNetworkType(networkType, pageNum)
     .toPromise();
   }
 
@@ -38,8 +38,8 @@ export class IpsService {
     .toPromise();
   }
 
-  getIpRangesByNetworkGroup(networkGroup){
-    return this.ipRangeApi.getIpDetailRangesByNetworkGroup(networkGroup)
+  getIpRangesByNetworkGroup(networkGroup, pageNum){
+    return this.ipRangeApi.getIpDetailRangesByNetworkGroup(networkGroup, pageNum)
     .toPromise();
   }
 
