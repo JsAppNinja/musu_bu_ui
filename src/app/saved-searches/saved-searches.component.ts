@@ -94,15 +94,29 @@ export class SavedSearchesComponent implements OnInit {
     });
   }
 
-  delete(id){
-    this.savedSearchesService.deleteSearch(id).then(
-      result =>{
-        this.getUserSearches();
-      },
-      err =>{
+  createSearchDeleteDialog(id) {
+    const dialogRef = this.dialog.open(SearchDeleteDialog, { width: '300px' });
 
+    dialogRef.keydownEvents().subscribe(result => {
+      if(result.key === "Enter"){
+        dialogRef.componentInstance.closeDialog(false);
       }
-    )
+    }, err =>{
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.savedSearchesService.deleteSearch(id).then(
+          result => {
+            this.getUserSearches();
+          },
+          err => {
+
+          }
+        );
+      }
+    });
   }
 }
 
@@ -179,5 +193,27 @@ export class CreateSavedSearchDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+}
 
+
+@Component({
+  selector: 'search-delete-dialog',
+  templateUrl: 'search-delete-dialog.html',
+  styleUrls: ['saved-searches.component.css']
+})
+export class SearchDeleteDialog {
+  constructor(
+    public dialogRef: MatDialogRef<SearchDeleteDialog>,
+  ) {}
+
+  ngOnInit() {
+  }
+
+  closeDialog(value) {
+    this.dialogRef.close(value);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
