@@ -71,7 +71,7 @@ export class IpTagsComponent implements OnInit {
               this.getUserTags();
             },
             err => {
-  
+
             }
           );
         }
@@ -82,11 +82,11 @@ export class IpTagsComponent implements OnInit {
               this.getUserTags();
             },
             err =>{
-      
+
             }
           )
         }
-        
+
       }
     });
   }
@@ -114,9 +114,9 @@ export class IpTagsComponent implements OnInit {
   styleUrls: ['ip-tags.component.css']
 })
 export class CreateTagDialog {
-  tagNameInput = new FormControl(this.data.tagName, 
-    { 
-      updateOn: 'change', 
+  tagNameInput = new FormControl(this.data.tagName,
+    {
+      updateOn: 'change',
       validators: [Validators.required],
       asyncValidators: [this.existingTagValidator()]
     }
@@ -141,6 +141,7 @@ export class CreateTagDialog {
       }
       else{
         tagToValidate = this.tagNameInput.value;
+        this.data.tagName = this.tagNameInput.value;
       }
       if(!this.user){
         this.user = JSON.parse(localStorage.getItem("profile"));
@@ -154,7 +155,7 @@ export class CreateTagDialog {
         )
       )
     };
-  } 
+  }
 
   getErrorMessage(){
     if(this.tagNameInput.hasError('required')){

@@ -140,6 +140,7 @@ export class CreateSavedSearchDialog {
       }
       else{
         savedSearchToValidate = this.savedSearchNameInput.value;
+        this.data.savedSearchName = this.savedSearchNameInput.value;
       }
       if(!this.user){
         this.user = JSON.parse(localStorage.getItem("profile"));
