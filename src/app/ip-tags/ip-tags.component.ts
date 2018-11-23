@@ -154,6 +154,7 @@ export class CreateTagDialog {
       }
       else{
         tagToValidate = this.tagNameInput.value;
+        this.data.tagName = this.tagNameInput.value;
       }
       if(!this.user){
         this.user = JSON.parse(localStorage.getItem("profile"));
