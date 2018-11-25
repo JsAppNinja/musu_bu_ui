@@ -62,7 +62,8 @@
 						</mat-chip-list>
 
 						<!-- Blacklist Network Neighbors -->
-						<p mat-line *ngIf="['free'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'"> {{ipThreatDetail[ipThreatDetailKey]}} </p>
+						<a mat-line *ngIf="subscriptionPlan === 'large' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
+						<div mat-line *ngIf="ipThreatDetailKey === 'blacklist_network_neighbor_cnt' && subscriptionPlan !== 'large' && subscriptionPlan !== 'free'"> {{ipThreatDetail[ipThreatDetailKey]}} </div>
 						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
@@ -88,20 +89,22 @@
 			            <h3 mat-line>{{fieldNames[ipISPDetailKey]}}</h3>
 
 			            <!-- ISP Name -->
-						<p mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && ['free'].indexOf(subscriptionPlan) < 0"> {{ipISPDetail[ipISPDetailKey]}} </p>
-						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipISPDetailKey === 'ispname'">
-							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
-						</button>
+											<a mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', ipISPDetail[ipISPDetailKey]]"> {{ipISPDetail[ipISPDetailKey]}} </a>
+											<div mat-line *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan !== 'large' && subscriptionPlan !== 'free'"> {{ipISPDetail[ipISPDetailKey]}} </div>
 
 						<!-- Network Type, Group & Name -->
 						<mat-chip-list mat-line #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey]) && ['free', 'small'].indexOf(subscriptionPlan) < 0">
 							<mat-chip *ngFor="let detail of convertToSet(ipISPDetail[ipISPDetailKey])" [selectable]="selectable">
-								<div *ngIf="ipISPDetailKey !== 'network_name' && ipISPDetailKey !== 'network_type'">{{detail}}</div>
-								<div *ngIf="(ipISPDetailKey === 'network_name' || ipISPDetailKey === 'network_type') && subscriptionPlan === 'medium'">{{detail}}</div>
-								<a *ngIf="ipISPDetailKey === 'network_name' && subscriptionPlan === 'large'" [routerLink]="['/network-name/', detail]">{{detail}}</a>
-								<a *ngIf="ipISPDetailKey === 'network_type' && subscriptionPlan === 'large'" [routerLink]="['/network-type/', detail]">{{detail}}</a>
+								<a *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', detail]"> {{detail}} </a>
+								<div *ngIf="(ipISPDetailKey === 'network_name' || ipISPDetailKey === 'network_type' || ipISPDetailKey === 'network_group') && subscriptionPlan !== 'large'"> {{detail}} </div>
+								<a *ngIf="ipISPDetailKey === 'network_group' && subscriptionPlan === 'large'" [routerLink]="['/network-group/', detail]"> {{detail}} </a>
+								<a *ngIf="ipISPDetailKey === 'network_name' && subscriptionPlan === 'large'" [routerLink]="['/network-name/', detail]"> {{detail}} </a>
+								<a *ngIf="ipISPDetailKey === 'network_type' && subscriptionPlan === 'large'" [routerLink]="['/network-type/', detail]"> {{detail}} </a>
 							</mat-chip>
 						</mat-chip-list>
+						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipISPDetailKey === 'ispname'">
+							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
+						</button>
 						<button mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to drill-in on this field!" *ngIf="['free', 'small', 'large'].indexOf(subscriptionPlan) < 0 && ipISPDetailKey !== 'ispname'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
