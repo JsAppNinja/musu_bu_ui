@@ -75,12 +75,15 @@ export class IpRangesResolver implements Resolve<any> {
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){
                       const ips = data.ipRanges.entries.map(item => item.ipaddress);
-                      this.ipsService.getIpsDetail(ips).then(response => resolve({
-                        ipsData: response.ipsDetail,
-                        result_count: data.ipRanges.result_count,
-                        currentRoute: 'isp-name',
-                        queryParam
-                      }));
+                      let ipsData = this.ipsService.getIpsDetail(ips)
+                        .then(response => {
+                          return resolve({
+                            ipsData: response.ipsDetail,
+                            result_count: data.ipRanges.result_count,
+                            currentRoute: 'isp-name',
+                            queryParam
+                          })
+                      });
                     }
                     else{
                         return resolve(null);
@@ -130,13 +133,15 @@ export class IpRangesResolver implements Resolve<any> {
             .then(
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){
-                      this.ipsService.getIpsDetail(data.ipRanges.blacklist_network_neighbors)
-                        .then(response => ({
-                          ipsData: response.ipsDetail,
-                          result_count: data.ipRanges.blacklist_network_neighbor_cnt,
-                          currentRoute: 'blacklist-neighbors',
-                          queryParam
-                        }));
+                      let ipsData = this.ipsService.getIpsDetail(data.ipRanges.blacklist_network_neighbors)
+                        .then(response => {
+                          return resolve({
+                            ipsData: response.ipsDetail,
+                            result_count: data.ipRanges.blacklist_network_neighbor_cnt,
+                            currentRoute: 'blacklist-neighbors',
+                            queryParam
+                          })
+                        });
                     }
                     else{
                         return resolve(null);
