@@ -137,32 +137,6 @@ export class CreateSavedSearchDialog {
       asyncValidators: [this.existingSavedSearchValidator()]
     }
   );
-  user;
-  constructor(
-    public dialogRef: MatDialogRef<CreateSavedSearchDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData,
-    private savedSearchesService: SavedSearchesService
-  ) {}
-
-  ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem("profile"));
-  }
-}
-
-@Component({
-  selector: 'create-search-dialog',
-  templateUrl: 'create-search-dialog.html',
-  styleUrls: ['saved-searches.component.css']
-})
-
-export class CreateSavedSearchDialog {
-  savedSearchNameInput = new FormControl(this.data.savedSearchName,
-    {
-      updateOn: 'change',
-      validators: [Validators.required],
-      asyncValidators: [this.existingSavedSearchValidator()]
-    }
-  );
   savedSearchDescriptionInput = new FormControl(this.data.savedSearchDescription,
     {
       updateOn: 'change',
@@ -181,56 +155,6 @@ export class CreateSavedSearchDialog {
       this.data.savedSearchDescription = value
     })
   }
-
-
-  existingSavedSearchValidator(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      let savedSearchToValidate = "";
-      if(!this.savedSearchNameInput){
-        savedSearchToValidate = this.data.savedSearchName;
-      }
-      else{
-        savedSearchToValidate = this.savedSearchNameInput.value;
-      }
-      if(!this.user){
-        this.user = JSON.parse(localStorage.getItem("profile"));
-      }
-      var observable = this.savedSearchesService.getUserSearchByName(savedSearchToValidate, this.user.email);
-      return observable.pipe(debounceTime(3000),
-        map(
-          result => {
-            return (result && result.length > 0) ? {"savedSearchExists": true} : null;
-          }
-        )
-      )
-    };
-  }
-
-  getErrorMessage(){
-    if(this.savedSearchNameInput.hasError('required')){
-      return 'You must enter a value.';
-    }
-    if(this.savedSearchNameInput.hasError('savedSearchExists')){
-      return 'Search already exists.'
-    }
-    return '';
-  }
-
-  closeDialog() {
-    if(!this.savedSearchNameInput.invalid){
-      this.data.savedSearchName = this.savedSearchNameInput.value;
-      this.dialogRef.close(this.data);
-    }
-    else{
-      this.savedSearchNameInput.markAsTouched();
-      this.getErrorMessage();
-    }
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
 
   existingSavedSearchValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
