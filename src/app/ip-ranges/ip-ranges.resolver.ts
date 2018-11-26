@@ -70,15 +70,17 @@ export class IpRangesResolver implements Resolve<any> {
         let parser =  new DOMParser();
         let encodedIspName = parser.parseFromString(queryParam, "text/html").documentElement.textContent;
         return new Promise((resolve, reject) => {
-            let ipDetail = this.ipsService.getIpRangesByIspName(encodedIspName)
+            let ipDetail = this.ipsService.getIpRangesByIspName(encodedIspName, 1)
             .then(
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){
-                        return resolve({
-                          ...data,
-                          currentRoute: 'isp-name',
-                          queryParam: queryParam
-                        })
+                      const ips = data.ipRanges.entries.map(item => item.ipaddress);
+                      this.ipsService.getIpsDetail(ips).then(response => resolve({
+                        ipsData: response.ipsDetail,
+                        result_count: data.ipRanges.result_count,
+                        currentRoute: 'isp-name',
+                        queryParam
+                      }));
                     }
                     else{
                         return resolve(null);
@@ -128,11 +130,13 @@ export class IpRangesResolver implements Resolve<any> {
             .then(
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){
-                        return resolve({
-                          ...data,
+                      this.ipsService.getIpsDetail(data.ipRanges.blacklist_network_neighbors)
+                        .then(response => ({
+                          ipsData: response.ipsDetail,
+                          result_count: data.ipRanges.blacklist_network_neighbor_cnt,
                           currentRoute: 'blacklist-neighbors',
-                          queryParam: queryParam
-                        })
+                          queryParam
+                        }));
                     }
                     else{
                         return resolve(null);
