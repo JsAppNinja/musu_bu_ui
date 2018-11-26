@@ -33,8 +33,8 @@ export class IpsService {
     .toPromise();
   }
 
-  getIpRangesByIspName(ispName){
-    return this.ipRangeApi.getIpDetailRangesByIspName(ispName)
+  getIpRangesByIspName(ispName, pageNum){
+    return this.ipRangeApi.getIpDetailRangesByIspName(ispName, pageNum)
     .toPromise();
   }
 

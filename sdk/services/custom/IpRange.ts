@@ -162,7 +162,7 @@ export class IpRangeApi extends BaseLoopBackApi {
    *
    *  - `ipRanges` – `{any}` -
    */
-  public getIpDetailRangesByIspName(ispName: any = {}, customHeaders?: Function): Observable<any> {
+  public getIpDetailRangesByIspName(ispName: any = {}, pageNum: string, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/ipRanges/getIpDetailRangesByIspName";
@@ -170,6 +170,7 @@ export class IpRangeApi extends BaseLoopBackApi {
     let _postBody: any = {};
     let _urlParams: any = {};
     if (typeof ispName !== 'undefined' && ispName !== null) _urlParams.ispName = ispName;
+    if (typeof pageNum !== 'undefined' && pageNum !== null) _urlParams.pageNum = pageNum;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
