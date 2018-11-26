@@ -1,9 +1,10 @@
+<h1 mat-dialog-title>Delete Tag</h1>
 <div mat-dialog-content>
-  <p>Are you sure?</p>
+  <p>Are you sure you want to delete this tag?</p>
 </div>
 <div mat-dialog-actions align="end">
     <div class="button-row">
-        <button mat-flat-button (click)="onNoClick()">Cancel</button>
-        <button mat-flat-button (click)="closeDialog(true)">Delete</button>
+        <button mat-flat-button color="basic" (click)="onNoClick()">Cancel</button>
+        <button mat-flat-button color="primary" (click)="closeDialog(true)">Delete</button>
     </div>
 </div>
