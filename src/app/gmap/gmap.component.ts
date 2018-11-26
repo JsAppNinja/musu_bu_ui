@@ -33,8 +33,8 @@ export class GmapComponent implements OnInit, AfterViewInit {
   longitude = -98.35;
   latitude = 39.5;
   isLoading = false;
-  isOpen = false;
-  disabled = true;
+  isOpen = true;
+  checked;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('AgmMap') agmMap: AgmMap;
@@ -199,7 +199,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
       this.ipsService.getIpDetail(ip).then(data => data.ipDetail)
     )).then(result => {
       this.isLoading = false;
-      this.disabled = !result.length;
+      this.checked = !!result.length;
       this.ipsGeoData = result.map((item: any) => ({
         latitude: item.latitude,
         longitude: item.longitude,

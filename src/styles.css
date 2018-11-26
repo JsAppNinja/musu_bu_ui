@@ -128,6 +128,15 @@ button.button-black,
     vertical-align: text-bottom;
 }
 
+/* toggle switch */
+.musubu-app .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar{
+    background-color: rgba(2, 139, 8, 0.5);
+}
+.musubu-app .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb{
+	background-color: #028b08;
+}
+
+/* chips */
 .mat-chip.mat-standard-chip.mat-warn{
 	background-color: #f44336;
 	color: #fff;
@@ -142,7 +151,7 @@ section{
 }
 
 footer{
-	padding: 10px 0 0;
+	padding: 30px 0 0;
 	text-align: center;
 	font-size: 14px;
 }
@@ -186,6 +195,12 @@ tr.mat-header-row{
 .results-table td.mat-footer-cell:last-of-type,
 .results-table th.mat-header-cell:last-of-type{
 	padding-left: 20px;
+}
+
+/* Pagination */
+.musubu-app .mat-paginator{
+	background: transparent;
+	color: rgba(0, 0, 0, 0.87);
 }
 
 /* Cards */
