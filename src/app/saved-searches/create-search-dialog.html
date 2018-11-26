@@ -1,19 +1,20 @@
+<h1 mat-dialog-title>Rename Watchlist</h1>
 <div mat-dialog-content>
-  <p>{{data.dialogName}}</p>
+  <p>Edit Watchlist name and description.</p>
   <mat-form-field class="dialog-input">
-    <input matInput placeholder="Saved Search Name" [formControl]="savedSearchNameInput" required cdkFocusInitial maxlength="25">
+    <input matInput placeholder="Watchlist Name" [formControl]="savedSearchNameInput" required cdkFocusInitial maxlength="25">
     <mat-error *ngIf="savedSearchNameInput.invalid">{{getNameErrorMessage()}}</mat-error>
     <mat-hint align="end">{{data.savedSearchName.length}} / 25</mat-hint>
   </mat-form-field>
   <mat-form-field class="dialog-input">
-    <input matInput placeholder="Saved Search Description" [formControl]="savedSearchDescriptionInput" maxlength="50">
+    <textarea matInput placeholder="Watchlist Description (Optional)" maxlength="160" [formControl]="savedSearchDescriptionInput"></textarea>
     <mat-error *ngIf="savedSearchDescriptionInput.invalid">{{getDescriptionErrorMessage()}}</mat-error>
-    <mat-hint align="end">{{data.savedSearchDescription.length}} / 50</mat-hint>
+    <mat-hint align="end">{{data.savedSearchDescription.length}} / 160</mat-hint>
   </mat-form-field>
 </div>
 <div mat-dialog-actions align="end">
     <div class="button-row">
-        <button mat-flat-button (click)="onNoClick()">Cancel</button>
-        <button mat-flat-button (click)="closeDialog()">{{data.submitButtonName}}</button>
+        <button mat-flat-button color="basic" (click)="onNoClick()">Cancel</button>
+        <button mat-flat-button color="primary" (click)="closeDialog()">{{data.submitButtonName}}</button>
     </div>
 </div>
