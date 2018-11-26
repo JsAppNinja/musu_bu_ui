@@ -16,15 +16,20 @@ export class IpRangesComponent implements OnInit {
     private router: Router,
   ) { }
   ipRangesColumns: string[] = ['ipStartInt', 'ipEndInt', 'networkName', 'networkType', 'networkGroup'];
+  ipsListColumns: string[] = ['ipaddress', 'threatScore', 'threatClassification', 'blacklistClass'];
+
   ipRanges = [];
-  totalIpRanges;
-  page = 1;
   ipsList = [];
-  ipRangesByBlacklistNeighbors;
+  totalIpRanges;
+  ipsListByBlacklistNeighbors;
+
+  page = 1;
+  pageSize = 50;
+  length: number;
+
   title = '';
   currentRoute;
   queryParam;
-  length: number;
   isLoading = false;
 
   ngOnInit() {
@@ -55,11 +60,14 @@ export class IpRangesComponent implements OnInit {
           break;
         case 'isp-name':
           this.title = 'ISP Name';
-          this.ipsList = routeData.ipRanges.ipRanges.entries.map(item => item.ipaddress);
+          this.ipsList = routeData.ipRanges.ipsData;
+          this.length = routeData.ipRanges.result_count;
           break;
         case 'blacklist-neighbors':
           this.title = 'Blacklist Network Neighbors';
-          this.ipsList = routeData.ipRanges.ipRanges.blacklist_network_neighbors;
+          this.ipsListByBlacklistNeighbors = routeData.ipRanges.ipsData;
+          this.ipsList = routeData.ipRanges.ipsData.slice(0, this.pageSize);
+          this.length = routeData.ipRanges.result_count;
           break;
         default:
           break;
@@ -91,6 +99,23 @@ export class IpRangesComponent implements OnInit {
               this.isLoading = false;
               this.ipRanges = data.ipRanges.entries;
             }, err => resolve(null));
+          break;
+        case 'isp-name':
+          this.ipsService.getIpRangesByIspName(this.queryParam, (e.pageIndex + 1).toString())
+            .then(data => {
+              const ips = data.ipRanges.entries.map(item => item.ipaddress);
+              this.ipsService.getIpsDetail(ips).then(response => {
+                this.isLoading = false;
+                this.ipsList = response.ipsDetail;
+              });
+            }, err => resolve(null));
+          break;
+        case 'blacklist-neighbors':
+          this.ipsList = this.ipsListByBlacklistNeighbors.slice(
+            e.pageIndex * (this.pageSize - 1),
+            e.pageIndex * (this.pageSize - 1) + this.pageSize,
+          );
+          this.isLoading = false;
           break;
         default:
           break;
