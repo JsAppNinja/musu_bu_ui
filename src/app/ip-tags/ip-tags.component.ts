@@ -43,7 +43,7 @@ export class IpTagsComponent implements OnInit {
     )
   }
 
-  createTagDialog(data, dialogName, type, submitButtonNAme){
+  createTagDialog(data, dialogName, type, submitButtonName){
     const dialogRef = this.dialog.open(CreateTagDialog, {
       width: '300px',
       data: {
@@ -51,7 +51,7 @@ export class IpTagsComponent implements OnInit {
         tagName: data.name ? data.name : "",
         user: this.userService.user.email,
         dialogName: dialogName,
-        submitButtonName: submitButtonNAme
+        submitButtonName: submitButtonName
       }
     });
 
@@ -91,21 +91,34 @@ export class IpTagsComponent implements OnInit {
     });
   }
 
-  deleteTag(id){
-    this.tagsService.deleteTag(id).then(
-      result => {
-        this.getUserTags();
-      },
-      err => {
+  createTagDeleteDialog(id) {
+    const dialogRef = this.dialog.open(TagDeleteDialog, { width: '300px' });
 
+    dialogRef.keydownEvents().subscribe(result => {
+      if(result.key === "Enter"){
+        dialogRef.componentInstance.closeDialog(false);
       }
-    );
+    }, err =>{
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.tagsService.deleteTag(id).then(
+          result => {
+            this.getUserTags();
+          },
+          err => {
+
+          }
+        );
+      }
+    });
   }
 
   humanizeDate(date){
     return moment(date).format("LLL");
   }
-
 }
 
 @Component({
@@ -182,4 +195,26 @@ export class CreateTagDialog {
     this.dialogRef.close();
   }
 
+}
+
+@Component({
+  selector: 'tag-delete-dialog',
+  templateUrl: 'tag-delete-dialog.html',
+  styleUrls: ['ip-tags.component.css']
+})
+export class TagDeleteDialog {
+  constructor(
+    public dialogRef: MatDialogRef<TagDeleteDialog>,
+  ) {}
+
+  ngOnInit() {
+  }
+
+  closeDialog(value) {
+    this.dialogRef.close(value);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

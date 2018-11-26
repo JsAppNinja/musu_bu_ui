@@ -35,7 +35,8 @@ import {
   MatButtonToggleModule,
   MatAutocompleteModule,
   MatProgressSpinnerModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -46,11 +47,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginResolver } from './login/login.resolver';
 import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SavedSearchesComponent, CreateSavedSearchDialog } from './saved-searches/saved-searches.component';
+import {
+  SavedSearchesComponent,
+  CreateSavedSearchDialog,
+  SearchDeleteDialog
+} from './saved-searches/saved-searches.component';
 import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
-import { IpTagsComponent, CreateTagDialog } from './ip-tags/ip-tags.component';
+import { IpTagsComponent, CreateTagDialog, TagDeleteDialog } from './ip-tags/ip-tags.component';
 import { AdminComponent, DeleteUserDialog, CreateUserDialog } from './admin/admin.component';
 import { AdminResolver } from './admin/admin.resolver';
 import { AgmCoreModule } from '@agm/core';
@@ -72,6 +77,8 @@ import { GmapResolver } from './gmap/gmap.resolver';
     IpTagsComponent,
     CreateTagDialog,
     CreateSavedSearchDialog,
+    SearchDeleteDialog,
+    TagDeleteDialog,
     IpRangesComponent,
     DeleteUserDialog,
     CreateUserDialog,
@@ -116,6 +123,7 @@ import { GmapResolver } from './gmap/gmap.resolver';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatSlideToggleModule,
     NgxLoadingModule.forRoot({}),
     NgCircleProgressModule.forRoot({
       // set defaults here
@@ -166,8 +174,10 @@ import { GmapResolver } from './gmap/gmap.resolver';
     QueryNameDialogComponent,
     CreateTagDialog,
     CreateSavedSearchDialog,
+    SearchDeleteDialog,
     DeleteUserDialog,
-    CreateUserDialog
+    CreateUserDialog,
+    TagDeleteDialog
   ],
   bootstrap: [AppComponent]
 })
