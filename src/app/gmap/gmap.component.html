@@ -31,7 +31,7 @@
                 class="flag-toggle"
                 [color]="primary"
                 [checked]="checked"
-                [disabled]="enabled"
+                [disabled]="ipsList.length === 0"
                 (change)="setFlagShow()"
               >
                 Show IP Info
