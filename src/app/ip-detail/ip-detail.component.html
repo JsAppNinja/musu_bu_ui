@@ -62,9 +62,8 @@
 						</mat-chip-list>
 
 						<!-- Blacklist Network Neighbors -->
-						<a mat-line *ngIf="subscriptionPlan === 'large' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
-						<div mat-line *ngIf="ipThreatDetailKey === 'blacklist_network_neighbor_cnt' && subscriptionPlan !== 'large' && subscriptionPlan !== 'free'"> {{ipThreatDetail[ipThreatDetailKey]}} </div>
-						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
+						<a mat-line *ngIf="subscriptionPlan !== 'free' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
+						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="subscriptionPlan === 'free' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
 

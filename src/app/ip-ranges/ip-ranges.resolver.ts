@@ -132,7 +132,7 @@ export class IpRangesResolver implements Resolve<any> {
             let ipDetail = this.ipsService.getIpRangesByBlacklistNeighbors(encodedBlacklistNeighbors)
             .then(
                 data => {
-                    if(this.userService.user.subscriptionPlan === 'large'){
+                    if(this.userService.user.subscriptionPlan !== 'free'){
                       let ipsData = this.ipsService.getIpsDetail(data.ipRanges.blacklist_network_neighbors)
                         .then(response => {
                           return resolve({
