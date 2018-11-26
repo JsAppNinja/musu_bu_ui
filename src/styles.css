@@ -188,6 +188,12 @@ tr.mat-header-row{
 	padding-left: 20px;
 }
 
+/* Pagination */
+.musubu-app .mat-paginator{
+	background: transparent;
+	color: rgba(0, 0, 0, 0.87);
+}
+
 /* Cards */
 .mat-card{
 	margin: 5px;
