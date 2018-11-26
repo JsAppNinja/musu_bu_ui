@@ -28,11 +28,13 @@
               </button>
               <mat-slide-toggle
                 #flagToggle
-                class="example-margin"
-                [disabled]="disabled"
+                class="flag-toggle"
+                [color]="primary"
+                [checked]="checked"
+                [disabled]="enabled"
                 (change)="setFlagShow()"
               >
-                Show flag
+                Show IP Info
               </mat-slide-toggle>
           </div>
       </mat-card>
