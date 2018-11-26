@@ -12,6 +12,7 @@ import { UserService } from '../services/user.service';
 export interface QueryNameDialogData {
   dialogName: string;
   savedSearchName: string;
+  savedSearchDescription: string;
   submitButtonName: string;
 }
 
@@ -63,6 +64,7 @@ export class SavedSearchesComponent implements OnInit {
       data: {
         savedSearchData: data,
         savedSearchName: data.queryName ? data.queryName : "",
+        savedSearchDescription: data.description ? data.description : "",
         user: this.userService.user.email,
         dialogName: dialogName,
         submitButtonName: submitButtonNAme
@@ -80,7 +82,8 @@ export class SavedSearchesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         if(type === "update"){
-          result.savedSearchData.queryName = result.savedSearchName
+          result.savedSearchData.queryName = result.savedSearchName;
+          result.savedSearchData.description = result.savedSearchDescription;
           this.savedSearchesService.updateSearch(result.savedSearchData).then(
             result => {
               this.getUserSearches();
@@ -120,6 +123,11 @@ export class CreateSavedSearchDialog {
       asyncValidators: [this.existingSavedSearchValidator()]
     }
   );
+  savedSearchDescriptionInput = new FormControl(this.data.savedSearchDescription,
+    {
+      updateOn: 'change',
+    }
+  );
   user;
   constructor(
     public dialogRef: MatDialogRef<CreateSavedSearchDialog>,
@@ -129,6 +137,9 @@ export class CreateSavedSearchDialog {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("profile"));
+    this.savedSearchDescriptionInput.valueChanges.subscribe(value => {
+      this.data.savedSearchDescription = value
+    })
   }
 
 
@@ -156,7 +167,7 @@ export class CreateSavedSearchDialog {
     };
   }
 
-  getErrorMessage(){
+  getNameErrorMessage(){
     if(this.savedSearchNameInput.hasError('required')){
       return 'You must enter a value.';
     }
@@ -169,16 +180,16 @@ export class CreateSavedSearchDialog {
   closeDialog() {
     if(!this.savedSearchNameInput.invalid){
       this.data.savedSearchName = this.savedSearchNameInput.value;
+      this.data.savedSearchDescription = this.savedSearchDescriptionInput.value;
       this.dialogRef.close(this.data);
     }
     else{
       this.savedSearchNameInput.markAsTouched();
-      this.getErrorMessage();
+      this.getNameErrorMessage();
     }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }
