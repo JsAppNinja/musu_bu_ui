@@ -60,7 +60,8 @@ div, .content-container{
 	color: #fff;
 }
 .mat-chip#botnet,
-.mat-chip#botnetcnc{
+.mat-chip#botnetcnc,
+.mat-chip#sips{
 	background-color: #FFA500; /* orange */
 	color: #fff;
 }
@@ -99,10 +100,6 @@ div, .content-container{
 	background-color: #36454f; /* charcoal gray */
 	color: #fff;
 }
-.mat-chip#sips{
-	background-color: #FFA500; /* orange */
-	color: #fff;
-}
 .mat-chip#tor{
 	background-color: #774C93; /* tor purple */
 	color: #fff;
@@ -115,9 +112,7 @@ div, .content-container{
 	background-color: #FFC900; /* golden yellow */
 	color: #000;
 }
-.mat-chip#unlisted{
-	/* default gray */
-}
+.mat-chip#unlisted{ /* default gray */ }
 
 /* Geo-location Card */
 .card-grid .middle{
