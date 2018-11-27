@@ -35,6 +35,11 @@ div, .content-container{
 	background-color: #28A745;
 	color: #fff;
 }
+.threat-score.nuisance.mat-chip,
+.threat-class#Nuisance{
+	background-color: #686868;
+	color: #fff;
+}
 .threat-score.medium.mat-chip,
 .threat-class#Medium{
 	background-color: #FFC108;

@@ -58,7 +58,7 @@
 
 			            <!-- Threat Score -->
 			            <mat-chip-list mat-line *ngIf="ipThreatDetailKey == 'threat_potential_score_pct'">
-			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] > 70">
+			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] >= 70">
 			            		<mat-chip class="threat-score high"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
 			            	</span>
 			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] >= 40 && ipThreatDetail[ipThreatDetailKey] < 70">
@@ -67,7 +67,7 @@
 			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] >= 20 && ipThreatDetail[ipThreatDetailKey] < 40">
 			            		<mat-chip class="threat-score nuisance"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
 			            	</span>
-			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] > 0 && ipThreatDetail[ipThreatDetailKey] < 20">
+			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] < 20">
 			            		<mat-chip class="threat-score low"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
 			            	</span>
 						</mat-chip-list>
