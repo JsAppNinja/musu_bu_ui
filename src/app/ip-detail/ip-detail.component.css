@@ -29,7 +29,7 @@ div, .content-container{
 	font-weight: 500;
 }
 
-/* Threat Score */
+/* Threat Score & Threat Classification Pill */
 .threat-score.low.mat-chip,
 .threat-class#Low{
 	background-color: #28A745;
@@ -50,19 +50,82 @@ div, .content-container{
 	color: #fff;
 }
 
-/* Blacklist Class*/
-.mat-chip#tor{
-	background-color: #774C93;
+/* Blacklist Class Pill */
+.mat-chip#apache{
+	background-color: #c43632; /* apache red */
 	color: #fff;
 }
+.mat-chip#blacklisted{
+	background-color: #000; /* black */
+	color: #fff;
+}
+.mat-chip#botnet,
+.mat-chip#botnetcnc{
+	background-color: #FFA500; /* orange */
+	color: #fff;
+}
+.mat-chip#bruteforce{
+	background-color: #08C905; /* command line green */
+	color: #fff;
+}
+.mat-chip#compromised,
+.mat-chip#malware,
+.mat-chip#phishing{
+	background-color: #FF0000; /* red */
+	color: #fff;
+}
+.mat-chip#ftp{
+	background-color: #49AFDF; /* light blue */
+	color: #fff;
+}
+.mat-chip#http{
+	background-color: #3782C6; /* light but darker blue than FTP */
+	color: #fff;
+}
+.mat-chip#imap,
+.mat-chip#ssh{
+	background-color: #F4CF47; /* yellow */
+	color: #000;
+}
+.mat-chip#mail{
+	background-color: #323563; /* dark USPS blue */
+	color: #fff;
+}
+.mat-chip#ransomware{
+	background-color: #85bb65; /* dollar bill green */
+	color: #000;
+}
+.mat-chip#shunned{
+	background-color: #36454f; /* charcoal gray */
+	color: #fff;
+}
+.mat-chip#sips{
+	background-color: #FFA500; /* orange */
+	color: #fff;
+}
+.mat-chip#tor{
+	background-color: #774C93; /* tor purple */
+	color: #fff;
+}
+.mat-chip#worm{
+	background-color: #654321; /* brown */
+	color: #fff;
+}
+.mat-chip#zeus{
+	background-color: #FFC900; /* golden yellow */
+	color: #000;
+}
+.mat-chip#unlisted{
+	/* default gray */
+}
 
-/* Geo-location */
+/* Geo-location Card */
 .card-grid .middle{
 	margin-left: 2%;
 	margin-right: 2%;
 }
 
-/* ISP & Network Info */
+/* ISP & Network Info Card */
 .card-grid-card.last .mat-list-item{
 	height: auto;
 }
