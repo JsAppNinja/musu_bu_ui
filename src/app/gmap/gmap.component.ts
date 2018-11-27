@@ -115,7 +115,8 @@ export class GmapComponent implements OnInit, AfterViewInit {
 
   // Save search
   save() {
-    this.watchlistService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
+    let ipsList = this.ipsList.map(ip => ({ label: ip }));
+    this.watchlistService.createSearch(this.user.email, ipsList, this.queryName, this.description).then(
       result => {
 
       },
