@@ -70,15 +70,20 @@ export class IpRangesResolver implements Resolve<any> {
         let parser =  new DOMParser();
         let encodedIspName = parser.parseFromString(queryParam, "text/html").documentElement.textContent;
         return new Promise((resolve, reject) => {
-            let ipDetail = this.ipsService.getIpRangesByIspName(encodedIspName)
+            let ipDetail = this.ipsService.getIpRangesByIspName(encodedIspName, 1)
             .then(
                 data => {
                     if(this.userService.user.subscriptionPlan === 'large'){
-                        return resolve({
-                          ...data,
-                          currentRoute: 'isp-name',
-                          queryParam: queryParam
-                        })
+                      const ips = data.ipRanges.entries.map(item => item.ipaddress);
+                      let ipsData = this.ipsService.getIpsDetail(ips)
+                        .then(response => {
+                          return resolve({
+                            ipsData: response.ipsDetail,
+                            result_count: data.ipRanges.result_count,
+                            currentRoute: 'isp-name',
+                            queryParam
+                          })
+                      });
                     }
                     else{
                         return resolve(null);
@@ -127,12 +132,16 @@ export class IpRangesResolver implements Resolve<any> {
             let ipDetail = this.ipsService.getIpRangesByBlacklistNeighbors(encodedBlacklistNeighbors)
             .then(
                 data => {
-                    if(this.userService.user.subscriptionPlan === 'large'){
-                        return resolve({
-                          ...data,
-                          currentRoute: 'blacklist-neighbors',
-                          queryParam: queryParam
-                        })
+                    if(this.userService.user.subscriptionPlan !== 'free'){
+                      let ipsData = this.ipsService.getIpsDetail(data.ipRanges.blacklist_network_neighbors)
+                        .then(response => {
+                          return resolve({
+                            ipsData: response.ipsDetail,
+                            result_count: data.ipRanges.blacklist_network_neighbor_cnt,
+                            currentRoute: 'blacklist-neighbors',
+                            queryParam
+                          })
+                        });
                     }
                     else{
                         return resolve(null);

@@ -62,9 +62,8 @@
 						</mat-chip-list>
 
 						<!-- Blacklist Network Neighbors -->
-						<a mat-line *ngIf="subscriptionPlan === 'large' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
-						<div mat-line *ngIf="ipThreatDetailKey === 'blacklist_network_neighbor_cnt' && subscriptionPlan !== 'large' && subscriptionPlan !== 'free'"> {{ipThreatDetail[ipThreatDetailKey]}} </div>
-						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="['small', 'medium', 'large'].indexOf(subscriptionPlan) < 0 && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
+						<a mat-line *ngIf="subscriptionPlan !== 'free' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'" [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
+						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="subscriptionPlan === 'free' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
 						</button>
 
@@ -89,8 +88,7 @@
 			            <h3 mat-line>{{fieldNames[ipISPDetailKey]}}</h3>
 
 			            <!-- ISP Name -->
-											<a mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', ipISPDetail[ipISPDetailKey]]"> {{ipISPDetail[ipISPDetailKey]}} </a>
-											<div mat-line *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan !== 'large' && subscriptionPlan !== 'free'"> {{ipISPDetail[ipISPDetailKey]}} </div>
+						<a mat-line *ngIf="!isArray(ipISPDetail[ipISPDetailKey]) && subscriptionPlan !== 'free'" [routerLink]="['/isp-name/', ipISPDetail[ipISPDetailKey]]"> {{ipISPDetail[ipISPDetailKey]}} </a>
 
 						<!-- Network Type, Group & Name -->
 						<mat-chip-list mat-line #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey]) && ['free', 'small'].indexOf(subscriptionPlan) < 0">
