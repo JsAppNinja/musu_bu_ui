@@ -1,7 +1,7 @@
 <div class="content-container">
   <section>
-      <h2>Search</h2>
-      <p>Enter up to 50 comma-separated IP addresses in the search bar below, then click search.</p>
+      <h2>Map</h2>
+      <p>Enter comma-separated IP addresses below, then click Plot.</p>
       <mat-card>
           <form class="ip-query">
               <mat-form-field class="search-width">
@@ -10,7 +10,7 @@
                           {{ip}}
                           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                       </mat-chip>
-                      <input placeholder="Search by IP address" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      <input placeholder="Plot IP addresses" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                         [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
                   </mat-chip-list>
                   <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
@@ -18,7 +18,7 @@
           </form>
           <div class="button-row">
               <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
-                  <mat-icon>search</mat-icon> Search
+                  <mat-icon>add_location</mat-icon> Plot
               </button>
               <button mat-flat-button color="warn" (click)="clear()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
                   <mat-icon>clear</mat-icon> Clear
