@@ -20,3 +20,12 @@
 table {
     width: 100%;
 }
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+.dialog-input{
+    width: 100%;
+}

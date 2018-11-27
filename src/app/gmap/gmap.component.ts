@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IpsService } from '../services/ips.service';
 import { SavedSearchesService } from '../services/savedSearches.service';
 import { TagsService } from '../services/tags.service';
-import { MatSort, MatDialog, MatChipInputEvent } from '@angular/material';
+import { MatSort, MatDialog, MatChipInputEvent, MatSlideToggleChange } from '@angular/material';
 import { AgmCoreModule, GoogleMapsAPIWrapper, AgmMap, LatLngBounds, LatLngBoundsLiteral } from '@agm/core';
 
 declare var google: any;
@@ -33,9 +33,12 @@ export class GmapComponent implements OnInit, AfterViewInit {
   longitude = -98.35;
   latitude = 39.5;
   isLoading = false;
+  isOpen = true;
+  checked;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('AgmMap') agmMap: AgmMap;
+  @ViewChild('flagToggle') matSlideToggleChange: MatSlideToggleChange;
   constructor(
     public ipsService: IpsService,
     private savedSearchesService: SavedSearchesService,
@@ -182,6 +185,10 @@ export class GmapComponent implements OnInit, AfterViewInit {
       });
   }
 
+  setFlagShow() {
+    this.isOpen = !this.isOpen;
+  }
+
   submitQuery = (ipsList): void => {
     this.ipsService.highRiskCircle.count = 0;
     this.ipsService.mediumRiskCircle.count = 0;
@@ -192,7 +199,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
       this.ipsService.getIpDetail(ip).then(data => data.ipDetail)
     )).then(result => {
       this.isLoading = false;
-
+      this.checked = !!result.length;
       this.ipsGeoData = result.map((item: any) => ({
         latitude: item.latitude,
         longitude: item.longitude,
