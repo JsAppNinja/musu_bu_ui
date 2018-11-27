@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from "@angular/router";
 import { IpsService } from '../services/ips.service';
-import { SavedSearchesService } from '../services/savedSearches.service';
+import { WatchlistService } from '../services/watchlist.service';
 
 @Injectable()
-export class SavedSearchesResolver implements Resolve<any> {
+export class WatchlistResolver implements Resolve<any> {
 
   constructor(
-    private savedSearchesService: SavedSearchesService
+    private watchlistService: WatchlistService
   ) { }
 
   resolve(route: ActivatedRouteSnapshot) {
     let user = JSON.parse(localStorage.getItem("profile"));
     return new Promise((resolve, reject) => {
-      let ipDetail = this.savedSearchesService.getUserSearches(user.email)
+      let ipDetail = this.watchlistService.getUserSearches(user.email)
       .then(
         data => {
           return resolve(data);

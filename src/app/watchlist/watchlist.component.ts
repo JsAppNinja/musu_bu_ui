@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { SavedSearchesService } from '../services/savedSearches.service';
+import { WatchlistService } from '../services/watchlist.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, Validators, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,23 +11,23 @@ import { UserService } from '../services/user.service';
 
 export interface QueryNameDialogData {
   dialogName: string;
-  savedSearchName: string;
-  savedSearchDescription: string;
+  watchlistName: string;
+  watchlistDescription: string;
   submitButtonName: string;
 }
 
 @Component({
-  selector: 'app-saved-searches',
-  templateUrl: './saved-searches.component.html',
-  styleUrls: ['./saved-searches.component.css']
+  selector: 'app-watchlist',
+  templateUrl: './watchlist.component.html',
+  styleUrls: ['./watchlist.component.css']
 })
-export class SavedSearchesComponent implements OnInit {
+export class WatchlistComponent implements OnInit {
   queryName;
-  savedSearches=[];
-  savedSearchesGridColumns: string[] = ['queryName', 'description', 'createdOn', 'deleteButton']
+  watchlist=[];
+  watchlistGridColumns: string[] = ['queryName', 'description', 'createdOn', 'deleteButton']
 
   constructor(
-    private savedSearchesService: SavedSearchesService,
+    private watchlistService: WatchlistService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -38,7 +38,7 @@ export class SavedSearchesComponent implements OnInit {
     this.route.data.subscribe(routeData => {
       let data = routeData['data'];
       if (data) {
-        this.savedSearches = data;
+        this.watchlist = data;
       }
     })
   }
@@ -48,9 +48,9 @@ export class SavedSearchesComponent implements OnInit {
   }
 
   getUserSearches(){
-    this.savedSearchesService.getUserSearches(this.userService.user.email).then(
+    this.watchlistService.getUserSearches(this.userService.user.email).then(
       (result) => {
-        this.savedSearches = result;
+        this.watchlist = result;
       },
       (err) =>{
 
@@ -58,13 +58,13 @@ export class SavedSearchesComponent implements OnInit {
     )
   }
 
-  createSavedSearchDialog(data, dialogName, type, submitButtonNAme){
-    const dialogRef = this.dialog.open(CreateSavedSearchDialog, {
+  CreateWatchlistDialog(data, dialogName, type, submitButtonNAme){
+    const dialogRef = this.dialog.open(CreateWatchlistDialog, {
       width: '300px',
       data: {
-        savedSearchData: data,
-        savedSearchName: data.queryName ? data.queryName : "",
-        savedSearchDescription: data.description ? data.description : "",
+        watchlistData: data,
+        watchlistName: data.queryName ? data.queryName : "",
+        watchlistDescription: data.description ? data.description : "",
         user: this.userService.user.email,
         dialogName: dialogName,
         submitButtonName: submitButtonNAme
@@ -82,9 +82,9 @@ export class SavedSearchesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         if(type === "update"){
-          result.savedSearchData.queryName = result.savedSearchName;
-          result.savedSearchData.description = result.savedSearchDescription;
-          this.savedSearchesService.updateSearch(result.savedSearchData).then(
+          result.watchlistData.queryName = result.watchlistName;
+          result.watchlistData.description = result.watchlistDescription;
+          this.watchlistService.updateSearch(result.watchlistData).then(
             result => {
               this.getUserSearches();
             },
@@ -110,7 +110,7 @@ export class SavedSearchesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.savedSearchesService.deleteSearch(id).then(
+        this.watchlistService.deleteSearch(id).then(
           result => {
             this.getUserSearches();
           },
@@ -126,54 +126,54 @@ export class SavedSearchesComponent implements OnInit {
 @Component({
   selector: 'create-search-dialog',
   templateUrl: 'create-search-dialog.html',
-  styleUrls: ['saved-searches.component.css']
+  styleUrls: ['watchlist.component.css']
 })
 
-export class CreateSavedSearchDialog {
-  savedSearchNameInput = new FormControl(this.data.savedSearchName,
+export class CreateWatchlistDialog {
+  watchlistNameInput = new FormControl(this.data.watchlistName,
     {
       updateOn: 'change',
       validators: [Validators.required],
-      asyncValidators: [this.existingSavedSearchValidator()]
+      asyncValidators: [this.existingWatchlistValidator()]
     }
   );
-  savedSearchDescriptionInput = new FormControl(this.data.savedSearchDescription,
+  watchlistDescriptionInput = new FormControl(this.data.watchlistDescription,
     {
       updateOn: 'change',
     }
   );
   user;
   constructor(
-    public dialogRef: MatDialogRef<CreateSavedSearchDialog>,
+    public dialogRef: MatDialogRef<CreateWatchlistDialog>,
     @Inject(MAT_DIALOG_DATA) public data: QueryNameDialogData,
-    private savedSearchesService: SavedSearchesService
+    private watchlistService: WatchlistService
   ) {}
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("profile"));
-    this.savedSearchDescriptionInput.valueChanges.subscribe(value => {
-      this.data.savedSearchDescription = value
+    this.watchlistDescriptionInput.valueChanges.subscribe(value => {
+      this.data.watchlistDescription = value
     })
   }
 
-  existingSavedSearchValidator(): AsyncValidatorFn {
+  existingWatchlistValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      let savedSearchToValidate = "";
-      if(!this.savedSearchNameInput){
-        savedSearchToValidate = this.data.savedSearchName;
+      let watchlistToValidate = "";
+      if(!this.watchlistNameInput){
+        watchlistToValidate = this.data.watchlistName;
       }
       else{
-        savedSearchToValidate = this.savedSearchNameInput.value;
-        this.data.savedSearchName = this.savedSearchNameInput.value;
+        watchlistToValidate = this.watchlistNameInput.value;
+        this.data.watchlistName = this.watchlistNameInput.value;
       }
       if(!this.user){
         this.user = JSON.parse(localStorage.getItem("profile"));
       }
-      var observable = this.savedSearchesService.getUserSearchByName(savedSearchToValidate, this.user.email);
+      var observable = this.watchlistService.getUserSearchByName(watchlistToValidate, this.user.email);
       return observable.pipe(debounceTime(3000),
         map(
           result => {
-            return (result && result.length > 0) ? {"savedSearchExists": true} : null;
+            return (result && result.length > 0) ? {"watchlistExists": true} : null;
           }
         )
       )
@@ -181,23 +181,23 @@ export class CreateSavedSearchDialog {
   }
 
   getNameErrorMessage(){
-    if(this.savedSearchNameInput.hasError('required')){
+    if(this.watchlistNameInput.hasError('required')){
       return 'You must enter a value.';
     }
-    if(this.savedSearchNameInput.hasError('savedSearchExists')){
+    if(this.watchlistNameInput.hasError('watchlistExists')){
       return 'Search already exists.'
     }
     return '';
   }
 
   closeDialog() {
-    if(!this.savedSearchNameInput.invalid){
-      this.data.savedSearchName = this.savedSearchNameInput.value;
-      this.data.savedSearchDescription = this.savedSearchDescriptionInput.value;
+    if(!this.watchlistNameInput.invalid){
+      this.data.watchlistName = this.watchlistNameInput.value;
+      this.data.watchlistDescription = this.watchlistDescriptionInput.value;
       this.dialogRef.close(this.data);
     }
     else{
-      this.savedSearchNameInput.markAsTouched();
+      this.watchlistNameInput.markAsTouched();
       this.getNameErrorMessage();
     }
   }
@@ -211,7 +211,7 @@ export class CreateSavedSearchDialog {
 @Component({
   selector: 'search-delete-dialog',
   templateUrl: 'search-delete-dialog.html',
-  styleUrls: ['saved-searches.component.css']
+  styleUrls: ['watchlist.component.css']
 })
 export class SearchDeleteDialog {
   constructor(

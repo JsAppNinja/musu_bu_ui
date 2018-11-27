@@ -48,11 +48,11 @@ import { LoginResolver } from './login/login.resolver';
 import { IpRiskCircleComponent } from './ip-risk-circle/ip-risk-circle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  SavedSearchesComponent,
-  CreateSavedSearchDialog,
+  WatchlistComponent,
+  CreateWatchlistDialog,
   SearchDeleteDialog
-} from './saved-searches/saved-searches.component';
-import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
+} from './watchlist/watchlist.component';
+import { WatchlistResolver } from './watchlist/watchlist.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent, CreateTagDialog, TagDeleteDialog } from './ip-tags/ip-tags.component';
@@ -72,11 +72,11 @@ import { GmapResolver } from './gmap/gmap.resolver';
     IpRiskCircleComponent,
     ImportDialogComponent,
     QueryNameDialogComponent,
-    SavedSearchesComponent,
+    WatchlistComponent,
     TrendsComponent,
     IpTagsComponent,
     CreateTagDialog,
-    CreateSavedSearchDialog,
+    CreateWatchlistDialog,
     SearchDeleteDialog,
     TagDeleteDialog,
     IpRangesComponent,
@@ -161,7 +161,7 @@ import { GmapResolver } from './gmap/gmap.resolver';
   providers: [
     IpsService,
     IpDetailResolver,
-    SavedSearchesResolver,
+    WatchlistResolver,
     IpQueryResolver,
     LoginResolver,
     AdminResolver,
@@ -173,7 +173,7 @@ import { GmapResolver } from './gmap/gmap.resolver';
     ImportDialogComponent,
     QueryNameDialogComponent,
     CreateTagDialog,
-    CreateSavedSearchDialog,
+    CreateWatchlistDialog,
     SearchDeleteDialog,
     DeleteUserDialog,
     CreateUserDialog,

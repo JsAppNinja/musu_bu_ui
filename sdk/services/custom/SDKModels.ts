@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { IpDetail } from '../../models/IpDetail';
 import { User } from '../../models/User';
-import { SavedSearch } from '../../models/SavedSearch';
+import { Watchlist } from '../../models/Watchlist';
 import { Tag } from '../../models/Tag';
 import { IpRange } from '../../models/IpRange';
 import { SubscriptionPlan } from '../../models/SubscriptionPlan';
@@ -15,7 +15,7 @@ export class SDKModels {
   private models: Models = {
     IpDetail: IpDetail,
     User: User,
-    SavedSearch: SavedSearch,
+    Watchlist: Watchlist,
     Tag: Tag,
     IpRange: IpRange,
     SubscriptionPlan: SubscriptionPlan,

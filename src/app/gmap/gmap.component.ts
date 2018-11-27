@@ -2,7 +2,7 @@ import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IpsService } from '../services/ips.service';
-import { SavedSearchesService } from '../services/savedSearches.service';
+import { WatchlistService } from '../services/watchlist.service';
 import { TagsService } from '../services/tags.service';
 import { MatSort, MatDialog, MatChipInputEvent, MatSlideToggleChange } from '@angular/material';
 import { AgmCoreModule, GoogleMapsAPIWrapper, AgmMap, LatLngBounds, LatLngBoundsLiteral } from '@agm/core';
@@ -41,7 +41,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
   @ViewChild('flagToggle') matSlideToggleChange: MatSlideToggleChange;
   constructor(
     public ipsService: IpsService,
-    private savedSearchesService: SavedSearchesService,
+    private watchlistService: WatchlistService,
     private tagsService: TagsService,
     private route: ActivatedRoute,
     public dialog: MatDialog
@@ -58,7 +58,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
         this.ipsList = [];
         this.ipsService.dataSource.data = [];
         switch (queryData.queryType) {
-          case 'saved-search':
+          case 'watchlist':
             this.getAndRunUserSearch(queryData.queryId);
             break;
           case 'tag':
@@ -77,8 +77,8 @@ export class GmapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getAndRunUserSearch(savedSearchId) {
-    this.savedSearchesService.getUserSearchById(savedSearchId).then(
+  getAndRunUserSearch(watchlistId) {
+    this.watchlistService.getUserSearchById(watchlistId).then(
       (result) => {
         this.ipsList = result.ips;
         this.submitQuery(this.ipsList);
@@ -103,7 +103,7 @@ export class GmapComponent implements OnInit, AfterViewInit {
 
   // // Save search
   // save() {
-  //   this.savedSearchesService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
+  //   this.watchlistService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
   //     result => {
   //
   //     },

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatGridList, MatChipInputEvent } from '@angular/material';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { IpsService } from '../services/ips.service';
-import { SavedSearchesService } from '../services/savedSearches.service';
+import { WatchlistService } from '../services/watchlist.service';
 import { MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TagsService } from '../services/tags.service';
 
@@ -65,7 +65,7 @@ export class IpQueryComponent implements OnInit {
   constructor(
     public ipsService: IpsService,
     private observableMedia: ObservableMedia,
-    private savedSearchesService: SavedSearchesService,
+    private watchlistService: WatchlistService,
     private tagsService: TagsService,
     public userService: UserService,
     private route: ActivatedRoute,
@@ -90,7 +90,7 @@ export class IpQueryComponent implements OnInit {
         this.ipsList = [];
         this.ipsService.dataSource.data = [];
         switch (queryData.queryType) {
-          case 'saved-search':
+          case 'watchlist':
             this.getAndRunUserSearch(queryData.queryId);
             break;
           case 'tag':
@@ -126,8 +126,8 @@ export class IpQueryComponent implements OnInit {
     this.ipsService.lowRiskCircle.radius = '70';
   }
 
-  getAndRunUserSearch(savedSearchId) {
-    this.savedSearchesService.getUserSearchById(savedSearchId).then(
+  getAndRunUserSearch(watchlistId) {
+    this.watchlistService.getUserSearchById(watchlistId).then(
       (result) => {
         if (result && result.ips) {
           result.ips.forEach(ip => {
@@ -182,7 +182,7 @@ export class IpQueryComponent implements OnInit {
 
   // Save search
   save() {
-    this.savedSearchesService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
+    this.watchlistService.createSearch(this.user.email, this.ipsList, this.queryName, this.description).then(
       result => {
 
       },
