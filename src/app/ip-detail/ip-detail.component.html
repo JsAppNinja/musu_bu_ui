@@ -54,9 +54,30 @@
 			    <mat-list role="list">
 			        <mat-list-item role="listitem" *ngFor="let ipThreatDetailKey of getKeys(ipThreatDetail); last as last">
 			            <h3 mat-line>{{fieldNames[ipThreatDetailKey]}}</h3>
-			            <p mat-line *ngIf="ipThreatDetailKey !== 'blacklist_class' && ipThreatDetailKey !== 'blacklist_network_neighbor_cnt'"> {{ipThreatDetail[ipThreatDetailKey]}} </p>
+			            <p mat-line *ngIf="ipThreatDetailKey !== 'threat_potential_score_pct' && ipThreatDetailKey !== 'threat_classification' && ipThreatDetailKey !== 'blacklist_class' && ipThreatDetailKey !== 'blacklist_network_neighbor_cnt'">{{ipThreatDetail[ipThreatDetailKey]}} </p>
 
-			            <!-- Blacklist Class -->
+			            <!-- Threat Score -->
+			            <mat-chip-list mat-line *ngIf="ipThreatDetailKey == 'threat_potential_score_pct'">
+			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] > 70">
+			            		<mat-chip class="threat-score high"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
+			            	</span>
+			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] >= 40 && ipThreatDetail[ipThreatDetailKey] < 70">
+			            		<mat-chip class="threat-score medium"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
+			            	</span>
+			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] >= 20 && ipThreatDetail[ipThreatDetailKey] < 40">
+			            		<mat-chip class="threat-score nuisance"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
+			            	</span>
+			            	<span *ngIf="ipThreatDetail[ipThreatDetailKey] > 0 && ipThreatDetail[ipThreatDetailKey] < 20">
+			            		<mat-chip class="threat-score low"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
+			            	</span>
+						</mat-chip-list>
+						
+						<!-- Threat Classification -->
+			            <mat-chip-list mat-line *ngIf="ipThreatDetailKey == 'threat_classification'">
+			            	<mat-chip class="threat-class" id="{{ipThreatDetail[ipThreatDetailKey]}}"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
+						</mat-chip-list>
+
+						<!-- Blacklist Class -->
 			            <mat-chip-list mat-line *ngIf="ipThreatDetailKey == 'blacklist_class'">
 			            	<mat-chip id="{{ipThreatDetail[ipThreatDetailKey]}}"> {{ipThreatDetail[ipThreatDetailKey]}} </mat-chip>
 						</mat-chip-list>

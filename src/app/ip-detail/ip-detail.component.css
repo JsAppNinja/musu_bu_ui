@@ -29,7 +29,21 @@ div, .content-container{
 	font-weight: 500;
 }
 
-/* Threat */
+/* Threat Score */
+.threat-score.low.mat-chip,
+.threat-class#Low{
+	background-color: #28A745;
+	color: #fff;
+}
+.threat-score.medium.mat-chip,
+.threat-class#Medium{
+	background-color: #FFC108;
+}
+.threat-score.high.mat-chip,
+.threat-class#High{
+	background-color: #DC3545;
+	color: #fff;
+}
 
 /* Blacklist Class*/
 .mat-chip#tor{
