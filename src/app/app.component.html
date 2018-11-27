@@ -48,6 +48,9 @@
                 <span class="nav-item" *ngIf="subscriptionPlan === 'large'">
                     <a mat-list-item [routerLink]="['/map/']">Map</a>
                 </span>
+                <span class="nav-item">
+                    <a href="https://musubu.supportbee.com/1487-ip-data-api-cyber-threat-info/3024-getting-started/8940-using-musubuapp" target="_blank">Getting Started</a>
+                </span>
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -60,6 +63,7 @@
                 <a mat-list-item [routerLink]="['/tags/']">Tags</a>
                 <a mat-list-item [routerLink]="['/trends/']">Trends</a>
                 <a mat-list-item [routerLink]="['/map/']" *ngIf="subscriptionPlan === 'large'">Map</a>
+                <a mat-list-item href="https://musubu.supportbee.com/1487-ip-data-api-cyber-threat-info/3024-getting-started/8940-using-musubuapp" target="_blank">Getting Started</a>
                 <span class="button-row">
                     <button mat-flat-button class="button-bottom-spacing" (click)="onClickBuyApp()">
                         Buy App
