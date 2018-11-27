@@ -73,7 +73,7 @@ export class IpRangesResolver implements Resolve<any> {
             let ipDetail = this.ipsService.getIpRangesByIspName(encodedIspName, 1)
             .then(
                 data => {
-                    if(this.userService.user.subscriptionPlan === 'large'){
+                    if(this.userService.user.subscriptionPlan !== 'free'){
                       const ips = data.ipRanges.entries.map(item => item.ipaddress);
                       let ipsData = this.ipsService.getIpsDetail(ips)
                         .then(response => {
