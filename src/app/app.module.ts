@@ -60,7 +60,7 @@ import { AdminComponent, DeleteUserDialog, CreateUserDialog } from './admin/admi
 import { AdminResolver } from './admin/admin.resolver';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
-import { GmapComponent } from './gmap/gmap.component';
+import { GmapComponent, SaveListDialog } from './gmap/gmap.component';
 import { GmapResolver } from './gmap/gmap.resolver';
 
 @NgModule({
@@ -83,7 +83,8 @@ import { GmapResolver } from './gmap/gmap.resolver';
     DeleteUserDialog,
     CreateUserDialog,
     AdminComponent,
-    GmapComponent
+    GmapComponent,
+    SaveListDialog
   ],
   imports: [
     RouterModule.forRoot(routes,
@@ -156,7 +157,8 @@ import { GmapResolver } from './gmap/gmap.resolver';
     MatSidenavModule,
     MatMenuModule,
     MatButtonToggleModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    SaveListDialog
   ],
   providers: [
     IpsService,
@@ -177,7 +179,8 @@ import { GmapResolver } from './gmap/gmap.resolver';
     SearchDeleteDialog,
     DeleteUserDialog,
     CreateUserDialog,
-    TagDeleteDialog
+    TagDeleteDialog,
+    SaveListDialog
   ],
   bootstrap: [AppComponent]
 })
