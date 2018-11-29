@@ -40,6 +40,10 @@
                                     <mat-icon>add_location</mat-icon>
                                     <span>Send to Map</span>
                                 </button>
+                                <button mat-menu-item [routerLink]="['/map/']" *ngIf="userService.user.subscriptionPlan != 'large'">
+                                    <mat-icon>add_location</mat-icon>
+                                    <span>Send to Map</span>
+                                </button>
                                 <button mat-menu-item (click)="createTagDialog(element, 'Rename tag', 'update', 'Update')">
                                     <mat-icon>edit</mat-icon>
                                     <span>Rename</span>
