@@ -115,7 +115,7 @@ export const routes: Routes = [
 		path: 'map',
 		component: GmapComponent,
 		resolve: {
-			isLargePlanUser: GmapResolver
+			isAuthenticated: LoginResolver
 		}
 	},
 	{
