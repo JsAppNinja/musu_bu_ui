@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { SavedSearchApi, SavedSearch, LoopBackFilter } from '../../../sdk'
+import { WatchlistApi, Watchlist, LoopBackFilter } from '../../../sdk'
 
 @Injectable({
     providedIn: 'root'
   })
-export class SavedSearchesService {
+export class WatchlistService {
   constructor(
-    private savedSearchApi: SavedSearchApi
+    private watchlistApi: WatchlistApi
   ) {}
 
   createSearch(userEmail, ips, queryName, description) {
-      const data = new SavedSearch();
+      const data = new Watchlist();
       data.queryName = queryName;
       data.userEmail = userEmail;
 
@@ -21,12 +21,12 @@ export class SavedSearchesService {
 
       data.description = description ? description : '';
 
-      return this.savedSearchApi.create<SavedSearch>(data)
+      return this.watchlistApi.create<Watchlist>(data)
       .toPromise();
   }
 
-  getUserSearchById(savedSearchId) {
-    return this.savedSearchApi.findById<SavedSearch>(savedSearchId)
+  getUserSearchById(watchlistId) {
+    return this.watchlistApi.findById<Watchlist>(watchlistId)
     .toPromise();
   }
 
@@ -37,7 +37,7 @@ export class SavedSearchesService {
         "userEmail": userEmail
       }
     }
-    return this.savedSearchApi.find<SavedSearch>(filter);
+    return this.watchlistApi.find<Watchlist>(filter);
   }
 
   getUserSearches(userEmail) {
@@ -46,17 +46,17 @@ export class SavedSearchesService {
           'userEmail': userEmail
         }
       };
-      return this.savedSearchApi.find<SavedSearch>(filter)
+      return this.watchlistApi.find<Watchlist>(filter)
       .toPromise();
   }
 
   updateSearch(data){
-    return this.savedSearchApi.updateAttributes<SavedSearch>(data.id, data)
+    return this.watchlistApi.updateAttributes<Watchlist>(data.id, data)
     .toPromise();
   }
 
   deleteSearch(id) {
-    return this.savedSearchApi.deleteById<SavedSearch>(id)
+    return this.watchlistApi.deleteById<Watchlist>(id)
     .toPromise();
   }
 }

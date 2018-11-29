@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SavedSearchesComponent } from './saved-searches.component';
+import { WatchlistComponent } from './watchlist.component';
 
-describe('SavedSearchesComponent', () => {
-  let component: SavedSearchesComponent;
-  let fixture: ComponentFixture<SavedSearchesComponent>;
+describe('WatchlistComponent', () => {
+  let component: WatchlistComponent;
+  let fixture: ComponentFixture<WatchlistComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SavedSearchesComponent ]
+      declarations: [ WatchlistComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SavedSearchesComponent);
+    fixture = TestBed.createComponent(WatchlistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,15 +9,15 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SavedSearch } from '../../models/SavedSearch';
+import { Watchlist } from '../../models/Watchlist';
 import { SocketConnection } from '../../sockets/socket.connections';
 
 
 /**
- * Api services for the `SavedSearch` model.
+ * Api services for the `Watchlist` model.
  */
 @Injectable()
-export class SavedSearchApi extends BaseLoopBackApi {
+export class WatchlistApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -42,13 +42,13 @@ export class SavedSearchApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `SavedSearch` object.)
+   * This usually means the response is a `Watchlist` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/savedSearches";
+    "/watchlist";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -61,7 +61,7 @@ export class SavedSearchApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id savedSearch id
+   * @param {any} id watchlist id
    *
    * @param {object} data Request data.
    *
@@ -73,13 +73,13 @@ export class SavedSearchApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `SavedSearch` object.)
+   * This usually means the response is a `Watchlist` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/savedSearches/:id";
+    "/watchlist/:id";
     let _routeParams: any = {
       id: id
     };
@@ -93,9 +93,9 @@ export class SavedSearchApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `SavedSearch`.
+   * i.e. `Watchlist`.
    */
   public getModelName() {
-    return "SavedSearch";
+    return "Watchlist";
   }
 }

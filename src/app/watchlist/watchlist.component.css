@@ -1,9 +1,9 @@
-.saved-search-td{
+.watchlist-td{
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-.saved-search-td:hover {
+.watchlist-td:hover {
     cursor: pointer;
     background: #f5f5f5;
 }

@@ -8,3 +8,19 @@ agm-map {
   width: 100%;
   height: 100%;
 }
+
+.map-teaser{
+	max-width: 100%;
+}
+.mobile-teaser{
+	display: none;
+}
+
+@media screen and (max-width: 500px){
+	.mobile-teaser{
+		display: block;
+	}
+	.desktop-teaser{
+		display: none;
+	}
+}

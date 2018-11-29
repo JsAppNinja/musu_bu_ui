@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, Router } from "@angular/router";
+import { Resolve, ActivatedRouteSnapshot } from "@angular/router";
 import { UserService } from '../services/user.service';
 
 @Injectable()
 export class GmapResolver implements Resolve<any> {
-
     constructor(
     private userService: UserService,
-    private router: Router
     ) { }
     user;
     resolve(route: ActivatedRouteSnapshot) {
@@ -15,13 +13,7 @@ export class GmapResolver implements Resolve<any> {
         return new Promise((resolve, reject) => {
             this.userService.getUserByEmail(this.user.email)
             .then(result => {
-                let user = result[0];
-                if (user.subscriptionPlan === 'large') {
-                  return resolve(true);
-                } else {
-                  this.router.navigate(['login']);
-                  return resolve(false);
-                }
+                return resolve(result[0].subscriptionPlan);
             }, err =>{
                 return reject(err);
             });

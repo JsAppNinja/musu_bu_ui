@@ -25,10 +25,35 @@ export class AppComponent {
 
   ngOnInit(){
     this.user = JSON.parse(localStorage.getItem("profile"));
-    this.userService.getUserByEmail(this.user.email)
-      .then(result => {
-        this.subscriptionPlan = result[0].subscriptionPlan;
-      })
+    var isAuthenticated = this.authService.isAuthenticated();
+    let self = this;
+
+    if (isAuthenticated) {
+      this.userService.getUserByEmail(this.user.email)
+        .then(result => {
+          this.subscriptionPlan = result[0].subscriptionPlan;
+        });
+    } else {
+      self.authService.lock.on("authenticated", function(authResult) {
+        self.authService.lock.getUserInfo(authResult.accessToken, function(error, profile) {
+          if (error) {
+            return;
+          }
+          self.userService.getUserByEmail(profile.email)
+            .then(result => {
+              self.subscriptionPlan = result[0].subscriptionPlan
+            });
+          self.userService.subscribeWithMailChimps(profile).then(
+            response => {
+              //User created on MailChimps
+            },
+            error => {
+              //Error creating user on MailChimps
+            }
+          );
+        });
+      });
+    }
   }
 
   onClickBuyApp(){

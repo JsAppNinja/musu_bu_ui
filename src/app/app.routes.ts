@@ -4,8 +4,8 @@ import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
 import { IpQueryComponent } from './ip-query/ip-query.component';
 import { LoginComponent } from './login/login.component';
 import { LoginResolver } from './login/login.resolver';
-import { SavedSearchesComponent } from './saved-searches/saved-searches.component';
-import { SavedSearchesResolver } from './saved-searches/saved-searches.resolver';
+import { WatchlistComponent } from './watchlist/watchlist.component';
+import { WatchlistResolver } from './watchlist/watchlist.resolver';
 import { IpQueryResolver } from './ip-query/ip-query.resolver';
 import { TrendsComponent } from './trends/trends.component';
 import { IpTagsComponent } from './ip-tags/ip-tags.component';
@@ -78,11 +78,11 @@ export const routes: Routes = [
 		}
 	},
 	{
-		path: 'searches',
-		component: SavedSearchesComponent,
+		path: 'watchlists',
+		component: WatchlistComponent,
 		resolve: {
 			isAuthenticated: LoginResolver,
-			data: SavedSearchesResolver,
+			data: WatchlistResolver,
 		}
 	},
 	{
@@ -115,6 +115,7 @@ export const routes: Routes = [
 		path: 'map',
 		component: GmapComponent,
 		resolve: {
+			isAuthenticated: LoginResolver,
 			isLargePlanUser: GmapResolver
 		}
 	},
