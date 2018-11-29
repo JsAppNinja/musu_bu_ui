@@ -1,13 +1,12 @@
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
-import { Component, ChangeDetectorRef, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IpsService } from '../services/ips.service';
 import { WatchlistService } from '../services/watchlist.service';
 import { TagsService } from '../services/tags.service';
 import { MatSort, MatDialog, MatChipInputEvent, MatSlideToggleChange, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AgmCoreModule, GoogleMapsAPIWrapper, AgmMap, LatLngBounds, LatLngBoundsLiteral } from '@agm/core';
+import { AgmMap, LatLngBounds } from '@agm/core';
 import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
 
 declare var google: any;
 
@@ -55,7 +54,6 @@ export class GmapComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public userService: UserService,
-    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -85,37 +83,9 @@ export class GmapComponent implements OnInit, AfterViewInit {
       }
     });
 
-
-    this.user = JSON.parse(localStorage.getItem("profile"));
-    var isAuthenticated = this.authService.isAuthenticated();
-    let self = this;
-
-    if (isAuthenticated) {
-      this.userService.getUserByEmail(this.user.email)
-        .then(result => {
-          this.subscriptionPlan = result[0].subscriptionPlan;
-        });
-    } else {
-      self.authService.lock.on("authenticated", function(authResult) {
-        self.authService.lock.getUserInfo(authResult.accessToken, function(error, profile) {
-          if (error) {
-            return;
-          }
-          self.userService.getUserByEmail(profile.email)
-            .then(result => {
-              self.subscriptionPlan = result[0].subscriptionPlan
-            });
-          self.userService.subscribeWithMailChimps(profile).then(
-            response => {
-              //User created on MailChimps
-            },
-            error => {
-              //Error creating user on MailChimps
-            }
-          );
-        });
-      });
-    }
+    this.route.data.subscribe(routeData => {
+      this.subscriptionPlan = routeData.isLargePlanUser;
+    })
   }
 
   ngAfterViewInit() {
