@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { IpsService } from '../services/ips.service';
 
@@ -22,6 +23,7 @@ export class IpRangesComponent implements OnInit {
     private route: ActivatedRoute,
     private ipsService: IpsService,
     private router: Router,
+    private _location: Location,
   ) { }
   ipRangesColumns: string[] = ['ip_start_int', 'ip_end_int', 'network_name', 'network_type', 'network_group'];
   ipsListColumns: string[] = ['ipaddress', 'threat_potential_score_pct', 'threat_classification', 'blacklist_class'];
@@ -133,5 +135,9 @@ export class IpRangesComponent implements OnInit {
           break;
       }
     });
+  }
+
+  backButton(){
+    this._location.back();
   }
 }

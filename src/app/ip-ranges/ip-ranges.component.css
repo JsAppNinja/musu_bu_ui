@@ -8,3 +8,7 @@ section.loading {
   width: 100%;
   padding: 0;
 }
+
+.breadcrumb{
+	padding: 20px 0;
+}

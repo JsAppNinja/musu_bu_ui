@@ -1,4 +1,9 @@
 <div class="content-container">
+  <div class="breadcrumb">
+    <a mat-button matTooltip="Go back to Details page." (click)="backButton()">
+      <mat-icon>arrow_back</mat-icon>Back to Details
+    </a>
+  </div>
   <section class="loading" *ngIf="currentRoute === 'network-type' || currentRoute === 'network-name' || currentRoute === 'network-group'">
     <h2>{{title}} Drill-In</h2>
     <h3>{{queryParam}}</h3>
