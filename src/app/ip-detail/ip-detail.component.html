@@ -84,9 +84,10 @@
 
 						<!-- Blacklist Network Neighbors -->
 						<mat-chip-list mat-line *ngIf="subscriptionPlan !== 'free' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
-							<mat-chip>
+							<mat-chip *ngIf="!!ipThreatDetail[ipThreatDetailKey]">
 								<a [routerLink]="['/blacklist-neighbors/', ipDetail.ipaddress]"> {{ipThreatDetail[ipThreatDetailKey]}} </a>
 							</mat-chip>
+							<span *ngIf="!ipThreatDetail[ipThreatDetailKey]">&nbsp;{{ipThreatDetail[ipThreatDetailKey]}} </span>
 						</mat-chip-list>
 						<button mat-line mat-mini-fab class="mat-elevation-z0 fab-upgrade" color="primary" (click)="onClickBuyApp()" matTooltip="Upgrade to see this data and drill-in on this field!" *ngIf="subscriptionPlan === 'free' && ipThreatDetailKey === 'blacklist_network_neighbor_cnt'">
 							<mat-icon aria-label="download icon">add_shopping_cart</mat-icon>
@@ -125,6 +126,7 @@
 
 						<!-- Network Type, Group & Name -->
 						<mat-chip-list mat-line #chipList *ngIf="isArray(ipISPDetail[ipISPDetailKey]) && ['free', 'small'].indexOf(subscriptionPlan) < 0">
+							<div *ngIf="ipISPDetail[ipISPDetailKey].length === 0">&nbsp;No Entry</div>
 							<mat-chip *ngFor="let detail of convertToSet(ipISPDetail[ipISPDetailKey])" [selectable]="selectable">
 								<a *ngIf="ipISPDetailKey === 'ispname' && subscriptionPlan === 'large'" [routerLink]="['/isp-name/', detail]"> {{detail}} </a>
 								<div *ngIf="(ipISPDetailKey === 'network_name' || ipISPDetailKey === 'network_type' || ipISPDetailKey === 'network_group') && subscriptionPlan !== 'large'"> {{detail}} </div>
