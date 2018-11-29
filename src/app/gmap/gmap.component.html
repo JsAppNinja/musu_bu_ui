@@ -1,44 +1,44 @@
 <div class="content-container">
-  <section>
-      <h2>Map</h2>
-      <p>Enter comma-separated IP addresses below, then click Plot.</p>
-      <mat-card>
-          <form class="ip-query">
-              <mat-form-field class="search-width">
-                  <mat-chip-list #chipList>
-                      <mat-chip *ngFor="let ip of ipsList" [selectable]="selectable" [removable]="removable" (removed)="remove(ip)">
-                          {{ip}}
-                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                      </mat-chip>
-                      <input placeholder="Plot IP addresses" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
-                  </mat-chip-list>
-                  <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
-              </mat-form-field>
-          </form>
-          <div class="button-row">
-              <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
-                  <mat-icon>add_location</mat-icon> Plot
-              </button>
-              <button mat-flat-button color="warn" (click)="clear()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
-                  <mat-icon>clear</mat-icon> Clear
-              </button>
-              <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
-                  <mat-icon>save</mat-icon> Save
-              </button>
-              <mat-slide-toggle
-                #flagToggle
-                class="flag-toggle"
-                [checked]="checked"
-                [disabled]="ipsList.length === 0"
-                (change)="setFlagShow()"
-              >
-                Show IP Info
-              </mat-slide-toggle>
-          </div>
-      </mat-card>
+  <section *ngIf="subscriptionPlan === 'large'">
+    <h2>Map</h2>
+    <p>Enter comma-separated IP addresses below, then click Plot.</p>
+    <mat-card>
+        <form class="ip-query">
+            <mat-form-field class="search-width">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let ip of ipsList" [selectable]="selectable" [removable]="removable" (removed)="remove(ip)">
+                        {{ip}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Plot IP addresses" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
+                </mat-chip-list>
+                <mat-hint align="end">{{ipsList.length}} / {{ipsLimit}}</mat-hint>
+            </mat-form-field>
+        </form>
+        <div class="button-row">
+            <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                <mat-icon>add_location</mat-icon> Plot
+            </button>
+            <button mat-flat-button color="warn" (click)="clear()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                <mat-icon>clear</mat-icon> Clear
+            </button>
+            <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                <mat-icon>save</mat-icon> Save
+            </button>
+            <mat-slide-toggle
+              #flagToggle
+              class="flag-toggle"
+              [checked]="checked"
+              [disabled]="ipsList.length === 0"
+              (change)="setFlagShow()"
+            >
+              Show IP Info
+            </mat-slide-toggle>
+        </div>
+    </mat-card>
   </section>
-  <section class="loading">
+  <section class="loading" *ngIf="subscriptionPlan === 'large'">
     <agm-map #AgmMap [latitude]="latitude" [longitude]="longitude" [zoom]="3" [maxZoom]="maxZoomLevel" [scrollwheel]="false">
       <agm-marker
         *ngFor="let ip of ipsGeoData; let i = index"
@@ -54,7 +54,7 @@
           <ng-template>
             <div>
               <strong>IP: </strong>
-              <a matTooltip="Click here for IP details." [routerLink]="['/detail/', ip.ipaddress]">{{ip.ipaddress}}</a>
+              <a matTooltip="View IP Details." [routerLink]="['/detail/', ip.ipaddress]">{{ip.ipaddress}}</a>
             </div>
             <div>
               <strong>Threat level: </strong>
@@ -71,5 +71,13 @@
       </agm-marker>
     </agm-map>
     <ngx-loading [show]="isLoading"></ngx-loading>
+  </section>
+
+  <section *ngIf="subscriptionPlan != 'large'">
+    <h2>Map</h2>
+    <a href="https://musubu.io/app-pricing" target="_blank">
+      <img class="map-teaser desktop-teaser" src="assets/img/map-teaser-min.jpg" alt="map teaser" />
+      <img class="map-teaser mobile-teaser" src="assets/img/map-teaser-mobile-min.jpg" alt="map teaser" />
+    </a>
   </section>
 </div>
