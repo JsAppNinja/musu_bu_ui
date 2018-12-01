@@ -8,6 +8,14 @@
 .search-width {
     width: 100%;
 }
+.content-container .mat-accordion .mat-expansion-panel{
+    margin-top: 20px;
+}
+.mat-expansion-panel-header-title{
+    font-size: 1.75em;
+    font-weight: bold;
+    font-family: 'Open Sans',Helvetica,Arial,Lucida,sans-serif;
+}
 
 .risk-circles-grid-list {
     margin-bottom: 20px;

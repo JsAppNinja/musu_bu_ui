@@ -3,43 +3,49 @@
         <div class="query-icon" [hidden]="ipsService.dataSource.data.length !== 0">
             <img src="assets/img/musubu-ip-address-search-200w-min.jpg" />
         </div>
-        <h2>Search</h2>
-        <p>Enter up to {{ipQueryLimit}} comma-separated IP addresses below, then click Search.</p>
-        <mat-card>
-            <form class="ip-query">
-                <mat-form-field class="search-width">
-                    <mat-chip-list #chipList>
-                        <mat-chip *ngFor="let ip of ipsList" [removable]="removable" (removed)="remove(ip.label)" color="{{ ip.isInvalid ? 'warn' : ''}}">
-                            {{ip.label}}
-                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                        </mat-chip>
-                        <input placeholder="Search by IP address" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
-                    </mat-chip-list>
-                    <mat-hint align="start">
-                        <mat-error *ngIf="isFormInvalid">
-                            One or more entries are invalid IP Addresses.
-                        </mat-error>
-                    </mat-hint>
-                    <mat-hint align="end">{{ipsList.length}} / {{ipQueryLimit}}</mat-hint>
-                </mat-form-field>
-            </form>
-            <div class="button-row">
-                <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
-                    <mat-icon>search</mat-icon> Search
-                </button>
-                <button mat-flat-button color="warn" (click)="clear()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
-                    <mat-icon>clear</mat-icon> Clear
-                </button>
-                <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
-                    <mat-icon>save</mat-icon> Save
-                </button>
-                <button mat-flat-button (click)="openImportDialog()" [disabled]="isImportDisabled()" class="button-bottom-spacing">
-                    <mat-icon>description</mat-icon> Import
-                </button>
-                <p *ngIf="upgradeToImport()"><a (click)="onClickBuyApp()">Upgrade to import!</a></p>
-            </div>
-        </mat-card>
+        <mat-accordion>
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Search
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Enter up to {{ipQueryLimit}} comma-separated IP addresses below, then click Search.</p>
+                <form class="ip-query">
+                    <mat-form-field class="search-width">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let ip of ipsList" [removable]="removable" (removed)="remove(ip.label)" color="{{ ip.isInvalid ? 'warn' : ''}}">
+                                {{ip.label}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input placeholder="Search by IP address" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                              [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (paste)="paste($event)">
+                        </mat-chip-list>
+                        <mat-hint align="start">
+                            <mat-error *ngIf="isFormInvalid">
+                                One or more entries are invalid IP Addresses.
+                            </mat-error>
+                        </mat-hint>
+                        <mat-hint align="end">{{ipsList.length}} / {{ipQueryLimit}}</mat-hint>
+                    </mat-form-field>
+                </form>
+                <div class="button-row">
+                    <button mat-flat-button (click)="submitQuery(ipsList)" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                        <mat-icon>search</mat-icon> Search
+                    </button>
+                    <button mat-flat-button color="warn" (click)="clear()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                        <mat-icon>clear</mat-icon> Clear
+                    </button>
+                    <button mat-flat-button (click)="openDialog()" [disabled]="ipsList.length === 0" class="button-bottom-spacing">
+                        <mat-icon>save</mat-icon> Save
+                    </button>
+                    <button mat-flat-button (click)="openImportDialog()" [disabled]="isImportDisabled()" class="button-bottom-spacing">
+                        <mat-icon>description</mat-icon> Import
+                    </button>
+                    <p *ngIf="upgradeToImport()"><a (click)="onClickBuyApp()">Upgrade to import!</a></p>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
     </section>
 
     <section [hidden]="ipsService.dataSource.data.length === 0">

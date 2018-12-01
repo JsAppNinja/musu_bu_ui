@@ -36,7 +36,8 @@ import {
   MatAutocompleteModule,
   MatProgressSpinnerModule,
   MatPaginatorModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatExpansionModule
 } from '@angular/material';
 import { IpDetailComponent } from './ip-detail/ip-detail.component';
 import { IpDetailResolver } from './ip-detail/ip-detail.resolver';
@@ -125,6 +126,7 @@ import { GmapResolver } from './gmap/gmap.resolver';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatSlideToggleModule,
+    MatExpansionModule,
     NgxLoadingModule.forRoot({}),
     NgCircleProgressModule.forRoot({
       // set defaults here
